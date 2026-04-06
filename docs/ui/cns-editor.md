@@ -88,4 +88,4 @@ You can also trigger runs from the dashboard — every sparkline card and sideba
 
 **Axon Ports**: The colored connection points on each node (INPUT, FLOW, SUCCESS, FAIL) that determine how spikes route through the graph.
 
-**Environment**: The execution context (e.g., "Default Environment", "Staging", "Production") that scopes which effectors and variables are active.
+**Environment**: The execution context (e.g., "Default Env

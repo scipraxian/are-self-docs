@@ -871,22 +871,4 @@ curl -X POST http://localhost:8000/api/v2/neurons/ \
 Certain resources have state machines. Examples:
 
 - **Spike Train States:** pending → running → completed/failed/stopped
-- **Reasoning Session States:** active → attention_required → running → completed
-- **Task States:** open → in_progress → closed
-
-State transitions are typically enforced via specific endpoints (e.g., POST `/api/v2/reasoning_sessions/&#123;id&#125;/attention_required/`).
-
----
-
-## Next Steps
-
-- **Getting Started:** Review the [Quick Start](#quick-start) section to make your first API call.
-- **Integration:** Build a client library in your language of choice using the endpoint patterns above.
-- **Monitoring:** Set up webhooks or WebSocket connections to monitor system state in real-time.
-- **Advanced Patterns:** Combine spike trains with reasoning sessions and identity discs to build complex, multi-agent workflows.
-
-For questions or contributions, refer to the Are-Self GitHub repository or community forums.
-
----
-
-**Are-Self API Reference** | Version 2.0 | Last Updated: April 4, 2026
+- **Reasoning Session States:**

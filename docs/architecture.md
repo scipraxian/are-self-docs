@@ -227,4 +227,4 @@ different pathways, different sessions.
   hooks, never `setInterval`.
 - **Spikes are the unit of work.** Everything that happens passes through the CNS as a spike. If you can't find it in
   the spike log, it didn't happen.
-- **Engrams are the unit of memory.** Everything the system learns is an engram in the Hippocampus with full provenance.
+- **Engrams are the unit of memory.** Everything the system learns is an engram in the Hippocampus with full prove

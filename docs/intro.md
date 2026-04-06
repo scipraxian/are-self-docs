@@ -46,6 +46,4 @@ The system compensates for small models' limitations — short context windows, 
 - **Embeddings:** nomic-embed-text (768-dim, runs locally via Ollama)
 - **Real-time:** Django Channels (WebSocket) with typed neurotransmitter events
 
-## License
-
-MIT. Free as in freedom, free as in beer.
+## Lic

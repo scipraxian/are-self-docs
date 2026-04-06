@@ -31,11 +31,11 @@ The thalamus in neuroscience is the **sensory relay station**—it receives sens
 | `POST` | `/api/v2/thalamus/interact/` | Inject message into standing session |
 | `GET` | `/api/v2/thalamus/standing-sessions/` | List standing sessions |
 | `POST` | `/api/v2/thalamus/standing-sessions/` | Create standing session |
-| `GET` | `/api/v2/thalamus/standing-sessions/{id}/` | Retrieve session details |
+| `GET` | `/api/v2/thalamus/standing-sessions/&#123;id&#125;/` | Retrieve session details |
 
 ## How It Connects
 
 - **Frontal Lobe**: When the Thalamus receives a message via `/interact/`, it injects it into the Frontal Lobe's reasoning session via `mcp_respond_to_user` or session resume.
 - **Synaptic Cleft**: Streaming responses flow via WebSocket (Norepinephrine, Glutamate for logs).
 - **Identity**: Standing sessions are tied to IdentityDiscs.
-- **All regions**: The Thalamus is the human's window into the entire system—when something happens anywhere, the human can ask about it via the chat bubble.
+- **All regions**: The Thalamus is the human's window into the entire system—when something happens anywhere, the huma

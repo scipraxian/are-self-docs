@@ -304,6 +304,4 @@ Running an autonomous reasoning system means:
 - You choose how it's deployed (cloud-exposed vs. air-gapped)
 - You are responsible for what it does
 
-This is not a black box. It is auditable, instrumentable, and controllable. Use that to your advantage. Understand the system you're deploying. Test it. Monitor it. Have a kill switch.
-
-Are-Self was built for good. It can accomplish remarkable things. It can also go wrong if misused or deployed without care. We've given you the tools to deploy it safely. The rest is up to you.
+This is not a black box. It is auditable, instrumentable, and controllable

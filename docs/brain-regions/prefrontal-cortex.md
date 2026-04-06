@@ -31,10 +31,10 @@ The prefrontal cortex in neuroscience handles **goal-directed behavior**, **plan
 |--------|----------|---------|
 | `GET` | `/api/v2/pfc-epics/` | List epics (lightweight) |
 | `POST` | `/api/v2/pfc-epics/` | Create epic |
-| `GET` | `/api/v2/pfc-epics/{id}/` | Retrieve epic (lightweight) |
-| `GET` | `/api/v2/pfc-epics/{id}/full/` | Retrieve epic (full details) |
-| `PATCH` | `/api/v2/pfc-epics/{id}/` | Update epic |
-| `DELETE` | `/api/v2/pfc-epics/{id}/` | Delete epic |
+| `GET` | `/api/v2/pfc-epics/&#123;id&#125;/` | Retrieve epic (lightweight) |
+| `GET` | `/api/v2/pfc-epics/&#123;id&#125;/full/` | Retrieve epic (full details) |
+| `PATCH` | `/api/v2/pfc-epics/&#123;id&#125;/` | Update epic |
+| `DELETE` | `/api/v2/pfc-epics/&#123;id&#125;/` | Delete epic |
 
 ### Stories
 
@@ -42,10 +42,10 @@ The prefrontal cortex in neuroscience handles **goal-directed behavior**, **plan
 |--------|----------|---------|
 | `GET` | `/api/v2/pfc-stories/` | List stories (lightweight) |
 | `POST` | `/api/v2/pfc-stories/` | Create story |
-| `GET` | `/api/v2/pfc-stories/{id}/` | Retrieve story (lightweight) |
-| `GET` | `/api/v2/pfc-stories/{id}/full/` | Retrieve story (full details) |
-| `PATCH` | `/api/v2/pfc-stories/{id}/` | Update story |
-| `DELETE` | `/api/v2/pfc-stories/{id}/` | Delete story |
+| `GET` | `/api/v2/pfc-stories/&#123;id&#125;/` | Retrieve story (lightweight) |
+| `GET` | `/api/v2/pfc-stories/&#123;id&#125;/full/` | Retrieve story (full details) |
+| `PATCH` | `/api/v2/pfc-stories/&#123;id&#125;/` | Update story |
+| `DELETE` | `/api/v2/pfc-stories/&#123;id&#125;/` | Delete story |
 
 ### Tasks
 
@@ -53,14 +53,14 @@ The prefrontal cortex in neuroscience handles **goal-directed behavior**, **plan
 |--------|----------|---------|
 | `GET` | `/api/v2/pfc-tasks/` | List tasks (lightweight) |
 | `POST` | `/api/v2/pfc-tasks/` | Create task |
-| `GET` | `/api/v2/pfc-tasks/{id}/` | Retrieve task (lightweight) |
-| `GET` | `/api/v2/pfc-tasks/{id}/full/` | Retrieve task (full details) |
-| `PATCH` | `/api/v2/pfc-tasks/{id}/` | Update task |
-| `DELETE` | `/api/v2/pfc-tasks/{id}/` | Delete task |
+| `GET` | `/api/v2/pfc-tasks/&#123;id&#125;/` | Retrieve task (lightweight) |
+| `GET` | `/api/v2/pfc-tasks/&#123;id&#125;/full/` | Retrieve task (full details) |
+| `PATCH` | `/api/v2/pfc-tasks/&#123;id&#125;/` | Update task |
+| `DELETE` | `/api/v2/pfc-tasks/&#123;id&#125;/` | Delete task |
 
 ## How It Connects
 
 - **Temporal Lobe**: Tasks are scoped to shifts. During the Executing shift, worker identities query the Prefrontal Cortex for tasks in "ready" status.
 - **Identity**: Epics and tasks are assigned to IdentityDiscs.
 - **Frontal Lobe**: When a reasoning session starts in a worker context, it fetches assigned tasks from the Prefrontal Cortex to populate the reasoning goal.
-- **Central Nervous System**: Task state changes can trigger spike trains.
+- **Centra

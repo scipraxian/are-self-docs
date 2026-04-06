@@ -31,11 +31,11 @@ In the brain, the hippocampus is critical for **episodic memory formation and co
 
 | Method | Endpoint | Purpose |
 |--------|----------|---------|
-| `GET` | `/api/v2/engrams/` | List engrams (supports ?identity_discs={id} filter) |
+| `GET` | `/api/v2/engrams/` | List engrams (supports ?identity_discs=&#123;id&#125; filter) |
 | `POST` | `/api/v2/engrams/` | Create engram (triggers dedup check) |
-| `GET` | `/api/v2/engrams/{id}/` | Retrieve engram details |
-| `PATCH` | `/api/v2/engrams/{id}/` | Update engram (regenerates embedding) |
-| `DELETE` | `/api/v2/engrams/{id}/` | Delete engram |
+| `GET` | `/api/v2/engrams/&#123;id&#125;/` | Retrieve engram details |
+| `PATCH` | `/api/v2/engrams/&#123;id&#125;/` | Update engram (regenerates embedding) |
+| `DELETE` | `/api/v2/engrams/&#123;id&#125;/` | Delete engram |
 
 ### Engram Tags (Categorization)
 
@@ -43,9 +43,9 @@ In the brain, the hippocampus is critical for **episodic memory formation and co
 |--------|----------|---------|
 | `GET` | `/api/v2/engram_tags/` | List tags |
 | `POST` | `/api/v2/engram_tags/` | Create tag |
-| `GET` | `/api/v2/engram_tags/{id}/` | Retrieve tag |
-| `PATCH` | `/api/v2/engram_tags/{id}/` | Update tag |
-| `DELETE` | `/api/v2/engram_tags/{id}/` | Delete tag |
+| `GET` | `/api/v2/engram_tags/&#123;id&#125;/` | Retrieve tag |
+| `PATCH` | `/api/v2/engram_tags/&#123;id&#125;/` | Update tag |
+| `DELETE` | `/api/v2/engram_tags/&#123;id&#125;/` | Delete tag |
 
 ## How It Connects
 
@@ -53,4 +53,4 @@ In the brain, the hippocampus is critical for **episodic memory formation and co
 - **Identity**: Engrams are scoped to IdentityDiscs. Each disc has its own long-term memory.
 - **Parietal Lobe**: The `mcp_engram_save`, `mcp_engram_read`, `mcp_engram_search`, and `mcp_engram_update` tools are Parietal Lobe gateway calls to the Hippocampus.
 - **Central Nervous System**: Engram saves and reads are logged as side effects of spike execution.
-- **Hypothalamus**: The IdentityDisc's vector embedding is used for model selection; engram embeddings are used for relevance search.
+- **Hypothalamus**: The IdentityDisc's vector embedding is used for model selec

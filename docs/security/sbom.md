@@ -7,7 +7,7 @@ title: "Software Bill of Materials"
 
 This document provides a human-readable inventory of all production dependencies in Are-Self, including versions, purposes, licenses, and known CVE status as of April 5, 2026.
 
-For detailed CVE analysis, see [DEPENDENCY_AUDIT.md](../../are-self-api/DEPENDENCY_AUDIT.md) in the API repository.
+For detailed CVE analysis, see the [Dependency Audit](/docs/dependency-audit) page or the full audit in the [API repository](https://github.com/scipraxian/are-self-api).
 
 ## Quick Reference
 
@@ -246,9 +246,5 @@ pip-audit
 
 ## Questions About Specific Packages?
 
-- **Security concerns**: See the full audit in [DEPENDENCY_AUDIT.md](../../are-self-api/DEPENDENCY_AUDIT.md)
-- **License compliance**: All packages listed here have permissive licenses compatible with MIT
-- **Version selection**: See [Incident Response Plan](./incident-response.md) for pinning rationale
-- **CVE details**: Check the NVD, GitHub Security Advisories, and package release notes
-
-Thank you for deploying Are-Self responsibly.
+- **Security concerns**: See the full [Dependency Audit](/docs/dependency-audit) or the [API repository](https://github.com/scipraxian/are-self-api)
+- **License compliance**: All packages listed here have permissive licenses compat

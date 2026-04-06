@@ -141,5 +141,4 @@ embedding model pull. `are-self.bat` launches the full stack: Docker, Celery wor
 server.
 
 Style guide established (STYLE_GUIDE.md). Google Python Style Guide baseline with Are-Self overrides: no nested
-functions, no repeated string literals, constants on model classes, targeted error handling, verbose bracketed logging,
-intentional async policy, established mixin hierarchy, real-database testing with fixtures.
+functions, no repeated string literals, constants on model classes, t

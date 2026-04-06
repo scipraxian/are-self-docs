@@ -210,3 +210,40 @@ Defined in `sidebars.js`. Main categories:
 
 Feature cards are clickable links with glassmorphic hover effects (defined in `index.module.css`).
 Each feature has `title`, `description`, and `link` properties. Cards link to relevant doc pages.
+
+## Session 3 Changes (April 6, 2026)
+
+### All 10 UI Walkthrough Stubs Filled
+Every stub in `docs/ui/` now has full prose content following the cns-editor.md template:
+intro paragraph, "Getting There" section, annotated panel descriptions, and Key Concepts glossary.
+
+Pages completed: blood-brain-barrier, identity, temporal-lobe, prefrontal-cortex, cns-monitor,
+frontal-lobe, hippocampus, hypothalamus, environments, pns.
+
+### Quick Start Guide Written
+`docs/quick-start.md` — 5-minute guide: prerequisites, clone, install, first environment,
+first identity, pull model, create pathway, fire spike.
+
+### 15 Screenshots in static/img/ui/
+Captured via html2canvas at 1280x800 (scale 2x). Files:
+blood-brain-barrier.png, identity-roster.png, identity-loadout.png, temporal-lobe.png,
+prefrontal-cortex.png, cns-monitor.png, hippocampus.png, hypothalamus.png, environments.png,
+pns.png, frontal-lobe-session.png (IBS capture — html2canvas fails on CSS `color()` function).
+Plus 4 original CNS screenshots restored from git.
+
+### html2canvas CSS `color()` Limitation
+Pages using Three.js / React Three Fiber (Frontal Lobe session detail, Background Canvas)
+use the CSS `color()` function which html2canvas 1.4.1 cannot parse. For these pages,
+use IBS or browser devtools screenshot instead.
+
+### Truncated File Issue
+Several files were truncated during session 2 (likely a write that was interrupted):
+package.json, sidebars.js, src/css/custom.css, src/pages/index.js, src/pages/index.module.css.
+All were repaired by restoring missing content from `git show HEAD:filename`.
+**Lesson:** After writing config files, always verify with `npm run build` or at minimum
+check file integrity with `wc -l` against git.
+
+### MDX Escaping Applied Globally
+All `{id}`, `{value}`, `{query}` patterns in docs/ were escaped to HTML entities.
+This affects brain-regions/*.md and api-reference.md. The `<` + digit pattern
+(e.g., `<90%`) must also be written as prose ("less than 90%") to avoid MDX JSX parsing.

@@ -66,5 +66,4 @@ const { data: sessionData, isLoading } = useDendrite(
 );
 
 // When a new turn is recorded, the Synaptic Cleft fires Acetylcholine
-// The hook returns a new ref, triggering a refetch of session data
-```
+// T

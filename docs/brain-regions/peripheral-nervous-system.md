@@ -31,7 +31,7 @@ The peripheral nervous system in physiology connects the **central nervous syste
 |--------|----------|---------|
 | `GET` | `/api/v2/celery-workers/` | List active Celery workers |
 | `POST` | `/api/v2/celery-workers/` | Register worker |
-| `GET` | `/api/v2/celery-workers/{id}/` | Retrieve worker status |
+| `GET` | `/api/v2/celery-workers/&#123;id&#125;/` | Retrieve worker status |
 
 ### Heartbeat & Beat Control
 
@@ -56,11 +56,11 @@ The peripheral nervous system in physiology connects the **central nervous syste
 |--------|----------|---------|
 | `GET` | `/api/v2/nerve_terminal_registry/` | List nerve terminals (worker connections) |
 | `POST` | `/api/v2/nerve_terminal_registry/` | Register terminal |
-| `DELETE` | `/api/v2/nerve_terminal_registry/{id}/` | Deregister terminal |
+| `DELETE` | `/api/v2/nerve_terminal_registry/&#123;id&#125;/` | Deregister terminal |
 
 ## How It Connects
 
 - **Temporal Lobe**: Celery Beat calls the Temporal Lobe's trigger_temporal_metronomes() to advance iterations.
 - **Central Nervous System**: The Celery Beat cycle launches spike trains through the CNS.
 - **Synaptic Cleft**: Worker signals (startup, task completion) fire Norepinephrine to the WebSocket bus.
-- **All regions**: All spike execution happens through Celery workers managed by the PNS.
+- **All regions**: All sp

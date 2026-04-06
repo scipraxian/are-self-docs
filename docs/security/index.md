@@ -122,4 +122,4 @@ We will acknowledge receipt within 48 hours and work toward a fix and responsibl
 - **Deploying for your organization?** Start with [Data Flow & Privacy Architecture](./data-flow-privacy.md)
 - **Evaluating Are-Self's safety practices?** Read [Responsible AI & Safety Policy](./responsible-ai.md)
 - **Managing dependencies?** Reference the [Software Bill of Materials](./sbom.md) and [Incident Response Plan](./incident-response.md)
-- **Building compliance procedures?** See the regulatory sections in this overview and the [Incident Response Plan](./incident-response.md)
+- **Building com

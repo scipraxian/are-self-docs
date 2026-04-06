@@ -34,8 +34,8 @@ The hypothalamus in neuroscience is the body's **homeostatic control center**—
 |--------|----------|---------|
 | `GET` | `/api/v2/ai-models/` | List available models |
 | `POST` | `/api/v2/ai-models/` | Create model |
-| `PATCH` | `/api/v2/ai-models/{id}/` | Update model |
-| `DELETE` | `/api/v2/ai-models/{id}/` | Delete model |
+| `PATCH` | `/api/v2/ai-models/&#123;id&#125;/` | Update model |
+| `DELETE` | `/api/v2/ai-models/&#123;id&#125;/` | Delete model |
 | `GET` | `/api/v2/model-categories/` | List model categories (e.g., "reasoning") |
 | `POST` | `/api/v2/model-categories/` | Create category |
 | `GET` | `/api/v2/model-families/` | List model families (Claude, GPT, etc.) |
@@ -47,8 +47,8 @@ The hypothalamus in neuroscience is the body's **homeostatic control center**—
 |--------|----------|---------|
 | `GET` | `/api/v2/llm-providers/` | List LLM provider configurations |
 | `POST` | `/api/v2/llm-providers/` | Create provider |
-| `PATCH` | `/api/v2/llm-providers/{id}/` | Update provider |
-| `DELETE` | `/api/v2/llm-providers/{id}/` | Delete provider |
+| `PATCH` | `/api/v2/llm-providers/&#123;id&#125;/` | Update provider |
+| `DELETE` | `/api/v2/llm-providers/&#123;id&#125;/` | Delete provider |
 | `GET` | `/api/v2/model-providers/` | List model-to-provider associations |
 | `POST` | `/api/v2/model-providers/` | Create association |
 
@@ -58,7 +58,7 @@ The hypothalamus in neuroscience is the body's **homeostatic control center**—
 |--------|----------|---------|
 | `GET` | `/api/v2/model-pricing/` | List pricing configurations |
 | `POST` | `/api/v2/model-pricing/` | Create pricing tier |
-| `PATCH` | `/api/v2/model-pricing/{id}/` | Update pricing |
+| `PATCH` | `/api/v2/model-pricing/&#123;id&#125;/` | Update pricing |
 | `GET` | `/api/v2/budget-periods/` | List budget period types (daily, monthly) |
 | `POST` | `/api/v2/budget-periods/` | Create period |
 
@@ -68,7 +68,7 @@ The hypothalamus in neuroscience is the body's **homeostatic control center**—
 |--------|----------|---------|
 | `GET` | `/api/v2/failover-strategies/` | List failover strategies |
 | `POST` | `/api/v2/failover-strategies/` | Create failover strategy |
-| `PATCH` | `/api/v2/failover-strategies/{id}/` | Update strategy |
+| `PATCH` | `/api/v2/failover-strategies/&#123;id&#125;/` | Update strategy |
 | `GET` | `/api/v2/failover-types/` | List failover types |
 | `POST` | `/api/v2/failover-types/` | Create type |
 
@@ -78,7 +78,7 @@ The hypothalamus in neuroscience is the body's **homeostatic control center**—
 |--------|----------|---------|
 | `GET` | `/api/v2/selection-filters/` | List model selection filters |
 | `POST` | `/api/v2/selection-filters/` | Create filter |
-| `PATCH` | `/api/v2/selection-filters/{id}/` | Update filter |
+| `PATCH` | `/api/v2/selection-filters/&#123;id&#125;/` | Update filter |
 
 ### Usage Tracking
 
@@ -95,4 +95,4 @@ The hypothalamus in neuroscience is the body's **homeostatic control center**—
 - **Identity**: Uses the IdentityDisc's vector embedding for model matching.
 - **Central Nervous System**: Model selection is a spike side-effect; failures trigger Cortisol signals.
 - **Parietal Lobe**: Tool execution cost is tracked as usage against IdentityDisc's budget.
-- **Synaptic Cleft**: Circuit breaker transitions (model entering cooldown) fire Cortisol signals.
+- 

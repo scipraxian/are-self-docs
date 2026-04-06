@@ -304,7 +304,4 @@ As Are-Self grows, we plan to:
 If you have questions about security or incident response:
 
 - **Public questions**: Open a GitHub issue (not a security issue, just a question)
-- **Security concerns**: Contact maintainers privately (see [Reporting Security Issues](./index.md#reporting-security-issues))
-- **Operational security**: Review the [Data Flow & Privacy Architecture](./data-flow-privacy.md) and [Responsible AI](./responsible-ai.md) documents
-
-Thank you for deploying Are-Self safely.
+- **Security 

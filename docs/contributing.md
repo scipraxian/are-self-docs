@@ -92,7 +92,7 @@ See the are-self-ui repository for its specific setup instructions.
 
 We maintain consistency across the codebase to make it easier for everyone to contribute and review code.
 
-**For complete style guidelines, see [STYLE_GUIDE.md](./STYLE_GUIDE.md)**
+**For complete style guidelines, see [./style-guide](./style-guide)**
 
 Quick reference:
 - **Functions:** `snake_case`
@@ -211,7 +211,7 @@ Are-Self is built around a neuro-mimetic architecture where **every Django app i
 - **Cerebellum** — Motor coordination and actions
 - And more...
 
-For a deep dive into the architecture, philosophy, and design decisions, see [ARCHITECTURE.md](./ARCHITECTURE.md).
+For a deep dive into the architecture, philosophy, and design decisions, see [./architecture](./architecture).
 
 ## Tech Stack
 
@@ -275,10 +275,6 @@ If you see something that doesn't fit these values, reach out to Michael (scipra
 - Check existing issues and discussions
 - Open a new discussion if you can't find an answer
 - Reach out to Michael at scipraxian on GitHub
-- Read through [ARCHITECTURE.md](./ARCHITECTURE.md) and [STYLE_GUIDE.md](./STYLE_GUIDE.md)
+- Read through [./architecture](./architecture) and [./style-guide](./style-guide)
 
----
-
-**Thank you for being part of this.** Whether this is your first open-source contribution or your hundredth, we're glad you're here. Every line of code, every test, every piece of documentation brings us closer to AI that serves everyone.
-
-Let's build something that matters.
+--

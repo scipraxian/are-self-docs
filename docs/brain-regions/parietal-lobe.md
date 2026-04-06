@@ -33,12 +33,12 @@ The parietal lobe in neuroscience integrates **sensory and motor information**â€
 |--------|----------|---------|
 | `GET` | `/api/v2/tool-definitions/` | List tool definitions |
 | `POST` | `/api/v2/tool-definitions/` | Create tool |
-| `GET` | `/api/v2/tool-definitions/{id}/` | Retrieve tool definition |
-| `PATCH` | `/api/v2/tool-definitions/{id}/` | Update tool |
-| `DELETE` | `/api/v2/tool-definitions/{id}/` | Delete tool |
+| `GET` | `/api/v2/tool-definitions/&#123;id&#125;/` | Retrieve tool definition |
+| `PATCH` | `/api/v2/tool-definitions/&#123;id&#125;/` | Update tool |
+| `DELETE` | `/api/v2/tool-definitions/&#123;id&#125;/` | Delete tool |
 | `GET` | `/api/v2/tool-parameters/` | List tool parameters |
 | `POST` | `/api/v2/tool-parameters/` | Create parameter |
-| `PATCH` | `/api/v2/tool-parameters/{id}/` | Update parameter |
+| `PATCH` | `/api/v2/tool-parameters/&#123;id&#125;/` | Update parameter |
 
 ### Tool Calls & Execution
 
@@ -46,7 +46,7 @@ The parietal lobe in neuroscience integrates **sensory and motor information**â€
 |--------|----------|---------|
 | `GET` | `/api/v2/tool-calls/` | List all tool calls (audit trail) |
 | `POST` | `/api/v2/tool-calls/` | Record tool call |
-| `GET` | `/api/v2/tool-calls/{id}/` | Retrieve tool call details |
+| `GET` | `/api/v2/tool-calls/&#123;id&#125;/` | Retrieve tool call details |
 
 ## How It Connects
 
@@ -54,4 +54,4 @@ The parietal lobe in neuroscience integrates **sensory and motor information**â€
 - **Hippocampus**: The `mcp_engram_save/read/search/update` tools are Parietal Lobe handlers that call the Hippocampus.
 - **Central Nervous System**: Tool execution is a side effect of spike execution. Failures trigger Cortisol signals.
 - **Identity**: Identities bind to specific tools. The ParietalMCP gateway checks the IdentityDisc's tool permissions before executing.
-- **Synaptic Cleft**: Tool success/failure fires Dopamine or Cortisol respectively.
+- **Synaptic Cleft**: Tool s

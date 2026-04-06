@@ -252,15 +252,4 @@ default. Operators should keep Docker images updated independently of Are-Self r
 ## How to Run This Audit
 
 ```bash
-# Install pip-audit
-pip install pip-audit
-
-# Audit against requirements
-pip-audit -r requirements.txt
-
-# Audit installed packages directly
-pip-audit
-
-# Output as JSON for CI integration
-pip-audit -r requirements.txt --format json --output audit-results.json
-```
+# Instal

@@ -331,11 +331,4 @@ Before deploying Are-Self:
 ## Summary
 
 **Are-Self's default posture is privacy by design**:
-- All data stored locally
-- No telemetry or phone-home
-- No cloud dependencies
-- No user tracking
-- No third-party data sharing
-- Transparent, auditable data flows
-
-This architecture aligns with the needs of nonprofits, schools, churches, and organizations serving underprivileged youth. The operator remains in full control of data, access, and retention.
+- All data stored locall

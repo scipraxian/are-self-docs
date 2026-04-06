@@ -311,6 +311,4 @@ When you deploy Are-Self, you commit to:
 
 Are-Self is designed to be safe by default and responsible by design. But ultimate responsibility rests with the operator.
 
-The system will not prevent you from misusing it if you deliberately configure it for harmful purposes. But it will make that configuration explicit, audit it completely, and leave a full forensic trail. We believe transparency is more effective than secrecy for responsible AI deployment.
-
-Use Are-Self for good. The youth you serve are counting on it.
+The system will not prevent you from misu

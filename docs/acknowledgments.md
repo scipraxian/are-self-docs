@@ -75,4 +75,4 @@ Every person who files a bug report on an open model, writes a tutorial on runni
 
 ---
 
-*Are-Self is MIT licensed. If we missed someone who should be here, [open an issue](https://github.com/scipraxian/are-self-api/issues) and we'll fix it.*
+*Are-Self is MIT licensed. If we missed someone who should be here, [open an 

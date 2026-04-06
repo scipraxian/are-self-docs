@@ -33,12 +33,12 @@ In the brain, a neural pathway is a route of electrical activation: neurons fire
 |--------|----------|---------|
 | `GET` | `/api/v2/spiketrains/` | List all spike trains |
 | `POST` | `/api/v2/spiketrains/` | Create spike train |
-| `GET` | `/api/v2/spiketrains/{id}/` | Retrieve spike train details |
-| `PATCH` | `/api/v2/spiketrains/{id}/` | Update spike train |
-| `DELETE` | `/api/v2/spiketrains/{id}/` | Delete spike train |
+| `GET` | `/api/v2/spiketrains/&#123;id&#125;/` | Retrieve spike train details |
+| `PATCH` | `/api/v2/spiketrains/&#123;id&#125;/` | Update spike train |
+| `DELETE` | `/api/v2/spiketrains/&#123;id&#125;/` | Delete spike train |
 | `POST` | `/api/v2/spiketrains/launch/` | **Launch a spike train (HTTP 201)** |
-| `POST` | `/api/v2/spiketrains/{id}/stop/` | Graceful stop |
-| `POST` | `/api/v2/spiketrains/{id}/terminate/` | Force terminate |
+| `POST` | `/api/v2/spiketrains/&#123;id&#125;/stop/` | Graceful stop |
+| `POST` | `/api/v2/spiketrains/&#123;id&#125;/terminate/` | Force terminate |
 | `GET` | `/api/v2/latest-spikes/` | Latest 10 spike trains |
 
 ### Spikes (Neural Firing Events)
@@ -46,7 +46,7 @@ In the brain, a neural pathway is a route of electrical activation: neurons fire
 | Method | Endpoint | Purpose |
 |--------|----------|---------|
 | `GET` | `/api/v2/spikes/` | List spikes (includes logs and blackboard) |
-| `GET` | `/api/v1/spikes/{id}/` | Spike forensics: detailed execution trace |
+| `GET` | `/api/v1/spikes/&#123;id&#125;/` | Spike forensics: detailed execution trace |
 
 ### Neural Pathways (Graph Templates)
 
@@ -54,13 +54,13 @@ In the brain, a neural pathway is a route of electrical activation: neurons fire
 |--------|----------|---------|
 | `GET` | `/api/v2/neuralpathways/` | List pathways |
 | `POST` | `/api/v2/neuralpathways/` | Create pathway |
-| `GET` | `/api/v2/neuralpathways/{id}/` | Retrieve pathway |
-| `PATCH` | `/api/v2/neuralpathways/{id}/` | Update pathway |
-| `DELETE` | `/api/v2/neuralpathways/{id}/` | Delete pathway |
-| `POST` | `/api/v2/neuralpathways/{id}/toggle_favorite/` | Mark as favorite |
-| `POST` | `/api/v2/neuralpathways/{id}/launch/` | Launch pathway as spike train (HTTP 201) |
-| `GET` | `/api/v2/neuralpathways/{id}/layout/` | Graph layout for canvas editor |
-| `GET` | `/api/v2/neuralpathways/{id}/library/` | Effector palette for this pathway |
+| `GET` | `/api/v2/neuralpathways/&#123;id&#125;/` | Retrieve pathway |
+| `PATCH` | `/api/v2/neuralpathways/&#123;id&#125;/` | Update pathway |
+| `DELETE` | `/api/v2/neuralpathways/&#123;id&#125;/` | Delete pathway |
+| `POST` | `/api/v2/neuralpathways/&#123;id&#125;/toggle_favorite/` | Mark as favorite |
+| `POST` | `/api/v2/neuralpathways/&#123;id&#125;/launch/` | Launch pathway as spike train (HTTP 201) |
+| `GET` | `/api/v2/neuralpathways/&#123;id&#125;/layout/` | Graph layout for canvas editor |
+| `GET` | `/api/v2/neuralpathways/&#123;id&#125;/library/` | Effector palette for this pathway |
 | `GET` | `/api/v2/pathways-3d/` | 3D visualization data |
 
 ### Neurons (Graph Nodes)
@@ -69,10 +69,10 @@ In the brain, a neural pathway is a route of electrical activation: neurons fire
 |--------|----------|---------|
 | `GET` | `/api/v2/neurons/` | List neurons |
 | `POST` | `/api/v2/neurons/` | Create neuron |
-| `GET` | `/api/v2/neurons/{id}/` | Retrieve neuron |
-| `PATCH` | `/api/v2/neurons/{id}/` | Update neuron |
-| `DELETE` | `/api/v2/neurons/{id}/` | Delete neuron |
-| `GET` | `/api/v1/neurons/{id}/inspector_details/` | Variable context matrix |
+| `GET` | `/api/v2/neurons/&#123;id&#125;/` | Retrieve neuron |
+| `PATCH` | `/api/v2/neurons/&#123;id&#125;/` | Update neuron |
+| `DELETE` | `/api/v2/neurons/&#123;id&#125;/` | Delete neuron |
+| `GET` | `/api/v1/neurons/&#123;id&#125;/inspector_details/` | Variable context matrix |
 
 ### Axons (Graph Edges)
 
@@ -80,8 +80,8 @@ In the brain, a neural pathway is a route of electrical activation: neurons fire
 |--------|----------|---------|
 | `GET` | `/api/v2/axons/` | List axons |
 | `POST` | `/api/v2/axons/` | Create axon |
-| `PATCH` | `/api/v2/axons/{id}/` | Update axon |
-| `DELETE` | `/api/v2/axons/{id}/` | Delete axon |
+| `PATCH` | `/api/v2/axons/&#123;id&#125;/` | Update axon |
+| `DELETE` | `/api/v2/axons/&#123;id&#125;/` | Delete axon |
 
 ### Effectors (Action Definitions)
 
@@ -89,8 +89,8 @@ In the brain, a neural pathway is a route of electrical activation: neurons fire
 |--------|----------|---------|
 | `GET` | `/api/v2/effectors/` | List available effectors (editor palette) |
 | `POST` | `/api/v2/effectors/` | Create effector |
-| `PATCH` | `/api/v2/effectors/{id}/` | Update effector |
-| `DELETE` | `/api/v2/effectors/{id}/` | Delete effector |
+| `PATCH` | `/api/v2/effectors/&#123;id&#125;/` | Update effector |
+| `DELETE` | `/api/v2/effectors/&#123;id&#125;/` | Delete effector |
 
 ### Node Contexts (Variable Overrides)
 
@@ -98,7 +98,7 @@ In the brain, a neural pathway is a route of electrical activation: neurons fire
 |--------|----------|---------|
 | `GET` | `/api/v1/node-contexts/` | List node contexts |
 | `POST` | `/api/v1/node-contexts/` | Create context |
-| `PATCH` | `/api/v1/node-contexts/{id}/` | Update context |
+| `PATCH` | `/api/v1/node-contexts/&#123;id&#125;/` | Update context |
 
 ### Logs & Forensics
 
@@ -112,4 +112,4 @@ In the brain, a neural pathway is a route of electrical activation: neurons fire
 - **Frontal Lobe**: One effector type is ReasoningSession launch. When a neuron's effector is set to "start reasoning," it triggers the Frontal Lobe.
 - **Peripheral Nervous System**: Spikes are Celery tasks. The PNS orchestrates their dispatch and tracks their lifecycle.
 - **Synaptic Cleft**: As spikes complete, they fire neurotransmitters (Dopamine on success, Cortisol on failure) to the WebSocket event bus.
-- **All other regions**: Every region's work happens *through* spikes. Memory saves, model selections, tool calls—all are spike effectors or callbacks.
+- **All other regions**: Every region's 

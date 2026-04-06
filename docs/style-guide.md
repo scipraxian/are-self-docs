@@ -172,4 +172,4 @@ deprecated in place, never deleted, because existing sessions reference them.
 ## Formatting
 
 Single quotes for strings unless the string contains a single quote. No trailing commas in function signatures (but yes
-in collections and Django model field definitions for clean diffs). Black-compatible formatting throughout.
+in collections and Django model field definitions for clean diffs). Black-compatible formatting throu

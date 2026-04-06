@@ -11,7 +11,7 @@ you'll have an AI persona thinking, using tools, and forming memories on your ow
 
 ## Before You Start
 
-Make sure the backend and frontend are running (see [README.md](README.md)). You should be able to open
+Make sure the backend and frontend are running. You should be able to open
 `http://localhost:5173` and see the 3D brain landing page.
 
 You'll also need at least one model running in Ollama:
@@ -142,7 +142,7 @@ Here's how to improve:
 
 ## What Next
 
-- Read [ARCHITECTURE.md](ARCHITECTURE.md) to understand how all the brain regions connect
+- Read [./architecture](./architecture) to understand how all the brain regions connect
 - Explore the CNS spike forensics to understand exactly what happens during execution
 - Try running multiple identities in the same iteration — this is where swarm behavior emerges
 - Connect to OpenRouter for cloud model failover when local models can't handle a task
@@ -159,7 +159,7 @@ Here's how to improve:
 
 - Check that Ollama is running and the model is pulled (`ollama list`)
 - Check the Hypothalamus model catalog — the model needs to be synced
-- Check the spike forensics (`/cns/spike/{id}`) for the actual error
+- Check the spike forensics (`/cns/spike/&#123;id&#125;`) for the actual error
 
 **Memories aren't forming:**
 
@@ -171,4 +171,4 @@ Here's how to improve:
 
 - Check the browser console for WebSocket connection errors
 - Make sure Daphne is running (not `runserver` — Daphne handles WebSocket)
-- Refresh the page — if data appears, the WebSocket connection dropped
+- Refresh the page — if data appears, the WebSocket connection d
