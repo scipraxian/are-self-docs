@@ -1,0 +1,60 @@
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroDescription {
+  font-size: 1.15rem;
+  max-width: 700px;
+  margin: 1.5rem auto;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  padding: 3rem 0;
+}
+
+.feature {
+  margin-bottom: 2rem;
+}
+
+.featureLink {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(26, 26, 46, 0.4);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.featureLink:hover {
+  color: inherit;
+  text-decoration: none;
+  background: rgba(6, 182, 212, 0.1);
+  border-color: rgba(6, 182, 212, 0.3);
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.15);
+  transform: translateY(-2px);
+}
+
+.featureLink h3 {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.featureLink p {
+  color: rgba(255, 255, 255, 0.7);
+}

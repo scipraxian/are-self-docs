@@ -1,0 +1,68 @@
+/** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
+const sidebars = {
+  docsSidebar: [
+    'intro',
+    {
+      type: 'category',
+      label: 'Getting Started',
+      items: [
+        'getting-started',
+        'quick-start',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'The Brain',
+      items: [
+        'architecture',
+        'brain-regions/identity',
+        'brain-regions/temporal-lobe',
+        'brain-regions/central-nervous-system',
+        'brain-regions/frontal-lobe',
+        'brain-regions/hippocampus',
+        'brain-regions/hypothalamus',
+        'brain-regions/parietal-lobe',
+        'brain-regions/prefrontal-cortex',
+        'brain-regions/peripheral-nervous-system',
+        'brain-regions/thalamus',
+        'brain-regions/synaptic-cleft',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'UI Walkthrough',
+      items: [
+        'ui/blood-brain-barrier',
+        'ui/identity',
+        'ui/temporal-lobe',
+        'ui/prefrontal-cortex',
+        'ui/cns-editor',
+        'ui/cns-monitor',
+        'ui/frontal-lobe',
+        'ui/hippocampus',
+        'ui/hypothalamus',
+        'ui/pns',
+        'ui/environments',
+      ],
+    },
+    'api-reference',
+    {
+      type: 'category',
+      label: 'Security',
+      items: [
+        'security',
+        'security/data-flow-privacy',
+        'security/responsible-ai',
+        'security/incident-response',
+        'security/sbom',
+        'dependency-audit',
+      ],
+    },
+    'contributing',
+    'style-guide',
+    'features',
+    'acknowledgments',
+  ],
+};
+
+module.exports = sidebars;
