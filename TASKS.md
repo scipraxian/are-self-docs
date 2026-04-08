@@ -38,6 +38,11 @@ Last updated: April 6, 2026 (end of session 3).
 
 ## Immediate Priority — Release Day (April 7, 2026)
 
+- [ ] **GitHub Actions workflow for Pages deployment.** Create `.github/workflows/deploy.yml`
+  that runs `npm run build` and deploys the `build/` folder to GitHub Pages on every push to
+  main. Source set to "GitHub Actions" in repo Settings → Pages. This automates deployment —
+  no manual builds needed.
+
 - [ ] **Document OpenRouter sync feature.** OpenRouter provider sync has been restored. Needs
   documentation explaining: what it does, how to configure an OpenRouter API key, what models
   become available, and the sync_remote endpoint. Add to Hypothalamus docs and/or a new page.
