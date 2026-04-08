@@ -90,6 +90,24 @@ function Feature({ title, description, link }) {
   );
 }
 
+function HomepageVideo() {
+  return (
+    <section className={styles.videoSection}>
+      <div className="container">
+        <div className={styles.videoWrapper}>
+          <iframe
+            src="https://www.youtube.com/embed/UUX-T2aTZlI"
+            title="Are-Self — The Grid Is Free"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -99,6 +117,7 @@ export default function Home() {
     >
       <HomepageHeader />
       <main>
+        <HomepageVideo />
         <section className={styles.features}>
           <div className="container">
             <div className="row">
