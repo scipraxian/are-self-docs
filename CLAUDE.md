@@ -247,3 +247,34 @@ check file integrity with `wc -l` against git.
 All `{id}`, `{value}`, `{query}` patterns in docs/ were escaped to HTML entities.
 This affects brain-regions/*.md and api-reference.md. The `<` + digit pattern
 (e.g., `<90%`) must also be written as prose ("less than 90%") to avoid MDX JSX parsing.
+
+## Session 4 Changes (April 7, 2026 — Release Day)
+
+### Gemma4 Rollback
+Gemma4 changed its output format, breaking the Frontal Lobe reasoning loop. Empirical testing
+confirmed Qwen outperforms Gemma4 on the Are-Self framework. Rolled back to Qwen for release.
+A parser is being developed to support Gemma4's new format post-release.
+
+### OpenRouter Sync Restored
+The OpenRouter provider sync feature (`sync_remote`) has been brought back. This allows
+Are-Self to pull cloud model catalogs from OpenRouter in addition to local Ollama models.
+Feature is untested but shipping. **Needs documentation** — add to Hypothalamus docs explaining
+configuration, API key setup, and what models become available.
+
+### READMEs Updated
+All four repo READMEs updated for public release.
+
+### Remaining Docs Work
+- **OpenRouter documentation** — new feature needs a docs page or section
+- **FAQ page** — `docs/faq.md` needed for common questions
+- **Homepage visual refresh** — main landing page needs more screenshots/images for impact
+- **AI transparency statement** — "Built With" section for READMEs and a docs page explaining
+  the human-architect + AI-tool collaboration model (see MEDIA_PLAN.md in are-self-documents)
+
+### Video Assets
+Michael has recorded video of the major brain region UIs. First video target is the Unreal
+end-to-end pipeline demo. Videos being assembled in kdenlive.
+
+### Social Media Accounts Created
+All accounts live under the `scipraxian` handle. See MEDIA_PLAN.md in are-self-documents
+for full account list, media strategy, and content plan.

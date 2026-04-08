@@ -36,7 +36,18 @@ Last updated: April 6, 2026 (end of session 3).
 - [x] **Corrupted CNS screenshots restored** — 4 files in static/img/ui/ had been overwritten
   with 4789-byte stubs; restored from git HEAD
 
-## Immediate Priority — Do First
+## Immediate Priority — Release Day (April 7, 2026)
+
+- [ ] **Document OpenRouter sync feature.** OpenRouter provider sync has been restored. Needs
+  documentation explaining: what it does, how to configure an OpenRouter API key, what models
+  become available, and the sync_remote endpoint. Add to Hypothalamus docs and/or a new page.
+
+- [ ] **FAQ page.** Create `docs/faq.md` — common questions about installation, hardware
+  requirements, Ollama setup, model selection, safety/offline usage, what Are-Self is vs isn't.
+
+- [ ] **Homepage visual refresh.** The main docs landing page (`src/pages/index.js`) needs more
+  visual impact. Add game screenshots / UI screenshots to the homepage. Images exist in
+  `static/img/ui/` — Michael can place more if needed.
 
 - [ ] **Run `npm run build` on Windows and confirm zero broken links.** All known broken
   links have been patched. The sandbox build compiled client+server successfully but could

@@ -45,6 +45,7 @@ const sidebars = {
         'ui/environments',
       ],
     },
+    'openrouter',
     'api-reference',
     {
       type: 'category',
@@ -58,6 +59,7 @@ const sidebars = {
         'dependency-audit',
       ],
     },
+    'faq',
     'contributing',
     'style-guide',
     'features',
