@@ -320,14 +320,22 @@ so may have inherited inaccuracies from the previous agent's guesses.
 Changes:
 - Fixed copy-paste duplication in Identity section (lines 74-82 had repeated paragraph)
 - Fixed truncated last line ("prove" → "provenance — linked to the session, turn...")
-- Added Python code blocks to every region description (english + python pattern)
 - Every brain-region mention is now a clickable `[link](./brain-regions/slug)` link
 - Escaped `{{` template variables with HTML entities to avoid MDX JSX parsing crashes
 - Biology-first framing added to region descriptions that were missing it
 - Data Flow Principles section completed and cross-linked
+- Path format fixed: `identity/` → `/identity` (mirror the URL, not the directory)
 
-**Design pattern — English + Python:** Michael's directive: "this isn't a storybook, it's
-a user manual." Every concept should be explained in English first, then shown in Python.
-The Tick Cycle section in architecture.md was the original example. Now every region
-description in architecture.md follows this pattern, and all 11 brain-region docs have
-Python code blocks alongside their prose explanations.
+### Inline Code Breadcrumbs — NOT Code Blocks
+Michael's directive (corrected): code references go INLINE in the English prose, not
+as separate fenced code blocks. The pattern is: explain in English, and where the reader
+would naturally wonder "where is that exactly?", drop in a short inline code reference
+like `turn.apply_efficiency_bonus()` or `frontal_lobe/synapse_client.py`. Short controlled
+bursts. One line. In the flow. NOT a separate section, NOT a teaching moment — a reference.
+
+The Tick Cycle in architecture.md is the exception — it uses two full diagram blocks
+(English then Python file paths) because it's mapping the entire system flow.
+
+All 11 brain-region docs now have inline code breadcrumbs woven into their prose,
+verified against the actual codebase (method names, file paths, class names, constants).
+No fenced python code blocks remain in any brain-region doc.

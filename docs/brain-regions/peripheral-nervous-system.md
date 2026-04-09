@@ -9,7 +9,7 @@ slug: /brain-regions/peripheral-nervous-system
 
 Your real peripheral nervous system is like your body's messenger service and alarm system rolled into one. When you touch a hot stove, nerve endings in your fingertips scream "OUCH!" and send that message racing back to your brain in milliseconds. At the same time, your heart keeps beating steadily, your lungs keep breathing, and all your automatic systems keep humming along without you having to think about them. That's the peripheral nervous system doing its job — getting messages in and out, keeping everything connected, and maintaining that constant heartbeat that keeps you alive.
 
-Are-Self's Peripheral Nervous System works almost exactly the same way. It's the fleet of worker machines that run all the behind-the-scenes tasks. It carries alert signals (called Norepinephrine) back and forth through the [Synaptic Cleft](./synaptic-cleft). And most importantly, it has a **heartbeat** — a metronome that ticks every N seconds to keep the whole system synchronized and running smoothly.
+Are-Self's Peripheral Nervous System works almost exactly the same way. The `NerveTerminal` class (`peripheral_nervous_system/nerve_terminal.py`) is the lightweight async execution node — a smart worker that can run locally or on remote build farm machines. It carries alert signals (Norepinephrine) back and forth through the [Synaptic Cleft](./synaptic-cleft). And most importantly, it has a **heartbeat** — a metronome that ticks every N seconds to keep the whole system synchronized and running smoothly.
 
 ## The Heartbeat: Celery Beat
 
@@ -27,7 +27,7 @@ The Peripheral Nervous System keeps track of every worker — how many are runni
 
 ## Nerve Terminals: Keeping the Workers Wired In
 
-A nerve terminal is where a worker connects to the system — it's the handshake point that registers a worker so the system knows it exists. All the terminals are tracked in a registry. When a worker comes online, it registers itself. When it goes offline, it gets marked inactive. The system is always watching to make sure all the nerve terminals are in good shape.
+A nerve terminal is where a worker connects to the system — it's the handshake point that registers a worker so the system knows it exists. Terminals communicate via a TCP protocol with commands like `CMD_PING`, `CMD_EXECUTE`, `CMD_UPDATE`, and `CMD_STOP`, streaming output in real time via async generators. All the terminals are tracked in a `NerveTerminalRegistry`. When a worker comes online (status `NerveTerminalStatus.ONLINE`), it registers itself. When it goes offline, it gets marked inactive. The system is always watching to make sure all the nerve terminals are in good shape.
 
 ## The Alert Signal: Norepinephrine
 

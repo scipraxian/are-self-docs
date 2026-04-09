@@ -60,7 +60,7 @@ The tick is a **Celery Beat schedule**. Every N seconds, the [PNS](./brain-regio
 
 ## The Regions
 
-### [Identity](./brain-regions/identity) (`identity/`)
+### [Identity](./brain-regions/identity) (`/identity`)
 
 Think of an **Identity** as a character sheet in a role-playing game. It defines who this AI agent *is* — a system prompt template, a set of enabled tools, addon phases that layer context during prompt assembly, and model routing preferences.
 
@@ -70,7 +70,7 @@ The system prompt template supports Django template syntax. Variables like `&#12
 
 IdentityDiscs are vector-embedded (768-dim, nomic-embed-text). The vector auto-regenerates when the prompt, type, tags, or addons change. This embedding is what the [Hypothalamus](./brain-regions/hypothalamus) uses for model matching — it finds the model whose personality best fits the identity.
 
-### [Temporal Lobe](./brain-regions/temporal-lobe) (`temporal_lobe/`)
+### [Temporal Lobe](./brain-regions/temporal-lobe) (`/temporal_lobe`)
 
 Your temporal lobe keeps track of time — when things happened, what order, what's next. Are-Self's [Temporal Lobe](./brain-regions/temporal-lobe) is the scheduler. It manages **Iterations** — work cycles divided into **Shifts**.
 
@@ -80,7 +80,7 @@ An **Iteration Definition** is a blueprint: a sequence of shift columns (Sifting
 
 Shifts correspond to project phases. During Sifting, the PM identity refines the backlog. During Executing, worker identities tackle assigned stories. During Sleeping, identities review their memories and grow. The shift type determines what the [Identity](./brain-regions/identity) is expected to do — enforced by the system prompt template, not by code.
 
-### [Central Nervous System](./brain-regions/central-nervous-system) (`central_nervous_system/`)
+### [Central Nervous System](./brain-regions/central-nervous-system) (`/central_nervous_system`)
 
 In a real brain, the central nervous system is the highway that carries signals everywhere. In Are-Self, the [CNS](./brain-regions/central-nervous-system) is the execution engine. Everything that actually happens passes through it as spikes.
 
@@ -90,7 +90,7 @@ The CNS doesn't know about reasoning or AI. It's a generic directed-graph execut
 
 Spikes carry a **blackboard** — a JSON dict that accumulates data as the train passes through neurons. Each effector can read from and write to the blackboard. This is how context flows through the execution graph without tight coupling between neurons.
 
-### [Frontal Lobe](./brain-regions/frontal-lobe) (`frontal_lobe/`)
+### [Frontal Lobe](./brain-regions/frontal-lobe) (`/frontal_lobe`)
 
 The frontal lobe is the part of your brain that *thinks* — not quick reactions, but the kind of thinking where you sit down, focus, and work through a problem step by step. Are-Self's [Frontal Lobe](./brain-regions/frontal-lobe) runs **Reasoning Sessions** — the actual LLM inference loop.
 
@@ -100,7 +100,7 @@ Each turn is a **Reasoning Turn** with full telemetry: token counts, inference t
 
 Sessions have a **Focus** economy — a budget that decreases with each turn and tool call. When focus runs out, the session must conclude. But saving a genuinely new memory to the [Hippocampus](./brain-regions/hippocampus) earns focus *back*. The system literally rewards itself for learning.
 
-### [Parietal Lobe](./brain-regions/parietal-lobe) (`parietal_lobe/`)
+### [Parietal Lobe](./brain-regions/parietal-lobe) (`/parietal_lobe`)
 
 If the [Frontal Lobe](./brain-regions/frontal-lobe) is the brain, the [Parietal Lobe](./brain-regions/parietal-lobe) is the hands. It executes tools on behalf of the Frontal Lobe.
 
@@ -108,7 +108,7 @@ Tool definitions live in the database as `ToolDefinition` records with typed par
 
 The gateway includes **hallucination armor** — validation that the tool name exists, parameters match their types, and required parameters are present. LLMs hallucinate tool calls; the [Parietal Lobe](./brain-regions/parietal-lobe) catches them before they do damage.
 
-### [Hippocampus](./brain-regions/hippocampus) (`hippocampus/`)
+### [Hippocampus](./brain-regions/hippocampus) (`/hippocampus`)
 
 Your hippocampus is where memories form. Are-Self's [Hippocampus](./brain-regions/hippocampus) stores **Engrams** — vector-embedded facts extracted during reasoning.
 
@@ -116,7 +116,7 @@ Each engram has a name (a unique hash for dedup), a description (the actual fact
 
 Engrams are linked to sessions, turns, spikes, and IdentityDiscs. This provenance chain lets you trace any memory back to exactly when and why it was formed. The vector embedding auto-regenerates when an engram's description or tags change, using nomic-embed-text via Ollama. Future sessions retrieve relevant engrams by vector similarity search.
 
-### [Hypothalamus](./brain-regions/hypothalamus) (`hypothalamus/`)
+### [Hypothalamus](./brain-regions/hypothalamus) (`/hypothalamus`)
 
 In your brain, the hypothalamus manages resources — body temperature, hunger, energy levels. It doesn't think; it makes sure the thinker has what it needs. Are-Self's [Hypothalamus](./brain-regions/hypothalamus) does the same thing for AI models.
 
@@ -124,7 +124,7 @@ When the [Frontal Lobe](./brain-regions/frontal-lobe) needs to make an LLM call,
 
 The [Hypothalamus](./brain-regions/hypothalamus) tracks model health with three mechanisms: **circuit breakers** (escalating timeouts for provider failures, capping at 5 minutes), **resource cooldowns** (flat 60-second pause when the host runs out of memory — not the provider's fault), and **scar tissue** (permanent capability disablement when a model can't do function calling at all). See the [Hypothalamus docs](./brain-regions/hypothalamus) for the full breakdown.
 
-### [Synaptic Cleft](./brain-regions/synaptic-cleft) (`synaptic_cleft/`)
+### [Synaptic Cleft](./brain-regions/synaptic-cleft) (`/synaptic_cleft`)
 
 Neurons in your brain don't actually touch each other — there's a tiny gap between them called the synaptic cleft. Signals jump across that gap using chemicals called neurotransmitters. Are-Self's [Synaptic Cleft](./brain-regions/synaptic-cleft) works the same way: it's the real-time event bus built on Django Channels (WebSocket).
 
@@ -132,21 +132,21 @@ Events are typed as **neurotransmitters**, each carrying a specific kind of sign
 
 The frontend subscribes via `useDendrite(receptorClass, dendriteId)`. When a signal fires, the hook returns a new ref, triggering a React effect that refetches data. No polling anywhere in the system.
 
-### [Prefrontal Cortex](./brain-regions/prefrontal-cortex) (`prefrontal_cortex/`)
+### [Prefrontal Cortex](./brain-regions/prefrontal-cortex) (`/prefrontal_cortex`)
 
 Your prefrontal cortex is the planner — it decides what to work on next, keeps track of priorities, and holds the big picture. Are-Self's [Prefrontal Cortex](./brain-regions/prefrontal-cortex) does project management: Epics → Stories → Tasks, assigned to IdentityDiscs. The [Frontal Lobe](./brain-regions/frontal-lobe) picks up tasks from the [PFC](./brain-regions/prefrontal-cortex) backlog when a reasoning session starts.
 
-### [Peripheral Nervous System](./brain-regions/peripheral-nervous-system) (`peripheral_nervous_system/`)
+### [Peripheral Nervous System](./brain-regions/peripheral-nervous-system) (`/peripheral_nervous_system`)
 
 Your peripheral nervous system is the network of nerves that extends out from your brain and spinal cord to the rest of your body. It's how the central brain stays connected to everything happening at the edges. Are-Self's [PNS](./brain-regions/peripheral-nervous-system) manages the fleet of Celery workers, monitoring them via in-process signals (`task_prerun`, `task_postrun`, `worker_ready`) that fire Norepinephrine through the [Synaptic Cleft](./brain-regions/synaptic-cleft).
 
 Celery Beat is the PNS heartbeat — the metronome that drives the tick cycle.
 
-### [Thalamus](./brain-regions/thalamus) (`thalamus/`)
+### [Thalamus](./brain-regions/thalamus) (`/thalamus`)
 
 Your thalamus is the relay station — sensory signals come in from your eyes and ears, and the thalamus routes them to the right part of the cortex. Are-Self's [Thalamus](./brain-regions/thalamus) translates between the internal reasoning format and the chat UI. The ThalamusChat bubble on every page lets you talk to a standing session — inject messages, ask questions, get status. It's the human-facing surface of the entire system.
 
-### Environments (`environments/`)
+### Environments (`/environments`)
 
 Environments are project context. An environment has a name and a set of context variables (key-value pairs). When the [CNS](./brain-regions/central-nervous-system) resolves executable paths, Django's template engine renders the variables: `&#123;&#123;project_root&#125;&#125;\build.bat` becomes a real path.
 

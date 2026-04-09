@@ -11,7 +11,7 @@ Your real temporal lobe handles time — not like reading a clock, but like reme
 
 Are-Self's Temporal Lobe does something similar, but for *work*. When the [Frontal Lobe](./frontal-lobe) needs to solve a problem or answer a question, it doesn't just jump in randomly. The Temporal Lobe divides the work into **Iterations** (like chapters in a book, or acts in a play) and **Shifts** (the individual scenes within each act). Each shift knows: "Who's supposed to work right now? How many turns do they get? When are we done?"
 
-The Temporal Lobe is the metronome — the steady heartbeat that keeps everything moving forward in the right order. It wakes up each shift at the right time, keeps track of who's acting, and signals when it's time to move to the next phase.
+The Temporal Lobe (`temporal_lobe/temporal_lobe.py`) is the metronome — the steady heartbeat that keeps everything moving forward in the right order. Its main entry point is `TemporalLobe.tick()`, which checks the active iteration, dispatches pending workers, and advances shifts when turn limits are reached.
 
 ## How It Organizes Work
 
@@ -30,8 +30,9 @@ Deep in the system, there's a clock that ticks every few seconds. When it ticks,
 
 The Temporal Lobe checks:
 - Are we still in the current shift? Keep going.
-- Did the shift run out of turns? Close it and move to the next shift.
-- Is there a next shift ready? Wake it up and tell the [Central Nervous System](./central-nervous-system) to fire spikes for the identities assigned to that shift.
+- Did the shift run out of turns? Close it and call `_advance_shift(iteration)` to move to the next one.
+- Is there a next shift ready? Wake it up via `_dispatch_pending_workers(shift, slots_available, spike)` and tell the [Central Nervous System](./central-nervous-system) to fire spikes for the identities assigned to that shift.
+- Are all workers gone but the iteration isn't done? The ghost detector — `_is_spike_alive()` — checks the DB, the Celery broker, and the inspector before declaring a spike dead. Anything idle for longer than `ZOMBIE_THRESHOLD_MINUTES = 20` is considered a ghost and gets cleaned up.
 
 It's like a play director saying "Scene 1 is done, Scene 2 actors, you're up!" and ringing a bell.
 
@@ -56,7 +57,7 @@ Each shift has a turn limit — how many times an identity can "think" before ha
 - **Iteration**: A *live instance* of an Iteration Definition, bound to an Environment. It tracks which shift is currently active, how many turns have been used, and what's the current state.
 - **Shift Definition**: The blueprint for a phase: its name, turn limit, and the type of identity expected to work in it (like "PM" or "Worker").
 - **Shift**: The live, running instance. It knows which [IdentityDisc](./identity) instances are participating, how many turns they've used so far, and when to close.
-- **Metronome**: The heartbeat trigger — a clock that ticks every N seconds. It fires the [Peripheral Nervous System](./peripheral-nervous-system), which calls the Temporal Lobe to advance iterations and trigger spikes.
+- **Metronome**: The heartbeat trigger — `trigger_temporal_metronomes()` called by Celery Beat every N seconds. It fires the [Peripheral Nervous System](./peripheral-nervous-system), which calls the Temporal Lobe to advance iterations and trigger spikes. When an iteration completes all its shifts, the **Ouroboros Protocol** kicks in — `IterationInceptionManager.incept_iteration()` auto-creates the next one.
 
 ## How It Connects
 

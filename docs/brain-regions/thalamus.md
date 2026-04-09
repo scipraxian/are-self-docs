@@ -9,7 +9,7 @@ slug: /brain-regions/thalamus
 
 In your actual brain, the thalamus is like a mail room. Sensory signals come in — light from your eyes, sounds from your ears, touch on your skin — and the thalamus sorts them and relays them to the right part of the cortex. "Light information → visual cortex, sound → auditory cortex." It's the relay station that gets information where it needs to go.
 
-Are-Self's Thalamus works the same way, except instead of sensory signals, it relays *chat messages*. You type something in the chat bubble on the screen. The Thalamus catches that message, sends it to the [Frontal Lobe](./frontal-lobe) to be reasoned about, then relays the response back to you on the screen. You're talking to an AI identity through a persistent chat thread called a **standing session**. The Thalamus keeps that conversation alive, flowing back and forth.
+Are-Self's Thalamus (`thalamus/thalamus.py`) works the same way, except instead of sensory signals, it relays *chat messages*. You type something in the chat bubble on the screen. The Thalamus catches that message via `inject_swarm_chatter()`, drops it into the session's `swarm_message_queue`, and if the session is in `ATTENTION_REQUIRED` status, it wakes the [Frontal Lobe](./frontal-lobe) back up by re-firing the spike. You're talking to an AI identity through a persistent chat thread called a **standing session**. The Thalamus keeps that conversation alive, flowing back and forth.
 
 It's the human-facing window into the whole Are-Self system. Every page has a chat bubble. Click it anytime and you can ask questions, inject new work, or check on what's happening inside the system. The Thalamus makes sure your messages get in and responses get back to you in real time.
 
@@ -29,7 +29,7 @@ The flow is simple but powerful:
 2. **Thalamus receives** the message and records it in the standing session.
 3. **Thalamus relays** the message to the [Frontal Lobe](./frontal-lobe) using the `/api/v2/thalamus/interact/` endpoint.
 4. **Frontal Lobe thinks** about it, reasons through the problem, generates a response.
-5. **Response streams back** to the Thalamus via WebSocket in real time. You see the answer appearing in the chat bubble word by word.
+5. **Response streams back** to the Thalamus via WebSocket in real time. The `get_chat_history()` function formats turns into the Vercel AI SDK `parts` schema — `reasoning`, `text`, and `tool-call` parts — which triggers the frontend's assistant-ui ChainOfThought primitives. You see the answer appearing in the chat bubble word by word.
 6. **Thalamus records** the full response in the standing session, so next time you chat, the AI can remember this exchange.
 
 ## Real-Time Streaming
