@@ -41,9 +41,9 @@ Addons are optional flavoring. You might add a memory addon that reminds the per
 |--------|----------|---------|
 | `GET` | `/api/v2/identities/` | List all identity templates |
 | `POST` | `/api/v2/identities/` | Create new identity template |
-| `GET` | `/api/v2/identities/{id}/` | Retrieve template details |
-| `PATCH` | `/api/v2/identities/{id}/` | Update template |
-| `DELETE` | `/api/v2/identities/{id}/` | Delete template |
+| `GET` | `/api/v2/identities/&#123;id&#125;/` | Retrieve template details |
+| `PATCH` | `/api/v2/identities/&#123;id&#125;/` | Update template |
+| `DELETE` | `/api/v2/identities/&#123;id&#125;/` | Delete template |
 
 ### Identity Discs (Instances)
 
@@ -51,10 +51,10 @@ Addons are optional flavoring. You might add a memory addon that reminds the per
 |--------|----------|---------|
 | `GET` | `/api/v2/identity-discs/` | List all discs (stateful instances) |
 | `POST` | `/api/v2/identity-discs/` | Forge new disc from template |
-| `GET` | `/api/v2/identity-discs/{id}/` | Retrieve disc with level, XP, stats |
-| `PATCH` | `/api/v2/identity-discs/{id}/` | Update disc metadata |
-| `DELETE` | `/api/v2/identity-discs/{id}/` | Delete disc |
-| `GET` | `/api/v2/identity-discs/{id}/model-preview/` | Preview current model selection for this disc |
+| `GET` | `/api/v2/identity-discs/&#123;id&#125;/` | Retrieve disc with level, XP, stats |
+| `PATCH` | `/api/v2/identity-discs/&#123;id&#125;/` | Update disc metadata |
+| `DELETE` | `/api/v2/identity-discs/&#123;id&#125;/` | Delete disc |
+| `GET` | `/api/v2/identity-discs/&#123;id&#125;/model-preview/` | Preview current model selection for this disc |
 
 ### Addons & Extensions
 
@@ -62,9 +62,9 @@ Addons are optional flavoring. You might add a memory addon that reminds the per
 |--------|----------|---------|
 | `GET` | `/api/v2/identity_addons/` | List available addons |
 | `POST` | `/api/v2/identity_addons/` | Create addon |
-| `GET` | `/api/v2/identity_addons/{id}/` | Retrieve addon |
-| `PATCH` | `/api/v2/identity_addons/{id}/` | Update addon |
-| `DELETE` | `/api/v2/identity_addons/{id}/` | Delete addon |
+| `GET` | `/api/v2/identity_addons/&#123;id&#125;/` | Retrieve addon |
+| `PATCH` | `/api/v2/identity_addons/&#123;id&#125;/` | Update addon |
+| `DELETE` | `/api/v2/identity_addons/&#123;id&#125;/` | Delete addon |
 
 ### Tags & Types
 
@@ -81,7 +81,7 @@ Addons are optional flavoring. You might add a memory addon that reminds the per
 |--------|----------|---------|
 | `GET` | `/api/v2/identity-budgets/` | List token/cost budgets |
 | `POST` | `/api/v2/identity-budgets/` | Create budget constraint |
-| `PATCH` | `/api/v2/identity-budgets/{id}/` | Update budget |
+| `PATCH` | `/api/v2/identity-budgets/&#123;id&#125;/` | Update budget |
 
 ## How It Connects
 

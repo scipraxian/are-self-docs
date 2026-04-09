@@ -75,9 +75,9 @@ Each shift has a turn limit — how many times an identity can "think" before ha
 |--------|----------|---------|
 | `GET` | `/api/v2/iterations/` | List all iterations |
 | `POST` | `/api/v2/iterations/` | Create live iteration from definition |
-| `GET` | `/api/v2/iterations/{id}/` | Retrieve iteration state |
-| `PATCH` | `/api/v2/iterations/{id}/` | Update iteration metadata |
-| `DELETE` | `/api/v2/iterations/{id}/` | Delete iteration |
+| `GET` | `/api/v2/iterations/&#123;id&#125;/` | Retrieve iteration state |
+| `PATCH` | `/api/v2/iterations/&#123;id&#125;/` | Update iteration metadata |
+| `DELETE` | `/api/v2/iterations/&#123;id&#125;/` | Delete iteration |
 
 ### Iteration Definitions (Blueprints)
 
@@ -85,9 +85,9 @@ Each shift has a turn limit — how many times an identity can "think" before ha
 |--------|----------|---------|
 | `GET` | `/api/v2/iteration-definitions/` | List templates |
 | `POST` | `/api/v2/iteration-definitions/` | Create definition template |
-| `GET` | `/api/v2/iteration-definitions/{id}/` | Retrieve definition |
-| `PATCH` | `/api/v2/iteration-definitions/{id}/` | Update definition |
-| `DELETE` | `/api/v2/iteration-definitions/{id}/` | Delete definition |
+| `GET` | `/api/v2/iteration-definitions/&#123;id&#125;/` | Retrieve definition |
+| `PATCH` | `/api/v2/iteration-definitions/&#123;id&#125;/` | Update definition |
+| `DELETE` | `/api/v2/iteration-definitions/&#123;id&#125;/` | Delete definition |
 
 ### Shift Definitions & Shifts
 
@@ -97,9 +97,9 @@ Each shift has a turn limit — how many times an identity can "think" before ha
 | `POST` | `/api/v2/iteration-shift-definitions/` | Create shift definition |
 | `GET` | `/api/v2/shifts/` | List live shift instances |
 | `POST` | `/api/v2/shifts/` | Create shift instance |
-| `GET` | `/api/v2/shifts/{id}/` | Retrieve shift state |
-| `PATCH` | `/api/v2/shifts/{id}/` | Update shift |
-| `DELETE` | `/api/v2/shifts/{id}/` | Delete shift |
+| `GET` | `/api/v2/shifts/&#123;id&#125;/` | Retrieve shift state |
+| `PATCH` | `/api/v2/shifts/&#123;id&#125;/` | Update shift |
+| `DELETE` | `/api/v2/shifts/&#123;id&#125;/` | Delete shift |
 
 ### Visualization
 

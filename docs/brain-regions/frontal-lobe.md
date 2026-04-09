@@ -94,16 +94,16 @@ A session moves through these states during its life:
 |--------|----------|---------|
 | `GET` | `/api/v2/reasoning_sessions/` | List sessions (lightweight) |
 | `POST` | `/api/v2/reasoning_sessions/` | Create session |
-| `GET` | `/api/v2/reasoning_sessions/{id}/` | Retrieve session (full payload) |
-| `PATCH` | `/api/v2/reasoning_sessions/{id}/` | Update session metadata |
-| `DELETE` | `/api/v2/reasoning_sessions/{id}/` | Delete session |
-| `GET` | `/api/v2/reasoning_sessions/{id}/graph_data/` | Complete graph (turns, engrams, conclusion) |
-| `POST` | `/api/v2/reasoning_sessions/{id}/rerun/` | Restart the originating spike train |
-| `POST` | `/api/v2/reasoning_sessions/{id}/attention_required/` | Pause and signal human input needed |
-| `POST` | `/api/v2/reasoning_sessions/{id}/resume/` | Inject human message and wake the session |
-| `GET` | `/api/v2/reasoning_sessions/{id}/messages/` | Chat pipeline for UI |
-| `GET` | `/api/v2/reasoning_sessions/{id}/summary_dump/` | Forensic text dump |
-| `GET` | `/api/v2/reasoning_sessions/{id}/narrative_dump/` | Compact human-readable briefing |
+| `GET` | `/api/v2/reasoning_sessions/&#123;id&#125;/` | Retrieve session (full payload) |
+| `PATCH` | `/api/v2/reasoning_sessions/&#123;id&#125;/` | Update session metadata |
+| `DELETE` | `/api/v2/reasoning_sessions/&#123;id&#125;/` | Delete session |
+| `GET` | `/api/v2/reasoning_sessions/&#123;id&#125;/graph_data/` | Complete graph (turns, engrams, conclusion) |
+| `POST` | `/api/v2/reasoning_sessions/&#123;id&#125;/rerun/` | Restart the originating spike train |
+| `POST` | `/api/v2/reasoning_sessions/&#123;id&#125;/attention_required/` | Pause and signal human input needed |
+| `POST` | `/api/v2/reasoning_sessions/&#123;id&#125;/resume/` | Inject human message and wake the session |
+| `GET` | `/api/v2/reasoning_sessions/&#123;id&#125;/messages/` | Chat pipeline for UI |
+| `GET` | `/api/v2/reasoning_sessions/&#123;id&#125;/summary_dump/` | Forensic text dump |
+| `GET` | `/api/v2/reasoning_sessions/&#123;id&#125;/narrative_dump/` | Compact human-readable briefing |
 | `GET` | `/api/v2/latest-sessions/` | Latest 10 sessions |
 
 ### Reasoning Turns
@@ -112,9 +112,9 @@ A session moves through these states during its life:
 |--------|----------|---------|
 | `GET` | `/api/v2/reasoning_turns/` | List turns |
 | `POST` | `/api/v2/reasoning_turns/` | Create turn |
-| `GET` | `/api/v2/reasoning_turns/{id}/` | Retrieve turn (includes tool calls) |
-| `PATCH` | `/api/v2/reasoning_turns/{id}/` | Update turn |
-| `DELETE` | `/api/v2/reasoning_turns/{id}/` | Delete turn |
+| `GET` | `/api/v2/reasoning_turns/&#123;id&#125;/` | Retrieve turn (includes tool calls) |
+| `PATCH` | `/api/v2/reasoning_turns/&#123;id&#125;/` | Update turn |
+| `DELETE` | `/api/v2/reasoning_turns/&#123;id&#125;/` | Delete turn |
 
 ## How It Connects
 

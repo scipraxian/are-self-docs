@@ -64,7 +64,7 @@ The difference between stopping and pausing is important: stopping means everyth
 |--------|----------|---------|
 | `GET` | `/api/v2/celery-workers/` | List active Celery workers |
 | `POST` | `/api/v2/celery-workers/` | Register worker |
-| `GET` | `/api/v2/celery-workers/{id}/` | Retrieve worker status |
+| `GET` | `/api/v2/celery-workers/&#123;id&#125;/` | Retrieve worker status |
 
 ### Heartbeat & Beat Control
 
@@ -89,7 +89,7 @@ The difference between stopping and pausing is important: stopping means everyth
 |--------|----------|---------|
 | `GET` | `/api/v2/nerve_terminal_registry/` | List nerve terminals (worker connections) |
 | `POST` | `/api/v2/nerve_terminal_registry/` | Register terminal |
-| `DELETE` | `/api/v2/nerve_terminal_registry/{id}/` | Deregister terminal |
+| `DELETE` | `/api/v2/nerve_terminal_registry/&#123;id&#125;/` | Deregister terminal |
 
 ## How It Connects
 

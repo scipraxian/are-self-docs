@@ -83,7 +83,7 @@ The cooldown never goes higher than 5 minutes. The system is patient, but not *t
 
 Here's the nice part: one success wipes the slate clean. The moment a provider handles a call successfully, its failure counter resets to zero. Fully rehabilitated. No grudges.
 
-There's also a manual reset button in the UI and API (`POST /api/v2/model-providers/{id}/reset_circuit_breaker/`) for when you *know* you fixed the problem — you restarted Ollama, plugged the API key back in, whatever — and you don't want to wait out the clock.
+There's also a manual reset button in the UI and API (`POST /api/v2/model-providers/&#123;id&#125;/reset_circuit_breaker/`) for when you *know* you fixed the problem — you restarted Ollama, plugged the API key back in, whatever — and you don't want to wait out the clock.
 
 ### The Lifetime Counter
 
@@ -174,8 +174,8 @@ The catalog is browseable and searchable through the [Hypothalamus UI](../ui/hyp
 |--------|----------|---------|
 | `GET` | `/api/v2/ai-models/` | List available models |
 | `POST` | `/api/v2/ai-models/` | Create model |
-| `PATCH` | `/api/v2/ai-models/{id}/` | Update model |
-| `DELETE` | `/api/v2/ai-models/{id}/` | Delete model |
+| `PATCH` | `/api/v2/ai-models/&#123;id&#125;/` | Update model |
+| `DELETE` | `/api/v2/ai-models/&#123;id&#125;/` | Delete model |
 | `GET` | `/api/v2/model-categories/` | List model categories (e.g., "reasoning") |
 | `POST` | `/api/v2/model-categories/` | Create category |
 | `GET` | `/api/v2/model-families/` | List model families (Llama, Gemma, etc.) |
@@ -187,8 +187,8 @@ The catalog is browseable and searchable through the [Hypothalamus UI](../ui/hyp
 |--------|----------|---------|
 | `GET` | `/api/v2/llm-providers/` | List LLM provider configurations |
 | `POST` | `/api/v2/llm-providers/` | Create provider |
-| `PATCH` | `/api/v2/llm-providers/{id}/` | Update provider |
-| `DELETE` | `/api/v2/llm-providers/{id}/` | Delete provider |
+| `PATCH` | `/api/v2/llm-providers/&#123;id&#125;/` | Update provider |
+| `DELETE` | `/api/v2/llm-providers/&#123;id&#125;/` | Delete provider |
 | `GET` | `/api/v2/model-providers/` | List model-to-provider associations |
 | `POST` | `/api/v2/model-providers/` | Create association |
 
@@ -198,7 +198,7 @@ The catalog is browseable and searchable through the [Hypothalamus UI](../ui/hyp
 |--------|----------|---------|
 | `GET` | `/api/v2/model-pricing/` | List pricing configurations |
 | `POST` | `/api/v2/model-pricing/` | Create pricing tier |
-| `PATCH` | `/api/v2/model-pricing/{id}/` | Update pricing |
+| `PATCH` | `/api/v2/model-pricing/&#123;id&#125;/` | Update pricing |
 | `GET` | `/api/v2/budget-periods/` | List budget period types (daily, monthly) |
 | `POST` | `/api/v2/budget-periods/` | Create period |
 
@@ -206,11 +206,11 @@ The catalog is browseable and searchable through the [Hypothalamus UI](../ui/hyp
 
 | Method | Endpoint | Purpose |
 |--------|----------|---------|
-| `POST` | `/api/v2/model-providers/{id}/reset_circuit_breaker/` | Manually reset a provider's circuit breaker |
-| `POST` | `/api/v2/model-providers/{id}/toggle_enabled/` | Enable or disable a provider |
+| `POST` | `/api/v2/model-providers/&#123;id&#125;/reset_circuit_breaker/` | Manually reset a provider's circuit breaker |
+| `POST` | `/api/v2/model-providers/&#123;id&#125;/toggle_enabled/` | Enable or disable a provider |
 | `GET` | `/api/v2/failover-strategies/` | List failover strategies |
 | `POST` | `/api/v2/failover-strategies/` | Create failover strategy |
-| `PATCH` | `/api/v2/failover-strategies/{id}/` | Update strategy |
+| `PATCH` | `/api/v2/failover-strategies/&#123;id&#125;/` | Update strategy |
 | `GET` | `/api/v2/failover-types/` | List failover types |
 | `POST` | `/api/v2/failover-types/` | Create type |
 
@@ -220,7 +220,7 @@ The catalog is browseable and searchable through the [Hypothalamus UI](../ui/hyp
 |--------|----------|---------|
 | `GET` | `/api/v2/selection-filters/` | List model selection filters |
 | `POST` | `/api/v2/selection-filters/` | Create filter |
-| `PATCH` | `/api/v2/selection-filters/{id}/` | Update filter |
+| `PATCH` | `/api/v2/selection-filters/&#123;id&#125;/` | Update filter |
 
 ### Usage Tracking
 

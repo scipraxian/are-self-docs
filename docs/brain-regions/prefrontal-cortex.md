@@ -53,10 +53,10 @@ This is why the hierarchy matters. You can't have sprawling ambiguous goals — 
 |--------|----------|---------|
 | `GET` | `/api/v2/pfc-epics/` | List epics (lightweight) |
 | `POST` | `/api/v2/pfc-epics/` | Create epic |
-| `GET` | `/api/v2/pfc-epics/{id}/` | Retrieve epic (lightweight) |
-| `GET` | `/api/v2/pfc-epics/{id}/full/` | Retrieve epic (full details) |
-| `PATCH` | `/api/v2/pfc-epics/{id}/` | Update epic |
-| `DELETE` | `/api/v2/pfc-epics/{id}/` | Delete epic |
+| `GET` | `/api/v2/pfc-epics/&#123;id&#125;/` | Retrieve epic (lightweight) |
+| `GET` | `/api/v2/pfc-epics/&#123;id&#125;/full/` | Retrieve epic (full details) |
+| `PATCH` | `/api/v2/pfc-epics/&#123;id&#125;/` | Update epic |
+| `DELETE` | `/api/v2/pfc-epics/&#123;id&#125;/` | Delete epic |
 
 ### Stories
 
@@ -64,10 +64,10 @@ This is why the hierarchy matters. You can't have sprawling ambiguous goals — 
 |--------|----------|---------|
 | `GET` | `/api/v2/pfc-stories/` | List stories (lightweight) |
 | `POST` | `/api/v2/pfc-stories/` | Create story |
-| `GET` | `/api/v2/pfc-stories/{id}/` | Retrieve story (lightweight) |
-| `GET` | `/api/v2/pfc-stories/{id}/full/` | Retrieve story (full details) |
-| `PATCH` | `/api/v2/pfc-stories/{id}/` | Update story |
-| `DELETE` | `/api/v2/pfc-stories/{id}/` | Delete story |
+| `GET` | `/api/v2/pfc-stories/&#123;id&#125;/` | Retrieve story (lightweight) |
+| `GET` | `/api/v2/pfc-stories/&#123;id&#125;/full/` | Retrieve story (full details) |
+| `PATCH` | `/api/v2/pfc-stories/&#123;id&#125;/` | Update story |
+| `DELETE` | `/api/v2/pfc-stories/&#123;id&#125;/` | Delete story |
 
 ### Tasks
 
@@ -75,10 +75,10 @@ This is why the hierarchy matters. You can't have sprawling ambiguous goals — 
 |--------|----------|---------|
 | `GET` | `/api/v2/pfc-tasks/` | List tasks (lightweight) |
 | `POST` | `/api/v2/pfc-tasks/` | Create task |
-| `GET` | `/api/v2/pfc-tasks/{id}/` | Retrieve task (lightweight) |
-| `GET` | `/api/v2/pfc-tasks/{id}/full/` | Retrieve task (full details) |
-| `PATCH` | `/api/v2/pfc-tasks/{id}/` | Update task |
-| `DELETE` | `/api/v2/pfc-tasks/{id}/` | Delete task |
+| `GET` | `/api/v2/pfc-tasks/&#123;id&#125;/` | Retrieve task (lightweight) |
+| `GET` | `/api/v2/pfc-tasks/&#123;id&#125;/full/` | Retrieve task (full details) |
+| `PATCH` | `/api/v2/pfc-tasks/&#123;id&#125;/` | Update task |
+| `DELETE` | `/api/v2/pfc-tasks/&#123;id&#125;/` | Delete task |
 
 ## How It Connects
 

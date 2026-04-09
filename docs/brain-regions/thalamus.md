@@ -77,4 +77,4 @@ It's a quick way to ask questions about what's happening elsewhere in the system
 | `POST` | `/api/v2/thalamus/interact/` | Inject message into standing session |
 | `GET` | `/api/v2/thalamus/standing-sessions/` | List standing sessions |
 | `POST` | `/api/v2/thalamus/standing-sessions/` | Create standing session |
-| `GET` | `/api/v2/thalamus/standing-sessions/{id}/` | Retrieve session details |
+| `GET` | `/api/v2/thalamus/standing-sessions/&#123;id&#125;/` | Retrieve session details |
