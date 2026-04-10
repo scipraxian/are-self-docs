@@ -23,6 +23,10 @@ npm start        # http://localhost:3000
 After changing `docusaurus.config.js` or `src/pages/index.js`, the dev server often needs a
 manual restart (`Ctrl+C` then `npm start`) — hot reload doesn't always pick up config changes.
 
+**baseUrl stays `/`.** The site deploys via GitHub Pages to the root of `are-self.com`
+and the Pages workflow depends on that. Do not change `baseUrl` without also retargeting
+the deployment — a previous attempt to move it to `/docs/` broke the Pages build.
+
 ## Theme
 
 Dark-only glassmorphic. All styling in `src/css/custom.css`. Key colors:
