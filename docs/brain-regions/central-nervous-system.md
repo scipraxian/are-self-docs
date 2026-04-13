@@ -1,7 +1,7 @@
 ---
 id: central-nervous-system
 title: "Central Nervous System — Execution Engine"
-description: "Neural pathways, neurons, axons, effectors, spike trains, and the blackboard"
+description: "Neural pathways, neurons, axons, effectors, spike trains, and the axoplasm"
 slug: /brain-regions/central-nervous-system
 ---
 
@@ -15,7 +15,7 @@ Are-Self's CNS (`central_nervous_system/central_nervous_system.py`) works the sa
 
 Imagine you're building a machine out of dominoes. First, you lay out the dominoes in a pattern — that pattern is your **Neural Pathway**. Each domino is a **Neuron**. The space between dominoes is an **Axon**. Then you flick the first domino. That's your **Spike** — the signal that travels through the whole pathway, knocking over each neuron as it goes.
 
-Here's the thing that makes Are-Self clever: as each domino falls (each neuron executes), it leaves behind a note on a shared piece of paper. That paper is called the **Blackboard** — a JSON dict that holds all the data flowing through the system. Each neuron reads what it needs from the blackboard and writes its results back. This means dominoes can be flexible about what they do based on what's already been written down. No domino has to be tightly connected to the next one. They just all trust the shared paper.
+Here's the thing that makes Are-Self clever: as each domino falls (each neuron executes), it carries forward a snapshot of what's been written down so far. That snapshot lives in the **axoplasm** — a JSON dict that flows through each spike via deepcopy (just like cargo being carried down a real neuron's axon). Each neuron reads what it needs from the axoplasm and writes its results back. At the train level, there's also **cerebrospinal fluid** — a shared bath set once at launch that surrounds the whole run. Dominoes can be flexible about what they do based on what's in the axoplasm or the CSF. No domino has to be tightly connected to the next one. They just all trust the shared memory.
 
 A single spike is a single execution at one neuron. But one execution can have lots of spikes (imagine knocking down 50 dominoes). All those spikes together, following one pathway from start to finish, make up a **Spike Train**. The spike train tracks its own status: is it running? Did it succeed? Did something break?
 
@@ -29,11 +29,13 @@ A single spike is a single execution at one neuron. But one execution can have l
 
 - **Effector**: The actual thing that gets executed at a neuron. The concrete action. Effectors have a `distribution_mode` — `LOCAL_SERVER`, `ALL_ONLINE_AGENTS`, `ONE_AVAILABLE_AGENT`, or `SPECIFIC_TARGETS` — which determines where the work runs. Built-in effector types include `BEGIN_PLAY`, `FRONTAL_LOBE`, `LOGIC_GATE`, `LOGIC_RETRY`, `LOGIC_DELAY`, and `DEBUG`.
 
-- **Spike**: One single execution event at a neuron, recorded with timestamps, logs, what was on the blackboard when it ran, and whether it succeeded or failed.
+- **Spike**: One single execution event at a neuron, recorded with timestamps, logs, what was on the axoplasm when it ran, and whether it succeeded or failed.
 
 - **Spike Train**: A complete traversal of a pathway — one journey through all the connected neurons. Contains many spikes. Has a status (pending, running, succeeded, failed). The graph dispatch is driven by `CNS.dispatch_next_wave()`, which follows axon types — `TYPE_FLOW`, `TYPE_SUCCESS`, `TYPE_FAILURE` — to decide which neuron fires next.
 
-- **Blackboard**: A JSON dictionary that lives for the entire spike train. Every neuron can read from it and write to it. This is how dominoes talk to each other without being wired together.
+- **Axoplasm**: Per-spike JSON dict that flows forward via deepcopy (anterograde transport). Each spike carries its own snapshot.
+
+- **Cerebrospinal Fluid**: Per-train JSON dict, immutable after launch. The bath that surrounds the whole run, set via MCP seed at launch time.
 
 ## How the [Synaptic Cleft](./synaptic-cleft) Stays Informed
 
@@ -41,7 +43,7 @@ When spikes finish executing, they fire **neurotransmitters** through the [Synap
 
 ## What's the Golden Rule?
 
-Here's the most important thing about the [Central Nervous System](./central-nervous-system): **If it's not a spike, it didn't happen.** Everything that matters is recorded as a spike. Every spike has a record. You can look back at every single one and see what it did, what the blackboard looked like, what errors came up. Forensics. Full traceability. That's what makes the system trustworthy.
+Here's the most important thing about the [Central Nervous System](./central-nervous-system): **If it's not a spike, it didn't happen.** Everything that matters is recorded as a spike. Every spike has a record. You can look back at every single one and see what it did, what the axoplasm looked like, what errors came up. Forensics. Full traceability. That's what makes the system trustworthy.
 
 ## How It Connects
 
@@ -77,7 +79,7 @@ Here's the most important thing about the [Central Nervous System](./central-ner
 
 | Method | Endpoint | Purpose |
 |--------|----------|---------|
-| `GET` | `/api/v2/spikes/` | List spikes (includes logs and blackboard) |
+| `GET` | `/api/v2/spikes/` | List spikes (includes logs and axoplasm) |
 | `GET` | `/api/v1/spikes/&#123;id&#125;/` | Spike forensics: detailed execution trace |
 
 ### Neural Pathways (Graph Templates)

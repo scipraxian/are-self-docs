@@ -46,7 +46,7 @@ brain-region cross-reference must be a clickable link. Technical accuracy stays 
   matching, budgets, failover strategy. Mermaid error flow diagram. All verified against actual code.
 - [x] `frontal-lobe.md` — Full rewrite. Reasoning loop, focus economy, failover, session statuses,
   Synapse Client error handling. Cross-linked to Hypothalamus for circuit breaker details.
-- [x] `central-nervous-system.md` — Full rewrite. Pathways, spike trains, neurons, axons, blackboard.
+- [x] `central-nervous-system.md` — Full rewrite. Pathways, spike trains, neurons, axons, axoplasm, cerebrospinal fluid.
 - [x] `hippocampus.md` — Full rewrite. Engrams, vector dedup, provenance, focus economy tie-in.
 - [x] `identity.md` — Full rewrite. Identities vs IdentityDiscs, addons, tools, tags, vectors.
 - [x] `parietal-lobe.md` — Full rewrite. Tool execution, hallucination armor, MCP gateway.

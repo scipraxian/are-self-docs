@@ -87,7 +87,7 @@ All reasoning and tool execution is auditable:
 
 **Replay & Forensics**:
 - Operators can replay a session turn-by-turn to understand what happened
-- Blackboard state (working memory) is captured at each step
+- Axoplasm state (working memory) is captured at each step
 - Tool results are logged in full, allowing inspection of what external systems returned
 - If something goes wrong, you can diagnose it completely
 

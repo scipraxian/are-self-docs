@@ -133,7 +133,7 @@ NGINX does no authentication of its own — it's a plain reverse proxy with opti
 ## Phase 2 Roadmap
 
 - **Streaming via neurotransmitters.** Dopamine → MCP success notifications, Cortisol → error notifications, Glutamate → token streaming. Wires the Synaptic Cleft into MCP's SSE channel.
-- **Blackboard writes.** Pre-load arbitrary key/value context onto a spike train before launch. This is the unlock for really interesting programmatic orchestration — a client can stage a whole scenario on the blackboard, then fire the pathway.
+- **Axoplasm/CSF writes.** Pre-load arbitrary key/value context onto a spike train's cerebrospinal fluid before launch. This is the unlock for really interesting programmatic orchestration — a client can stage a whole scenario, then fire the pathway.
 - **Vector engram search.** Swap text search for pgvector cosine similarity. Requires embedding the query through Ollama/Nomic first.
 - **Full Thalamus integration.** Wire `send_thalamus_message` into the real message pipeline with WebSocket delivery via Channels.
 - **Authentication.** Token-based auth before any non-local exposure.

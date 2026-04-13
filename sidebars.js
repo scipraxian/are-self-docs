@@ -26,7 +26,7 @@ const sidebars = {
         'brain-regions/peripheral-nervous-system',
         'brain-regions/thalamus',
         'brain-regions/synaptic-cleft',
-        'blackboard',
+        'axoplasm',
       ],
     },
     {

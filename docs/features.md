@@ -11,8 +11,8 @@ What's built and working in the backend. Organized by brain region.
 ## Central Nervous System
 
 Directed-graph execution engine. Neural Pathways define graphs of Neurons connected by Axons. Spike Trains traverse
-pathways, creating Spikes that execute Effectors (native Python handlers or Celery tasks). Spikes carry a blackboard
-(JSON dict) that accumulates context as the train passes through neurons. The CNS is generic — it doesn't know about
+pathways, creating Spikes that execute Effectors (native Python handlers or Celery tasks). Spikes carry axoplasm
+(JSON dict that flows via deepcopy) and spike trains have cerebrospinal fluid (immutable train-level dict) that accumulates context as the train passes through neurons. The CNS is generic — it doesn't know about
 AI. It just fires graphs.
 
 NeuroMuscularJunction handles spike dispatch with proper logging (bracketed component tags, `%s` formatting). N-way
