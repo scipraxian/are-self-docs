@@ -150,6 +150,7 @@ const config = {
         additionalLanguages: ['python', 'bash', 'json'],
       },
       colorMode: {
+        defaultMode: 'dark',
         disableSwitch: true,
         respectPrefersColorScheme: false,
       },
