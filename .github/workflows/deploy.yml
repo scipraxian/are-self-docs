@@ -3,6 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  repository_dispatch:
+    types: [learn-updated]
 
 permissions:
   contents: read
@@ -17,21 +19,45 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      # ── 1. Checkout both repos ──────────────────────────────────
+      - name: Checkout are-self-docs
         uses: actions/checkout@v4
 
+      - name: Checkout are-self-learn
+        uses: actions/checkout@v4
+        with:
+          repository: scipraxian/are-self-learn
+          path: _learn
+
+      # ── 2. Node setup ──────────────────────────────────────────
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: '22'
 
-      - name: Install dependencies
-        run: npm install
+      # ── 3. Build docs (root site) ──────────────────────────────
+      - name: Install docs dependencies
+        run: npm ci
 
-      - name: Build site
+      - name: Build docs
         run: npm run build
 
+      # ── 4. Build learn (sub-site at /learn/) ───────────────────
+      - name: Install learn dependencies
+        working-directory: _learn/site
+        run: npm ci
+
+      - name: Build learn
+        working-directory: _learn/site
+        run: npm run build
+
+      # ── 5. Merge: copy learn build into docs build/learn/ ──────
+      - name: Merge learn into docs
+        run: |
+          mkdir -p build/learn
+          cp -r _learn/site/build/* build/learn/
+
+      # ── 6. Upload combined artifact ────────────────────────────
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
