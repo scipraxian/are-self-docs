@@ -71,7 +71,7 @@ const config = {
             position: 'left',
           },
           {
-            href: 'https://github.com/scipraxian/are-self-learn',
+            href: '/learn/',
             label: 'Learn',
             position: 'left',
           },
@@ -119,12 +119,13 @@ const config = {
           {
             title: 'Learn',
             items: [
+              { label: 'All Courses', href: '/learn/' },
+              { label: 'Glossary', href: '/learn/glossary' },
+              { label: 'Storybook', to: '/docs/storybook' },
               {
                 label: 'GitHub (Learn)',
                 href: 'https://github.com/scipraxian/are-self-learn',
               },
-              { label: 'Curriculum', to: '/docs/curriculum/' },
-              { label: 'Storybook', to: '/docs/storybook' },
               {
                 label: 'Scipraxian',
                 href: 'https://scipraxian.org',
