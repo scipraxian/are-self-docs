@@ -5,6 +5,29 @@
   overflow: hidden;
 }
 
+.heroImageWrapper {
+  max-width: 960px;
+  margin: 0 auto 2rem auto;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(26, 26, 46, 0.4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.heroImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .heroImageWrapper {
+    margin-bottom: 1.25rem;
+    border-radius: 0.5rem;
+  }
+}
+
 .heroDescription {
   font-size: 1.15rem;
   max-width: 700px;

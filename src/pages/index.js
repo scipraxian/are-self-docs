@@ -1,17 +1,27 @@
 import React from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import styles from './index.module.css';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
+  const heroSrc = useBaseUrl('/img/hero.png');
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
+        <div className={styles.heroImageWrapper}>
+          <img
+            src={heroSrc}
+            alt="A young learner at a glowing workstation in a bright lab filled with holographic screens, brain models, crystals, and a cityscape through the window — the Are-Self world."
+            className={styles.heroImage}
+            loading="eager"
+          />
+        </div>
         <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <p className={styles.heroTagline}>{siteConfig.tagline}</p>
         <p className={styles.heroDescription}>
           An open-source, neurologically-inspired AI reasoning swarm
           engine — bringing free AI to underserved youth, curious
