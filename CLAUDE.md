@@ -1,18 +1,27 @@
 # CLAUDE.md — Are-Self Documentation Site
 
-The single source of truth for any AI agent working on the are-self-docs codebase.
-Read completely before making any changes.
+The single source of truth for any AI agent working on the `are-self-docs`
+codebase. Read completely before making any changes.
+
+> **Active work lives elsewhere.** See `TASKS.md` for in-progress items
+> and the companion repos' TASKS.md for cross-repo threads. `git log` is
+> the changelog. Do NOT replay session diaries in this file — when work
+> lands, lift the durable rule into the appropriate section below, then
+> delete the notes. This file is the *standing reference*.
 
 ## What This Is
 
-A Docusaurus 3.x documentation site for **Are-Self**, an open-source AI reasoning engine.
-Dark-only glassmorphic theme. Deployed at are-self.com. **Public release: April 7, 2026.**
+A Docusaurus 3.x documentation site for **Are-Self**, an open-source
+neurologically-inspired AI reasoning engine. Dark-only glassmorphic theme.
+Deployed at [are-self.com](https://are-self.com) via GitHub Pages.
+**Public release: April 7, 2026.**
 
-**Sister repos (all in the same parent folder):**
+**Sister repos** (all under [scipraxian](https://github.com/scipraxian)):
+
 - [are-self-api](https://github.com/scipraxian/are-self-api) — Django 6.x backend (brain regions as Django apps)
 - [are-self-ui](https://github.com/scipraxian/are-self-ui) — React/Vite/TypeScript frontend
 - [are-self-research](https://github.com/scipraxian/are-self-research) — Academic papers (LaTeX, APA 7th edition)
-- [are-self-learn](https://github.com/scipraxian/are-self-learn) — Curriculum layer for kids and the grownups who teach them (launched 2026-04-14)
+- [are-self-learn](https://github.com/scipraxian/are-self-learn) — Curriculum layer for kids and the grownups who teach them (launched 2026-04-14). Merged into this site at `/learn/` by the composite deploy.
 
 ## Running Locally
 
@@ -21,12 +30,63 @@ npm install
 npm start        # http://localhost:3000
 ```
 
-After changing `docusaurus.config.js` or `src/pages/index.js`, the dev server often needs a
-manual restart (`Ctrl+C` then `npm start`) — hot reload doesn't always pick up config changes.
+After changing `docusaurus.config.js` or `src/pages/index.js`, the dev
+server often needs a manual restart (`Ctrl+C` then `npm start`) — hot
+reload doesn't always pick up config changes.
 
-**baseUrl stays `/`.** The site deploys via GitHub Pages to the root of `are-self.com`
-and the Pages workflow depends on that. Do not change `baseUrl` without also retargeting
-the deployment — a previous attempt to move it to `/docs/` broke the Pages build.
+## Standing rulings (project-wide)
+
+Rulings that outlive any one task. Do not re-litigate or forget these.
+
+- **`baseUrl` stays `/`.** The site deploys via GitHub Pages to the
+  root of `are-self.com` and the Pages workflow depends on that. A
+  previous attempt to move it to `/docs/` broke the Pages build. Do
+  not change `baseUrl` without also retargeting the deployment.
+- **`onBrokenLinks` / `onBrokenMarkdownLinks` are deliberately `'warn'`,
+  not `'throw'`.** `/learn/*` paths point at the `are-self-learn`
+  sub-site, which is built separately and merged into `build/learn/`
+  by the composite deploy workflow. Local and CI docs-only builds
+  cannot see those paths. If the Docusaurus v4 migration moves the
+  key to `siteConfig.markdown.hooks.onBrokenMarkdownLinks`, keep the
+  `'warn'` behavior.
+- **`/learn/*` links use `pathname:///learn/…`** (the Docusaurus
+  escape hatch), not plain `to='/learn/…'`. React Router would
+  otherwise intercept the click, fail to match a registered SPA
+  route, and Docusaurus would serve its own 404. Rendered anchors
+  need `target: '_self'` too — see the navbar and footer config for
+  the pattern. The homepage has an `isLearnLink()` helper that
+  renders `/learn/*` as a plain `<a>` for the same reason.
+- **Dark-only.** Color mode switch is disabled. Every new component
+  must work on the dark background without a light-mode escape hatch.
+- **MDX curly-brace escaping.** MDX interprets `{id}` in markdown as
+  a JSX expression and crashes pages containing URL patterns like
+  `/api/v2/spiketrains/{id}/`. Escape with HTML entities
+  (`&#123;id&#125;`) or wrap in a code fence. `{{` and `}}` in
+  template examples (e.g. Django context `{{project_root}}`) also
+  need entity escaping — already applied across `brain-regions/*.md`,
+  `api-reference.md`, and `architecture.md`.
+- **`<` + digit is a JSX-tag trap.** Table cells or inline prose
+  containing `<` immediately followed by a digit (`<90%`, `<2.4.0`)
+  get parsed as HTML tags by MDX. Rewrite as prose — "less than 90%",
+  "older than 2.4.0".
+- **`a::after` underline is scoped to `.markdown a` only.** Applying
+  the animated underline globally produced visual artifacts on
+  sidebar menu items, navbar links, buttons, and breadcrumbs.
+  Explicit `display: none !important` overrides exist for
+  `.menu__link::after`, `.navbar__link::after`, `.button::after`, etc.
+- **Verify config-file edits before shipping.** A past write was
+  truncated mid-stream and corrupted `package.json`, `sidebars.js`,
+  `custom.css`, `src/pages/index.js`, and `src/pages/index.module.css`
+  simultaneously — all had to be restored from `git show HEAD:…`.
+  After writing any config file, confirm with `npm run build` or at
+  minimum check integrity with `wc -l` against git.
+- **Service-worker caching.** A prior deploy registered an
+  aggressive service worker at `/sw.js` that began intercepting
+  `/learn/` navigations and serving the docs site's cached 404.
+  `static/sw.js` now contains a self-unregistering script, and
+  `src/clientModules/unregisterStaleSW.js` handles visitors whose
+  browser hasn't run the SW update check yet. Do not re-register a
+  service worker without a full migration plan.
 
 ## Theme
 
@@ -38,67 +98,100 @@ Dark-only glassmorphic. All styling in `src/css/custom.css`. Key colors:
 - Accents: teal `#06b6d4`, purple `#a855f7`, amber `#f59e0b`, indigo `#6366f1`
 - Text: primary `rgba(255,255,255,0.95)`, secondary `0.7`, tertiary `0.5`
 
-Color mode switch is disabled — dark only.
+Blockquotes use `var(--text-primary)` for body text (rgba 0.95) for WCAG
+AA contrast on the dark panel background. Nested blockquotes shift the
+accent border to amber for visual hierarchy.
 
 ## Architecture Overview (for context)
 
 Are-Self maps brain regions to Django apps. The tick cycle runs:
-PNS → Temporal Lobe → CNS → Frontal Lobe → Parietal/Hippocampus/Hypothalamus
+PNS → Temporal Lobe → CNS → Frontal Lobe → Parietal / Hippocampus / Hypothalamus.
 
 Key components:
+
 - **CNS** — Central Nervous System: neural pathway graph editor (ReactFlow-based), spike trains
 - **Frontal Lobe** — LLM reasoning engine with addon-based prompt assembly
 - **Hippocampus** — Vector-embedded memory (pgvector, 768-dim, cosine similarity)
-- **Hypothalamus** — Model routing, Ollama integration
-- **Parietal Lobe** — Output validation ("hallucination armor")
+- **Hypothalamus** — Model catalog, routing, budgets, circuit breakers, Ollama + OpenRouter
+- **Parietal Lobe** — Tool execution ("hallucination armor")
 - **PFC** — Prefrontal Cortex: task/project management
 - **PNS** — Peripheral Nervous System: worker fleet discovery/coordination
 - **Temporal Lobe** — Scheduled task definitions and iterations
 - **Identity** — Agent identity sheets with addon/tool configurations
 - **Synaptic Cleft** — Real-time event bus (Django Channels/WebSocket)
 
-CNS Graph Editor node types: Gate (PK5), Retry (PK6), Delay (PK7), Frontal Lobe (PK8), Debug (PK9).
-Effector palette grouped by role: Logic (teal/amber/indigo), Reasoning (purple), Effectors (gray).
-Axon ports: FLOW, SUCCESS, FAIL.
+CNS Graph Editor node types (UUID constants, not integer PKs): Begin Play,
+Gate, Retry, Delay, Frontal Lobe, Debug. Axon ports: FLOW, SUCCESS, FAIL.
 
-Focus Economy: agents earn execution budget by saving novel memories (engrams with <90% cosine
-similarity to existing knowledge). Prevents infinite loops and degenerate behavior.
+**Focus Economy:** agents earn execution budget by saving novel memories
+(engrams with less than 90% cosine similarity to existing knowledge).
+Prevents infinite loops and degenerate behavior.
 
-## Known Issues & Fixes (Already Applied)
+## Content Conventions
 
-### MDX Curly Brace Escaping
-MDX (used by Docusaurus) interprets `{id}` in markdown as JSX expressions. This crashes
-pages that contain URL patterns like `/api/v2/spiketrains/{id}/`. Fix: escape with HTML
-entities `&#123;id&#125;` or wrap the entire block in a code fence.
+### Brain-Region Docs (`docs/brain-regions/`)
 
-**Affected file:** `docs/api-reference.md` — all `{id}`, `{value}`, `{query}` occurrences
-have been escaped.
+Write for a curious 10-year-old who's never heard of a hypothalamus. The
+biological analogy is the entry point, woven naturally into the
+explanation — **never a separate "Biological Analogy" section.**
 
-### CSS `a::after` Scope
-The animated underline effect (`a::after` with expanding width) was originally applied to
-ALL links globally, causing visual artifacts on sidebar menu items, navbar links, buttons,
-and breadcrumbs. Fixed by scoping to `.markdown a::after` only (content area links). An
-explicit `display: none !important` override is set for `.menu__link::after`,
-`.navbar__link::after`, `.button::after`, etc.
+- Open with real-world biology, woven into the Are-Self explanation
+- Every brain-region mention is a `[link](./slug)` — no bare text
+- Explain like you're talking to someone excited and curious, not
+  reading a spec
+- Technical details (field names, method names) are fine, introduced
+  through story
+- API endpoint tables stay, but push them to the bottom
+- End with a "How It Connects" section that links to every related region
 
-### Hero Button Visibility
-Docusaurus `button--secondary` and `button--outline` classes have no dark-theme defaults.
-Custom styles added in the BUTTONS section of `custom.css` to ensure visible text on the
-dark hero background.
+**Inline code breadcrumbs, NOT fenced Python blocks.** Code references
+go inline in the English prose, where the reader would naturally wonder
+"where is that exactly?" — drop in a short inline reference like
+`turn.apply_efficiency_bonus()` or `frontal_lobe/synapse_client.py`.
+Short controlled bursts. One line. In the flow. NOT a separate section
+or teaching moment — a reference.
 
-### 501(c)(3) Claim Removed
-`docs/contributing.md` previously claimed "building toward a 501(c)(3) nonprofit." Replaced
-with accurate language about making AI accessible to underserved communities.
+The Tick Cycle in `architecture.md` is the exception — it uses two full
+diagram blocks (English then Python file paths) because it's mapping
+the entire system flow.
+
+Hypothalamus and Frontal Lobe docs were rewritten directly against the
+codebase with verified technical details. The other nine brain-region
+docs were rewritten from prior doc content and may carry small
+inaccuracies inherited from earlier agents — spot-check against the
+code when touching them.
+
+### UI Walkthrough Pages (`docs/ui/`)
+
+Each page follows the same structure:
+
+1. Frontmatter with `id`, `title`, `sidebar_position`
+2. Intro paragraph explaining the page's purpose
+3. "Getting There" section with navigation instructions
+4. Annotated screenshots with descriptive prose (not bullet lists)
+5. Key concepts glossary at the bottom
+
+Images referenced as `/img/ui/filename.png` (Docusaurus static path).
+Screenshot file convention: `static/img/ui/` with kebab-case names
+matching the walkthrough page (e.g., `cns-dashboard.png`,
+`cns-pre-release-editor.png`).
+
+### Sidebar Structure (`sidebars.js`)
+
+Main categories: `intro` → Getting Started → The Brain (architecture +
+brain-regions + axoplasm) → UI Walkthrough → OpenRouter → API Reference
+→ MCP Server → Security → Storybook → FAQ → Contributing → Style Guide
+→ Features → Acknowledgments.
 
 ## Screenshot Capture for UI Walkthroughs
 
-**Problem:** The Chrome MCP `save_to_disk` flag stores screenshots in the extension's
-in-memory store (accessible to the AI agent but NOT written to the filesystem). Playwright
-cannot install browser binaries in the Cowork sandbox.
+**Problem:** The Chrome MCP `save_to_disk` flag stores screenshots in
+the extension's in-memory store (accessible to the AI agent but NOT
+written to the filesystem). Playwright cannot install browser binaries
+in the Cowork sandbox.
 
-**Workaround — html2canvas via JavaScript injection:**
-
-Navigate to the target page in the Chrome MCP tab, then run this via `javascript_tool`:
+**Workaround — html2canvas via JavaScript injection.** Navigate to the
+target page in the Chrome MCP tab, then run this via `javascript_tool`:
 
 ```javascript
 (async function() {
@@ -136,43 +229,76 @@ Navigate to the target page in the Chrome MCP tab, then run this via `javascript
 })()
 ```
 
-This triggers a browser download to the user's Downloads folder. The user then moves the
-file to `static/img/ui/`. html2canvas renders the DOM (not a pixel-perfect browser
-screenshot) so complex WebGL/canvas elements may not capture perfectly — for those,
-Michael uses IBS (screen capture tool) manually.
+This triggers a browser download to the user's Downloads folder. The
+user then moves the file to `static/img/ui/`. html2canvas renders the
+DOM (not a pixel-perfect browser screenshot) so complex WebGL/canvas
+elements may not capture perfectly — for those, Michael uses IBS
+(screen capture tool) manually.
 
-**Screenshot file convention:** All UI walkthrough images go in `static/img/ui/` with
-kebab-case names matching the walkthrough page (e.g., `cns-dashboard.png`,
-`cns-pre-release-editor.png`).
+**html2canvas CSS `color()` limitation.** Pages using Three.js / React
+Three Fiber (Frontal Lobe session detail, Background Canvas) use the
+CSS `color()` function which html2canvas 1.4.1 cannot parse. For these
+pages, use IBS or browser devtools screenshot instead.
 
-**Current state:** 4 real screenshots exist in `static/img/ui/`:
-- `cns-dashboard.png` (2110x1080)
-- `cns-effector-palette.png` (240x310)
-- `cns-pre-release-editor.png` (2110x1080)
-- `cns-temporal-lobe-pathway.png` (1264x653)
+## Site Integration
 
-## UI Walkthrough Pages
+### Composite Deploy (`.github/workflows/deploy.yml`)
 
-Located in `docs/ui/`. Each page follows the same structure:
-1. Frontmatter with `id`, `title`, `sidebar_position`
-2. Intro paragraph explaining the page's purpose
-3. "Getting There" section with navigation instructions
-4. Annotated screenshots with descriptive prose (not bullet lists)
-5. Key concepts glossary at the bottom
+Triggers:
 
-Images referenced as `/img/ui/filename.png` (Docusaurus static path).
+- `push` to `main` on this repo
+- `repository_dispatch` type `learn-updated` fired by the
+  `are-self-learn` repo when it changes
 
-**Completed:** `cns-editor.md` — full walkthrough with 4 real screenshots.
-**Remaining stubs (10 pages):** blood-brain-barrier, identity, temporal-lobe, prefrontal-cortex,
-cns-monitor, frontal-lobe, hippocampus, hypothalamus, environments, pns.
+Steps: checkout both repos → `npm ci && npm run build` on this repo →
+`npm ci && npm run build` on `are-self-learn/site` → copy learn build
+into `build/learn/` → upload merged artifact → deploy to GitHub Pages.
+
+### `/learn/` Cross-Site Linking
+
+The are-self-learn sub-site is served from `/learn/` on are-self.com.
+The docs SPA has no React Router route for it — any `<Link to='/learn/…'>`
+gives a client-side 404. Always route cross-site links through
+`pathname:///learn/…`:
+
+- **Navbar item:** `href: 'pathname:///learn/'`, `target: '_self'`
+- **Footer items:** same pattern
+- **Homepage cards:** `src/pages/index.js` has an `isLearnLink()`
+  helper that renders `/learn/*` as `<a href=…>` instead of `<Link>`
+
+### Research Cross-Linking
+
+- `docusaurus.config.js` navbar has Research link → `/docs/research`
+- Footer has Research Papers link + GitHub (Research) link
+- Homepage door "I am a Researcher / Journalist" links to
+  `/docs/research`
+- `docs/research.md` summarizes all six papers with links to the
+  are-self-research repo
+
+## Security Docs
+
+Located in `docs/security/`. Five files plus the landing page:
+
+- `security.md` — landing page
+- `security/data-flow-privacy.md` — COPPA/GDPR/HIPAA/FERPA alignment
+- `security/responsible-ai.md` — Focus Economy, safety for minors
+- `security/incident-response.md` — CVE response process
+- `security/sbom.md` — Software bill of materials
+- `dependency-audit.md` — sibling page, linked from the Security sidebar
+
+**SBOM trap:** Table cells containing `<` followed by digits will be
+interpreted as HTML tags by MDX. Use prose like "older than 2.4.0"
+instead of `<2.4.0` (see the Standing Rulings note above).
 
 ## Research Papers (are-self-research repo)
 
-All 6 papers have substantial LaTeX outlines in `papers/*/paper.tex`. The flagship
-`neuro-mimetic-architecture` paper has the most content (full draft with TODO evaluation sections).
+All 6 papers have substantial LaTeX outlines in `papers/*/paper.tex`.
+The flagship `neuro-mimetic-architecture` paper has the most content
+(full draft with TODO evaluation sections).
 
-**Papers need to be compiled to PDF.** `pdflatex` is available in the Cowork sandbox at
-`/usr/bin/pdflatex`. Compile with:
+`pdflatex` is available in the Cowork sandbox at `/usr/bin/pdflatex`.
+Compile with:
+
 ```bash
 cd papers/neuro-mimetic-architecture
 pdflatex paper.tex
@@ -181,191 +307,48 @@ pdflatex paper.tex
 pdflatex paper.tex
 ```
 
-The `apa7` LaTeX document class is required. If not installed, papers can also be compiled
-via [Overleaf](https://overleaf.com) by importing the paper directory.
+The `apa7` document class is required. If not installed, papers can
+also be compiled via [Overleaf](https://overleaf.com) by importing the
+paper directory.
 
-**Cross-linking is set up:**
-- `docusaurus.config.js` navbar has Research link → `/docs/research`
-- Footer has Research Papers link + GitHub (Research) link
-- Homepage feature card "Small Models, Big Work" links to `/docs/research`
-- `docs/research.md` has summaries of all 6 papers with links to the GitHub repo
+## Homepage (`src/pages/index.js`)
 
-## Security Docs
+- **Hero:** `static/img/hero.png` + title + tagline + two CTAs
+  ("Start with the Story" → `/docs/storybook`, "For Developers" →
+  `/docs/quick-start`)
+- **Six audience doors:** Teacher (→ `/learn/…`), Student
+  (→ storybook), Developer (→ quick-start), Curious (→ architecture),
+  Researcher/Journalist (→ research), Corporate Trainer (→ `/learn/`)
+- **Video section:** embedded YouTube explainer
+- **News strip:** three cards (launched are-self-learn, SDCC 2026 on
+  the Haunted Space Hotel booth, storybook read tonight)
+- **Variables strip:** the twelve scipraxian variables as a quiet band
+  linking out to scipraxian.org
 
-Located in `docs/security/`. Five files:
-- `index.md` — Security overview landing page
-- `data-flow-privacy.md` — COPPA/GDPR/HIPAA/FERPA alignment
-- `responsible-ai.md` — Focus Economy, safety for minors
-- `incident-response.md` — CVE response process
-- `sbom.md` — Software bill of materials
-
-**SBOM warning:** Table cells containing `<` followed by digits will be interpreted as HTML
-tags by MDX. Use prose like "older than 2.4.0" instead of `<2.4.0`.
-
-## Sidebar Structure
-
-Defined in `sidebars.js`. Main categories:
-- Top-level docs (What is Are-Self, Getting Started, The Brain, etc.)
-- UI Walkthrough (category with 11 sub-pages)
-- API Reference
-- Security (category with sub-pages)
-- Contributing, Style Guide, Features, Acknowledgments
-
-## Homepage (src/pages/index.js)
-
-Feature cards are clickable links with glassmorphic hover effects (defined in `index.module.css`).
-Each feature has `title`, `description`, and `link` properties. Cards link to relevant doc pages.
-
-## Session 3 Changes (April 6, 2026)
-
-### All 10 UI Walkthrough Stubs Filled
-Every stub in `docs/ui/` now has full prose content following the cns-editor.md template:
-intro paragraph, "Getting There" section, annotated panel descriptions, and Key Concepts glossary.
-
-Pages completed: blood-brain-barrier, identity, temporal-lobe, prefrontal-cortex, cns-monitor,
-frontal-lobe, hippocampus, hypothalamus, environments, pns.
-
-### Quick Start Guide Written
-`docs/quick-start.md` — 5-minute guide: prerequisites, clone, install, first environment,
-first identity, pull model, create pathway, fire spike.
-
-### 15 Screenshots in static/img/ui/
-Captured via html2canvas at 1280x800 (scale 2x). Files:
-blood-brain-barrier.png, identity-roster.png, identity-loadout.png, temporal-lobe.png,
-prefrontal-cortex.png, cns-monitor.png, hippocampus.png, hypothalamus.png, environments.png,
-pns.png, frontal-lobe-session.png (IBS capture — html2canvas fails on CSS `color()` function).
-Plus 4 original CNS screenshots restored from git.
-
-### html2canvas CSS `color()` Limitation
-Pages using Three.js / React Three Fiber (Frontal Lobe session detail, Background Canvas)
-use the CSS `color()` function which html2canvas 1.4.1 cannot parse. For these pages,
-use IBS or browser devtools screenshot instead.
-
-### Truncated File Issue
-Several files were truncated during session 2 (likely a write that was interrupted):
-package.json, sidebars.js, src/css/custom.css, src/pages/index.js, src/pages/index.module.css.
-All were repaired by restoring missing content from `git show HEAD:filename`.
-**Lesson:** After writing config files, always verify with `npm run build` or at minimum
-check file integrity with `wc -l` against git.
-
-### MDX Escaping Applied Globally
-All `{id}`, `{value}`, `{query}` patterns in docs/ were escaped to HTML entities.
-This affects brain-regions/*.md and api-reference.md. The `<` + digit pattern
-(e.g., `<90%`) must also be written as prose ("less than 90%") to avoid MDX JSX parsing.
-
-## Session 4 Changes (April 7, 2026 — Release Day)
-
-### Gemma4 Rollback
-Gemma4 changed its output format, breaking the Frontal Lobe reasoning loop. Empirical testing
-confirmed Qwen outperforms Gemma4 on the Are-Self framework. Rolled back to Qwen for release.
-A parser is being developed to support Gemma4's new format post-release.
-
-### OpenRouter Sync Restored
-The OpenRouter provider sync feature (`sync_remote`) has been brought back. This allows
-Are-Self to pull cloud model catalogs from OpenRouter in addition to local Ollama models.
-Feature is untested but shipping. **Needs documentation** — add to Hypothalamus docs explaining
-configuration, API key setup, and what models become available.
-
-### READMEs Updated
-All four repo READMEs updated for public release.
-
-### Remaining Docs Work
-- **OpenRouter documentation** — new feature needs a docs page or section
-- **FAQ page** — `docs/faq.md` needed for common questions
-- **Homepage visual refresh** — main landing page needs more screenshots/images for impact
-- **AI transparency statement** — "Built With" section for READMEs and a docs page explaining
-  the human-architect + AI-tool collaboration model (see MEDIA_PLAN.md in are-self-documents)
-
-### Video Assets
-Michael has recorded video of the major brain region UIs. First video target is the Unreal
-end-to-end pipeline demo. Videos being assembled in kdenlive.
-
-### Social Media Accounts Created
-All accounts live under the `scipraxian` handle. See MEDIA_PLAN.md in are-self-documents
-for full account list, media strategy, and content plan.
-
-## Session 5 Changes (April 9, 2026)
-
-### Brain Region Docs Rewrite — Kid-Friendly Tone
-The brain-region docs were written by a previous agent in a dry, textbook style. Michael's
-directive: write for a 10-year-old who's never heard of a hypothalamus. The biological
-analogy should be the entry point, woven naturally into the explanation, not a separate
-"Biological Analogy" section. Technical accuracy stays, but the framing meets a curious kid.
-
-**All 11 brain-region docs rewritten:** hypothalamus, frontal-lobe, central-nervous-system,
-hippocampus, identity, parietal-lobe, peripheral-nervous-system, prefrontal-cortex,
-synaptic-cleft, temporal-lobe, thalamus. All cross-references are clickable links.
-Hypothalamus and frontal-lobe were rewritten from the actual codebase with verified
-technical details. Mermaid flowcharts for error classification in hypothalamus.
-
-**Style rules discovered in this session:**
-- Open with the real-world biology, woven into the Are-Self explanation (not a separate section)
-- Every brain-region mention must be a `[link](./slug)` — no bare text references
-- Explain like you're talking to someone excited and curious, not reading a spec
-- Keep API endpoint tables but push them to the bottom
-- "How It Connects" section at the end with all links
-- Technical details (field names, method names) are fine but introduced through story
-
-### Hypothalamus Circuit Breaker Fix
-Code fix in `are-self-api` prompted the doc rewrite. The Hypothalamus docs now cover
-circuit breaker backoff math, resource cooldown (OOM handling), scar tissue, and the
-Synapse Client error classification flow — all verified against the actual code.
-
-### All Brain Region Docs Complete
-All 11 docs rewritten in same session. The 9 remaining docs (central-nervous-system,
-hippocampus, identity, parietal-lobe, peripheral-nervous-system, prefrontal-cortex,
-synaptic-cleft, temporal-lobe, thalamus) were parallelized across subagents. Each agent
-read the hypothalamus.md as the style reference. Michael should review all 11 for
-consistency — the hypothalamus and frontal-lobe docs were written directly with full
-code verification; the other 9 were rewritten from the existing doc content (not the code)
-so may have inherited inaccuracies from the previous agent's guesses.
-
-### Architecture.md Rewrite
-`docs/architecture.md` rewritten with the same kid-friendly tone and full cross-links.
-Changes:
-- Fixed copy-paste duplication in Identity section (lines 74-82 had repeated paragraph)
-- Fixed truncated last line ("prove" → "provenance — linked to the session, turn...")
-- Every brain-region mention is now a clickable `[link](./brain-regions/slug)` link
-- Escaped `{{` template variables with HTML entities to avoid MDX JSX parsing crashes
-- Biology-first framing added to region descriptions that were missing it
-- Data Flow Principles section completed and cross-linked
-- Path format fixed: `identity/` → `/identity` (mirror the URL, not the directory)
-
-### Inline Code Breadcrumbs — NOT Code Blocks
-Michael's directive (corrected): code references go INLINE in the English prose, not
-as separate fenced code blocks. The pattern is: explain in English, and where the reader
-would naturally wonder "where is that exactly?", drop in a short inline code reference
-like `turn.apply_efficiency_bonus()` or `frontal_lobe/synapse_client.py`. Short controlled
-bursts. One line. In the flow. NOT a separate section, NOT a teaching moment — a reference.
-
-The Tick Cycle in architecture.md is the exception — it uses two full diagram blocks
-(English then Python file paths) because it's mapping the entire system flow.
-
-All 11 brain-region docs now have inline code breadcrumbs woven into their prose,
-verified against the actual codebase (method names, file paths, class names, constants).
-No fenced python code blocks remain in any brain-region doc.
+Each card has glassmorphic hover effects defined in `index.module.css`.
 
 ## Scipraxianism
 
-Are-Self exists inside a philosophy called **Scipraxianism**, co-developed by
-Michael Clark ("The Scipraxian") and **Andrew Piper** over many years. You do
-not need to master it to work in this repo, but if a design question touches
-*why* something is free, local, or shaped the way it is, the answer usually
-traces back to scipraxianism. The Creed is AI-facing (ten binary-numbered
-assertions at [scipraxian.org](https://scipraxian.org)). The working layer is
-the **Twelve Variables**: Inclusion · Humility · Inquiry · Fulfillment or
-Happiness · Religion or Profit · Fun · Fear · Responsibility · Perseverance ·
-Perception · Time · Permadeath. The first three are the kid-scale compression
-used in the curriculum and the storybook — **do not mistake the three for the
-whole philosophy**.
+Are-Self exists inside a philosophy called **Scipraxianism**, co-developed
+by Michael Clark ("The Scipraxian") and **Andrew Piper** over many years.
+You do not need to master it to work in this repo, but if a design
+question touches *why* something is free, local, or shaped the way it
+is, the answer usually traces back to scipraxianism. The Creed is
+AI-facing (ten binary-numbered assertions at
+[scipraxian.org](https://scipraxian.org)). The working layer is the
+**Twelve Variables**: Inclusion · Humility · Inquiry · Fulfillment or
+Happiness · Religion or Profit · Fun · Fear · Responsibility ·
+Perseverance · Perception · Time · Permadeath. The first three are the
+kid-scale compression used in the curriculum and the storybook — **do
+not mistake the three for the whole philosophy**.
 
-Are-Self is Michael's solo handiwork (though he bounces everything off Andrew,
-the way they always have). The sister franchise **Haunted Space Hotel** is
-Andrew and Michael jointly — HSH's in-world Factional Omniarchy of Snohe is
-the galactic government that adopted scipraxianism as its official ethical
-framework. HSH lives at [hauntedspacehotel.com](https://hauntedspacehotel.com)
-and is deliberately kept off the scipraxian GitHub profile.
+Are-Self is Michael's solo handiwork (though he bounces everything off
+Andrew, the way they always have). The sister franchise **Haunted Space
+Hotel** is Andrew and Michael jointly — HSH's in-world Factional
+Omniarchy of Snohe is the galactic government that adopted
+scipraxianism as its official ethical framework. HSH lives at
+[hauntedspacehotel.com](https://hauntedspacehotel.com) and is
+deliberately kept off the scipraxian GitHub profile.
 
-Full Claude-facing briefing:
-`are-self-documents/scipraxian/scipraxian-tldr.md`. Master reference:
-`are-self-documents/scipraxian/scipraxian.md`.
+Full Claude-facing briefing: `are-self-documents/scipraxian/scipraxian-tldr.md`.
+Master reference: `are-self-documents/scipraxian/scipraxian.md`.
