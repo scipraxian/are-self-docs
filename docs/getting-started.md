@@ -11,18 +11,18 @@ you'll have an AI persona thinking, using tools, and forming memories on your ow
 
 ## Before You Start
 
-Make sure the backend and frontend are running. You should be able to open
-`http://localhost:5173` and see the 3D brain landing page.
+This guide assumes Are-Self is already installed and running. If it isn't,
+head over to [Install Are-Self](./quick-start) first — it takes about half
+an hour, mostly waiting for downloads. When you're done, double-click
+`are-self.bat` (on Windows) or launch the three processes by hand (on
+Mac/Linux) and come back here.
 
-You'll also need at least one model running in Ollama:
-
-```bash
-ollama pull llama3.2
-ollama pull nomic-embed-text
-```
-
-The first is for reasoning. The second is for memory embeddings — it runs automatically, you don't interact with it
-directly.
+You should be able to open [http://localhost:5173](http://localhost:5173)
+and see the 3D brain landing page. You should also have at least one
+reasoning model pulled in Ollama — `llama3.2` from the install page's
+"say hello" step works fine for a first run. The embedding model
+(`nomic-embed-text`) is pulled automatically by the installer; you
+don't interact with it directly.
 
 ## Step 1: Create an Environment
 
@@ -170,5 +170,9 @@ Here's how to improve:
 **The UI shows stale data:**
 
 - Check the browser console for WebSocket connection errors
-- Make sure Daphne is running (not `runserver` — Daphne handles WebSocket)
-- Refresh the page — if data appears, the WebSocket connection d
+- Make sure the Django server window is still open. With `channels` in
+  `INSTALLED_APPS`, `manage.py runserver` is automatically replaced with
+  Daphne, so `are-self.bat`'s normal server window serves WebSockets too.
+- Refresh the page — if data appears, the WebSocket connection dropped
+  and the page needs a clean reconnect. If this happens often, check for
+  antivirus or firewall software interfering with `localhost` traffic.

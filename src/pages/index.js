@@ -98,6 +98,12 @@ const doors = [
     description:
       'Honest, vendor-neutral AI literacy and cost-management curricula for teams that actually have to explain their OpenAI bill to the CFO.',
   },
+  {
+    title: 'I just want to see it run',
+    link: '/docs/end-to-end',
+    description:
+      'One continuous session, sixteen screenshots — Identity forged, Pathway built, SpikeTrain fired, Frontal Lobe reasoning captured, Nerve Terminal reporting. The whole machine in one page.',
+  },
 ];
 
 function Door({ title, description, link }) {
@@ -115,6 +121,46 @@ function Door({ title, description, link }) {
         <Link to={link} className={styles.featureLink}>{inner}</Link>
       )}
     </div>
+  );
+}
+
+// Featured: the end-to-end walkthrough. Sits above the six doors
+// because it's the single highest-bandwidth answer to "what is this
+// thing?" for anyone who has installed Are-Self and wants to see the
+// whole tick cycle in one page.
+function FeaturedWalkthrough() {
+  const thumbSrc = useBaseUrl('/img/ui/e2e-09-graph-view.png');
+  return (
+    <section className={styles.featuredSection}>
+      <div className="container">
+        <Link to="/docs/end-to-end" className={styles.featuredCard}>
+          <div className={styles.featuredThumbWrap}>
+            <img
+              src={thumbSrc}
+              alt="The Frontal Lobe 3D graph view from the end-to-end walkthrough"
+              className={styles.featuredThumb}
+              loading="lazy"
+            />
+          </div>
+          <div className={styles.featuredBody}>
+            <span className={styles.featuredTag}>Featured walkthrough</span>
+            <h2 className={styles.featuredTitle}>
+              Are-Self, end-to-end — in one continuous session
+            </h2>
+            <p className={styles.featuredLede}>
+              Identity forged, Pathway built, SpikeTrain fired, Frontal
+              Lobe reasoning captured, tool calls logged, Nerve Terminal
+              reporting — sixteen screenshots from a single clean run
+              on 2026-04-21. If you've installed Are-Self and want to
+              see the whole tick cycle at once, start here.
+            </p>
+            <span className={styles.featuredCta}>
+              Walk through the run →
+            </span>
+          </div>
+        </Link>
+      </div>
+    </section>
   );
 }
 
@@ -237,6 +283,7 @@ export default function Home() {
     >
       <HomepageHeader />
       <main>
+        <FeaturedWalkthrough />
         <section className={styles.features}>
           <div className="container">
             <div className="row">

@@ -10,6 +10,7 @@ const sidebars = {
         'quick-start',
       ],
     },
+    'end-to-end',
     {
       type: 'category',
       label: 'The Brain',
