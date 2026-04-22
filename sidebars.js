@@ -8,6 +8,7 @@ const sidebars = {
       items: [
         'getting-started',
         'quick-start',
+        'will-it-run',
       ],
     },
     'end-to-end',

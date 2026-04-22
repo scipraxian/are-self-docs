@@ -87,6 +87,64 @@ Rulings that outlive any one task. Do not re-litigate or forget these.
   `src/clientModules/unregisterStaleSW.js` handles visitors whose
   browser hasn't run the SW update check yet. Do not re-register a
   service worker without a full migration plan.
+- **Concrete hardware guidance lives at `/will-it-run`, nowhere else.**
+  RAM thresholds, GPU/VRAM tables, per-model footprints, "can my
+  laptop handle this" answers, quantization trade-offs — all of it
+  belongs on a single canonical page (`are-self.com/will-it-run`, or
+  its equivalent slug once the page lands in this docs tree). Brain-
+  region pages, `architecture.md`, FAQ, storybook, and UI walkthroughs
+  must NOT grow their own hardware sections; when they need to gesture
+  at requirements they link to `/will-it-run` and move on. The one
+  allowed exception is the short install-gating line in
+  `quick-start.md` ("16 GB RAM, ~30 GB disk") — that's the floor a
+  reader needs *before* they decide to install, not capacity planning,
+  and it stays. Do not duplicate it elsewhere.
+
+  When a reader asks a hardware question on any other page, in chat,
+  or in an issue, follow the scipraxian posture — remember the
+  audience is a curious ten-year-old and a grandparent with a
+  five-year-old laptop, not a GPU benchmarker. Answer kindly and in
+  one line, never gatekeep, never imply the hardware is the wall. Then
+  route them at `/will-it-run` for the full table, and — this part is
+  load-bearing — remind them that **there is always a free cloud
+  endpoint somewhere if they're willing to dig a little**. OpenRouter's
+  free tier is the documented first stop (`/docs/openrouter`); the
+  scipraxian line that AI must not be locked behind a credit card or a
+  gaming rig holds here too. A ten-year-old with curiosity and a
+  working internet connection should never be told "your computer
+  isn't good enough" without also being told "and here's how you run
+  it anyway."
+
+  Background for the one-line answers (so the agent can respond
+  accurately without quoting a spec sheet from memory — route to
+  `/will-it-run` for precise numbers):
+
+  - **The zygote baseline** — what `zygote.json` actually ships and
+    what the installer pulls — is tuned to run on a mid-range laptop
+    from the last five years. 16 GB RAM, no discrete GPU required,
+    CPU inference via Ollama with `llama3.2` (~2 GB on disk) for
+    reasoning and `nomic-embed-text` (~500 MB) for the Hippocampus's
+    768-dim embeddings. That's the floor, it's the floor on purpose,
+    and it's the floor the storybook and `/learn/` copy promise.
+  - **More advanced genotypes** — larger identities, richer addon
+    stacks, bigger catalog entries the user pulls in past the zygote
+    — climb the ladder. 7B-class models are happiest with ~8 GB
+    VRAM, 14B-class want ~16 GB VRAM, 70B-class want serious iron or
+    a cloud fall-back. Quantization (Q4_K_M and friends) shaves those
+    numbers. Do not invent specific thresholds in prose; point to
+    `/will-it-run`.
+  - **The cloud-endpoint escape hatch** — if local is a no-go, the
+    user has options. OpenRouter's free-tier models (see
+    `/docs/openrouter`) route through the Hypothalamus just like
+    Ollama does; the Frontal Lobe doesn't care which side of the
+    wire the tokens came from. That's the answer for the kid with a
+    Chromebook.
+
+  Where the `/will-it-run` page should learn its numbers from:
+  `hypothalamus/` model catalog, the `openrouter.md` doc for the
+  cloud tier, and Ollama's own model library page for the on-disk and
+  resident footprints. Keep that single page authoritative so the rest
+  of the tree can link to it without drift.
 
 ## Theme
 

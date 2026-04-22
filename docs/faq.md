@@ -10,7 +10,7 @@ sidebar_position: 12
 
 ### What hardware do I need to run Are-Self?
 
-Are-Self is designed for consumer hardware — a modern laptop or desktop with at least 8GB of RAM will work. For best performance with larger models, we recommend 16GB+ RAM. See the [Getting Started Guide](./getting-started.md) for specific system requirements.
+The short answer: a mid-range laptop from the last five years with **16 GB of RAM** and about **30 GB of free disk space** — no graphics card required. That's the zygote floor, and it's the floor on purpose. For the full picture — model size tables, GPU/VRAM guidance, Apple Silicon notes, Chromebook answers, and the free cloud endpoint for machines that can't run locally — see **[Will It Run?](./will-it-run.md)**. No one gets turned away at the door here.
 
 ### Do I need an internet connection?
 
