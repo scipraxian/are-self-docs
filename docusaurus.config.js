@@ -172,7 +172,7 @@ const config = {
               },
               {
                 label: 'Scipraxian',
-                href: 'https://scipraxian.org',
+                href: 'http://scipraxian.org',
               },
             ],
           },

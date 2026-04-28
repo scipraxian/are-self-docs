@@ -391,9 +391,9 @@ Are-Self exists inside a philosophy called **Scipraxianism**, co-developed
 by Michael Clark ("The Scipraxian") and **Andrew Piper** over many years.
 You do not need to master it to work in this repo, but if a design
 question touches *why* something is free, local, or shaped the way it
-is, the answer usually traces back to scipraxianism. The Creed is
+is, the answer usually traces back to Scipraxianism. The Creed is
 AI-facing (ten binary-numbered assertions at
-[scipraxian.org](https://scipraxian.org)). The working layer is the
+[scipraxian.org](http://scipraxian.org)). The working layer is the
 **Twelve Variables**: Inclusion · Humility · Inquiry · Fulfillment or
 Happiness · Religion or Profit · Fun · Fear · Responsibility ·
 Perseverance · Perception · Time · Permadeath. The first three are the
@@ -404,7 +404,7 @@ Are-Self is Michael's solo handiwork (though he bounces everything off
 Andrew, the way they always have). The sister franchise **Haunted Space
 Hotel** is Andrew and Michael jointly — HSH's in-world Factional
 Omniarchy of Snohe is the galactic government that adopted
-scipraxianism as its official ethical framework. HSH lives at
+Scipraxianism as its official ethical framework. HSH lives at
 [hauntedspacehotel.com](https://hauntedspacehotel.com) and is
 deliberately kept off the scipraxian GitHub profile.
 

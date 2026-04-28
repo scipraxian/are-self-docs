@@ -261,16 +261,16 @@ function VariablesStrip() {
     <section className={styles.variablesStrip}>
       <div className="container">
         <p className={styles.variablesIntro}>
-          Are-Self is built inside a philosophy called{' '}
           <a
-            href="https://scipraxian.org"
+            href="http://scipraxian.org"
             target="_blank"
             rel="noopener noreferrer"
           >
-            scipraxianism
+            Scipraxianism
           </a>
-          . Every meaningful decision weighs against twelve variables,
-          not one.
+          {' '}is a philosophy anyone can read, recognize, and choose.
+          Are-Self is built inside it. Every meaningful decision weighs
+          all twelve, together.
         </p>
         <ul className={styles.variablesList}>
           {variables.map((v, i) => (
