@@ -35,14 +35,21 @@ function HomepageHeader() {
             className="button button--secondary button--lg"
             to="/docs/storybook"
           >
-            Start with the Story
+            Start with Story
           </Link>
           <Link
             className="button button--outline button--lg"
             to="/docs/quick-start"
             style={{ marginLeft: '1rem' }}
           >
-            For Developers
+            Install
+          </Link>
+          <Link
+            className="button button--outline button--lg"
+            to="/docs/state"
+            style={{ marginLeft: '1rem' }}
+          >
+            Join Us
           </Link>
         </div>
       </div>
@@ -104,6 +111,12 @@ const doors = [
     description:
       'One continuous session, sixteen screenshots — Identity forged, Pathway built, SpikeTrain fired, Frontal Lobe reasoning captured, Nerve Terminal reporting. The whole machine in one page.',
   },
+  {
+    title: 'I want to help',
+    link: '/docs/state#how-to-come-along',
+    description:
+      'Curriculum, code, papers, broker a 501(c)(3) to deploy Are-Self, or help cover the bill so it stays free. Five real doors; only one needs a keyboard.',
+  },
 ];
 
 function Door({ title, description, link }) {
@@ -121,6 +134,50 @@ function Door({ title, description, link }) {
         <Link to={link} className={styles.featureLink}>{inner}</Link>
       )}
     </div>
+  );
+}
+
+// State pulse — two bars, set between the hero and the featured
+// walkthrough. Visitors see where the work stands without clicking
+// through. The full story lives at /docs/state.
+function StatePulse() {
+  return (
+    <section className={styles.statePulse}>
+      <div className="container">
+        <p className={styles.statePulseLede}>
+          Alive since January 2026. MIT licensed and free for everyone
+          since April 7. Still learning.
+        </p>
+        <div className={styles.statePulseBars}>
+          <Link to="/docs/state" className={styles.statePulseBar}>
+            <span className={styles.statePulseLabel}>Core platform</span>
+            <span className={styles.statePulseTrack}>
+              <span
+                className={styles.statePulseFill}
+                style={{ width: '95%' }}
+              />
+            </span>
+            <span className={styles.statePulsePct}>~95% to 1.0</span>
+          </Link>
+          <a
+            href="/learn/"
+            target="_self"
+            className={styles.statePulseBar}
+          >
+            <span className={styles.statePulseLabel}>
+              Bundles &amp; curriculum
+            </span>
+            <span className={styles.statePulseTrack}>
+              <span
+                className={styles.statePulseFill}
+                style={{ width: '55%' }}
+              />
+            </span>
+            <span className={styles.statePulsePct}>growing forever</span>
+          </a>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -283,6 +340,7 @@ export default function Home() {
     >
       <HomepageHeader />
       <main>
+        <StatePulse />
         <FeaturedWalkthrough />
         <section className={styles.features}>
           <div className="container">

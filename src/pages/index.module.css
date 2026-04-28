@@ -52,6 +52,100 @@
   margin-top: 2rem;
 }
 
+/* ---------- State pulse (two bars, between hero and featured) ---------- */
+
+.statePulse {
+  padding: 2rem 0 2.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(26, 26, 46, 0.3);
+}
+
+.statePulseLede {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 720px;
+  margin: 0 auto 1.5rem auto;
+}
+
+.statePulseBars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.statePulseBar {
+  display: grid;
+  grid-template-columns: 200px 1fr 140px;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.statePulseBar:hover {
+  color: inherit;
+  text-decoration: none;
+  background: rgba(6, 182, 212, 0.06);
+  border-color: rgba(6, 182, 212, 0.25);
+  transform: translateX(2px);
+}
+
+.statePulseBar:hover .statePulseLabel,
+.statePulseBar:hover .statePulsePct {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.statePulseLabel {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  text-align: right;
+  font-weight: 500;
+}
+
+.statePulseTrack {
+  display: block;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.statePulseFill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #06b6d4, #a855f7);
+  border-radius: 4px;
+}
+
+.statePulsePct {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .statePulseBar {
+    grid-template-columns: 120px 1fr 100px;
+    gap: 0.5rem;
+  }
+
+  .statePulseLabel {
+    font-size: 0.8rem;
+  }
+
+  .statePulsePct {
+    font-size: 0.75rem;
+  }
+}
+
 /* ---------- Featured walkthrough (above the doors) ---------- */
 
 .featuredSection {

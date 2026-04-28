@@ -152,6 +152,14 @@ Environments are project context. An environment has a name and a set of context
 
 Only one environment is active at a time. Switching environments changes what every view shows — different iterations, different pathways, different sessions.
 
+### [Neuroplasticity](./brain-regions/neuroplasticity) (`/neuroplasticity`)
+
+Your brain doesn't grow new lobes when you learn — it rewires. Are-Self's [Neuroplasticity](./brain-regions/neuroplasticity) does the same trick: it grows new abilities without rebuilding the system. A **NeuralModifier** is a single zip file at `neuroplasticity/genomes/<slug>.zip` that ships data (rows the bundle wants to add to the database) and code (Python that registers against existing surfaces — native handlers, Parietal MCP tools, log parsers, optional URL routes).
+
+Every row a bundle could ever own carries a `genome` foreign key pointing back at the bundle that added it. Core's own rows point at the **INCUBATOR** — Are-Self's canonical "this came from core" genome — so the cascade can never accidentally remove core when a bundle is uninstalled. Install adds rows. Uninstall deletes rows. There is no separate enable / disable; INSTALLED is the only live state. The unreal-engine bundle is the working proof — full round-trip from install through use to uninstall, no leftover rows, no broken references.
+
+The supported surfaces are the [Modifier Garden](./ui/modifier-garden) UI at `/modifiers` and the HTTP API at `/api/v2/neural-modifiers/...`.
+
 ## Data Flow Principles
 
 These rules govern how data moves through the system. They're non-negotiable.

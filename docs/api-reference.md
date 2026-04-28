@@ -32,7 +32,8 @@ Whether you're a seasoned developer, a neuroscience researcher, a computer scien
 12. [Thalamus (Chat Relay)](#thalamus-chat-relay)
 13. [Dashboard (System Monitoring)](#dashboard-system-monitoring)
 14. [Environments (Execution Context)](#environments-execution-context)
-15. [Common Patterns](#common-patterns)
+15. [Neuroplasticity (NeuralModifier Bundles)](#neuroplasticity-neuralmodifier-bundles)
+16. [Common Patterns](#common-patterns)
 
 ---
 
@@ -756,6 +757,65 @@ Executables define how tools and commands are run in an environment, including c
 |--------|----------|-------------|
 | GET | `/api/v2/executables/` | List tool executables for current environment |
 | PATCH | `/api/v2/executables/` | Update executable configuration |
+
+---
+
+## Neuroplasticity (NeuralModifier Bundles)
+
+The neuroplasticity endpoints drive the lifecycle of installable bundles — Are-Self's mechanism for adding new abilities without changing core. See [Neuroplasticity](./brain-regions/neuroplasticity) for the conceptual overview and [Writing a Bundle](./bundles/writing-a-bundle) for the bundle-author reference.
+
+The browser-driven surface is the [Modifier Garden](./ui/modifier-garden) at `/modifiers`. These endpoints are the same operations, scriptable.
+
+### Catalog and lifecycle
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/v2/neural-modifiers/` | List every NeuralModifier the system knows about (AVAILABLE, INSTALLED, BROKEN). |
+| GET | `/api/v2/neural-modifiers/<slug>/` | Bundle detail — manifest, status, contribution count, recent events. |
+| GET | `/api/v2/neural-modifiers/<slug>/impact/` | Uninstall impact preview — a per-model breakdown of rows that would be removed. Drives the confirmation dialog in the Modifier Garden. |
+| POST | `/api/v2/neural-modifiers/catalog/<slug>/install/` | Install a bundle that's already in the catalog (zip lives at `genomes/<slug>.zip`). Triggers a coordinated process restart. |
+| POST | `/api/v2/neural-modifiers/install/` | Install from a multipart upload. The uploaded `.zip` is persisted into the catalog, then the same install pipeline runs. |
+| POST | `/api/v2/neural-modifiers/<slug>/uninstall/` | Uninstall a bundle. Walks the genome cascade and removes every row owned by the bundle, then deletes the `NeuralModifier` row. Triggers a coordinated process restart. |
+
+**On the install/uninstall restart.** Adding or removing code from `sys.path` only takes full effect across a process restart, so install / uninstall / catalog-install actions all trigger one. The Celery worker is shut down to drain in-flight tasks, a fresh worker is spawned, and Django's autoreloader cycles the Daphne child. Clients calling these endpoints should expect a brief unavailability window and a reconnect.
+
+**Sample response — bundle list (`GET /api/v2/neural-modifiers/`):**
+
+```json
+[
+  {
+    "id": "0c1f3d7a-...-...-...-...",
+    "slug": "unreal",
+    "name": "Unreal Engine",
+    "version": "0.4.2",
+    "status": "INSTALLED",
+    "manifest_hash": "9f8e7d...",
+    "contribution_count": 87,
+    "last_event": {
+      "type": "INSTALL",
+      "created": "2026-04-25T15:52:00Z"
+    }
+  }
+]
+```
+
+**Sample response — uninstall impact (`GET /api/v2/neural-modifiers/<slug>/impact/`):**
+
+```json
+{
+  "slug": "unreal",
+  "rows_by_model": {
+    "central_nervous_system.Effector": 6,
+    "central_nervous_system.NeuralPathway": 14,
+    "parietal_lobe.ToolDefinition": 3,
+    "environments.ContextVariable": 12,
+    "environments.Executable": 6
+  },
+  "total_rows": 87
+}
+```
+
+The exact row-shape can drift; verify against the live API root before relying on a field.
 
 ---
 

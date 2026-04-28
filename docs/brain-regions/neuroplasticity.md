@@ -1,7 +1,7 @@
 ---
 id: neuroplasticity
 title: "Neuroplasticity — Adding New Abilities"
-description: "NeuralModifiers, contribution-based installs, manifest hashing, and how Are-Self grows new abilities without touching INSTALLED_APPS"
+description: "NeuralModifier bundles, the genome cascade, and how Are-Self grows new abilities without touching INSTALLED_APPS"
 slug: /brain-regions/neuroplasticity
 ---
 
@@ -9,133 +9,116 @@ slug: /brain-regions/neuroplasticity
 
 When you learn to ride a bike, your brain doesn't grow a whole new lobe. It rewires. Neurons that were strangers form new synapses. Pathways that didn't exist yesterday are normal today. The brain stays the same shape — it just does more. That's **neuroplasticity**: the brain's ability to learn new tricks without rebuilding itself.
 
-Are-Self works the same way. When you want it to drive Unreal Engine, or talk to a new service, or run a workflow nobody imagined when the system was written, you don't fork the codebase or add a new Django app to `INSTALLED_APPS`. You install a **NeuralModifier** — a package of new abilities that hooks into the regions that already exist. The [Central Nervous System](./central-nervous-system) gets new [Effector](./central-nervous-system) types it can fire. [Environments](../ui/environments) get new context variables. The [Parietal Lobe](./parietal-lobe) gets new tools. The brain didn't change shape. It just learned a new skill.
+Are-Self works the same way. When you want it to drive Unreal Engine, or talk to a new service, or run a workflow nobody imagined when the system was written, you don't fork the codebase or add a new Django app to `INSTALLED_APPS`. You install a **NeuralModifier** — a self-contained zip of new abilities that hooks into the regions that already exist. The [Central Nervous System](./central-nervous-system) gets new Effector types. [Environments](../ui/environments) get new context variables. The [Parietal Lobe](./parietal-lobe) gets new tools. The brain didn't change shape. It just learned a new skill.
 
-And here's the part that matters: the system can forget the skill too. Every row a modifier added is tagged with a little sticky note saying "this came from me." When you uninstall, Are-Self walks the sticky notes in reverse and removes exactly what the modifier added — nothing more, nothing less. No leftovers. No broken references. The brain forgets cleanly, the way it learned cleanly.
+And here's the part that matters: the system can forget the skill too. Every row a modifier owns is tagged with the bundle that brought it in. When you uninstall, the database walks the tags and removes exactly what the modifier added — nothing more, nothing less. The brain forgets cleanly, the way it learned cleanly.
 
 ## What a NeuralModifier Is
 
-A NeuralModifier is a bundle with two halves: **data** it wants to add to the database, and **code** it wants to register against Are-Self's existing registries. It's tracked in `neuroplasticity/models.py` by the `NeuralModifier` row — identity fields (`slug`, `version`, `author`, `license`), a cached `manifest_json`, a SHA-256 `manifest_hash` frozen at install time, and a `status` that moves through the lifecycle below.
+A NeuralModifier is a single committed file: `neuroplasticity/genomes/<slug>.zip`. The zip *is* the bundle — there's no unzipped source tree anywhere in the repo, no companion folder to keep in sync, no scattered fixtures. Open the archive and you'll find four things at the top level:
 
-Bundles live in the codebase at `neuroplasticity/modifier_genome/<slug>/` (committed, versioned, reviewable) and install into `neural_modifiers/<slug>/` at the repo root (gitignored, per-machine). The separation is intentional: the committed tree is the genome — the source material, the same on every checkout. The runtime tree is what's actually plugged in *here*, on *this* machine, right now.
+- **`manifest.json`** — metadata (slug, version, author, license), declared `entry_modules`, declared `requires:` dependencies.
+- **`modifier_data.json`** — every database row this bundle wants to add, in Django's serialized fixture format.
+- **`code/`** — a Python package that gets imported at boot to fire registration calls.
+- **`README.md`** — the end-user-facing overview.
 
-Each bundle ships four things in its genome directory: a `manifest.json` (metadata + entry-module list), a `modifier_data.json` (the Django-serialized rows the bundle contributes), a `code/` directory (the Python package imported at boot), and a `README.md` (the end-user-facing overview). The manifest's `entry_modules` are the Python module paths the loader imports — once at install, again on every boot — to run the bundle's side-effect registration calls.
+A fresh clone of Are-Self ships exactly one bundle (`genomes/unreal.zip`), which means a fresh install has exactly one row available to install: the unreal bundle. Everything else arrives later, by invitation.
 
-## The Lifecycle — Five Stages
+For the author-facing reference — manifest schema, contribution format, registration surfaces, the unreal bundle as a worked example — see [Writing a Bundle](../bundles/writing-a-bundle).
 
-Every NeuralModifier moves through a lifecycle tracked by the `NeuralModifierStatus` enum. Think of it as the modifier's progress bar:
+## Three directories, three roles
 
-| Status | What It Means |
-|--------|---------------|
-| **Discovered** | The `NeuralModifier` row exists but the bundle hasn't been installed yet. Entry point for a freshly-seen bundle, and the state `uninstall_bundle` returns to. |
-| **Installed** | The manifest validated, the payload loaded, every contributed row has a `NeuralModifierContribution` pointing at it. Code is on `sys.path`, but the bundle is dormant. |
-| **Enabled** | Actively contributing. The modifier's tools, handlers, and parsers are live — the next reasoning session will see them. |
-| **Disabled** | Installed but dormant. Rows stay in the database, code stays on `sys.path`, but bundle-contributed Parietal tools drop out of the tool manifest. |
-| **Broken** | Manifest hash drift, `modifier_data.json` failed to deserialize, or an entry module raised on import. Terminal — needs human attention. |
+All three live under `neuroplasticity/`. Two are gitignored.
 
-The driving transition is **Enabled ↔ Disabled**. Flipping a modifier off doesn't uninstall it. The rows stay, the registration calls still fired at boot, but the Parietal Lobe's per-session tool manifest filters out anything contributed by a non-ENABLED bundle. Flip it back on, start a new reasoning session, and the tools come right back.
+- **`neuroplasticity/genomes/<slug>.zip`** — committed user-facing archives. The catalog the [Modifier Garden](../ui/modifier-garden) UI displays. After the first save-to-archive, a `<slug>.zip.bak` sits next to each live zip — a single rolling backup of the previous version, mtime preserved, so an in-place save never destroys what was there before.
+- **`neuroplasticity/grafts/<slug>/`** — the runtime install tree, gitignored. When you install a bundle, its `code/` directory ends up here on `sys.path` so Python imports resolve. When you uninstall, the on-disk cleanup is deferred to the next boot's orphan sweep — Windows file locks won't let `rmtree` succeed while the process that imported the code is still running.
+- **`neuroplasticity/operating_room/`** — transient scratch, gitignored. Every install and upgrade extracts into a fresh `tempfile.mkdtemp` here, then nukes it in a `try/finally`. After any operation — success or failure — `operating_room/` is empty.
 
-Five management commands drive the full state machine: `build_modifier <slug>` (install — the name is historical; there's no separate packaging step, the bundle source *is* the distributable artifact), `enable_modifier <slug>`, `disable_modifier <slug>`, `uninstall_modifier <slug>`, and `list_modifiers` for a read-only dump of every row with its status, version, and contribution count.
+## The lifecycle — two real states
 
-## Contributions — The Uninstall Manifest
+A NeuralModifier is in one of two live states at any moment.
 
-Here's the clever bit. When a modifier installs, every row it adds to the database gets a partner row in the `neuroplasticity_neuralmodifiercontribution` table. That partner row is three things: a foreign key to the `NeuralModifier`, a `ContentType` naming the kind of model that was created (an [Effector](./central-nervous-system), an [Executable](../ui/environments), a `ToolDefinition`, whatever), and a `UUIDField` pointing at the specific row. That's a Django generic foreign key — one sticky note that can point at any model in the system, as long as the model uses UUID primary keys.
+**AVAILABLE** — the zip exists in `genomes/`, but there is no `NeuralModifier` row in the database. Nothing has been imported, nothing is on `sys.path`, the bundle is just a file sitting there waiting. The catalog endpoint surfaces availability by reading the filesystem; row-absence *is* the AVAILABLE signal.
 
-And every model a modifier could ever contribute to *does* use UUID primary keys. That's not an accident — it's the whole point of the immutability directive. Effectors, Neurons, Axons, Executables, ContextVariables, ToolDefinitions, NeuralPathways, the entire [Hypothalamus](./hypothalamus) model catalog — all UUID. Which means one generic foreign key reaches any of them.
+**INSTALLED** — the manifest validated, the payload deserialized into rows, the code copied to `grafts/<slug>/` and added to `sys.path`, the entry modules imported, the registration calls fired. The bundle is alive.
 
-When you uninstall, `loader.uninstall_bundle` walks `modifier.contributions.order_by('-created')` — **reverse** install order — pulls each target through the GFK, and deletes it. Reverse order is load-bearing: intra-bundle child rows unwind before their parents, so Django's PROTECT constraints never trip on the bundle's own graph. Orphaned contributions (where the target was already deleted out from under by other code) are still counted in the event log, and the contribution rows themselves are still removed, so the bundle cleans up after itself even in degraded states.
+A third state, **BROKEN**, is a side-branch — fired when a previously-installed bundle's manifest no longer matches its frozen hash, or when an entry module raises on import at boot, or when `manifest.json` itself can't be parsed. BROKEN means "this used to work, now something on disk has drifted, look here." It's not a transition you make on purpose; it's diagnostic.
 
-This design has a consequence worth saying out loud: **`INSTALLED_APPS` is never mutated at runtime**. Contributions are data, not Django apps. Installing a modifier doesn't reach into Django settings, doesn't reload the app registry, doesn't restart workers. It just writes rows. Uninstalling just deletes rows. The whole system stays stable because the only thing that ever changes is the database — and databases are good at change.
+That's the whole thing. Install adds the row. Uninstall deletes the row. There is no separate enable / disable. (The `NeuralModifierStatus` enum still carries `ENABLED` and `DISABLED` values for historical log-event compatibility, but no new install assigns them. Likewise `DISCOVERED` — its old "found a zip" meaning has been replaced by row-absence, which IS the AVAILABLE signal.)
 
-## The Three Registration Surfaces
+## The genome cascade — every row knows its bundle
+
+Every row a bundle could contribute to has a `genome` foreign key on it. Effectors, Neurons, Axons, Pathways, ContextVariables, ToolDefinitions, the entire [Hypothalamus](./hypothalamus) catalog — all of them carry a `GenomeOwnedMixin` that points at the `NeuralModifier` row that brought them in. The default value is the **INCUBATOR** — Are-Self's canonical "this came from core, not from a bundle" genome — so every row in the database has a real genome value. None are null. None are ambiguous.
+
+That's the engine of clean uninstall. To remove a bundle, the loader walks every model with `GenomeOwnedMixin` and deletes rows whose `genome` matches the target. INCUBATOR-owned rows — the ones core ships — are never touched, because the cascade only matches the bundle being removed. You can't accidentally remove core by uninstalling a bundle. The default value protects core by construction.
+
+The cascade is also **additive, not exclusive**. A bundle can reach rows that another bundle owns, and the cascade walker just steps through them as transit. Cross-bundle references are a feature; a bundle that builds on another bundle's contributions is a normal shape. Refusal only kicks in when the cascade's *starting point* is canonical-owned (you can't, for example, mark a core Pathway as a bundle's), not when it passes through one along the way.
+
+## The three registration surfaces
 
 Data is half the story. The other half is code, and bundles contribute code by calling registration functions that existing regions expose. Today there are three such surfaces:
 
-- **Native handlers** in `central_nervous_system/effectors/effector_casters/neuromuscular_junction.py` — `register_native_handler(slug, callable)` / `unregister_native_handler(slug)`. These are the Python callables that run when an Effector's slug resolves to bundle-provided behavior (the Unreal bundle's `update_version_metadata` is the canonical example).
-- **Parietal MCP tools** in `parietal_lobe/parietal_mcp/gateway.py` — `register_parietal_tool(name, coroutine)` / `unregister_parietal_tool(name)`. These pair with a contributed `ToolDefinition` row: the row describes the tool schema the [Frontal Lobe](./frontal-lobe) hands to the LLM, the coroutine is what actually runs when the LLM calls the tool.
+- **Native handlers** in `central_nervous_system/effectors/effector_casters/neuromuscular_junction.py` — `register_native_handler(slug, callable)` / `unregister_native_handler(slug)`. These are the Python callables that run when an Effector's slug resolves to bundle-provided behavior. The Unreal bundle's `update_version_metadata` is the canonical example.
+- **Parietal MCP tools** in `parietal_lobe/parietal_mcp/gateway.py` — `register_parietal_tool(name, coroutine)` / `unregister_parietal_tool(name)`. These pair with a contributed `ToolDefinition` row: the row describes the tool schema the [Frontal Lobe](./frontal-lobe) hands to the LLM, the coroutine is what actually runs when the LLM calls it.
 - **Log parser strategies** in `occipital_lobe/log_parser.py` — `LogParserFactory.register(log_type, strategy_cls)`. These let a bundle teach the [Occipital Lobe](./occipital-lobe) how to make sense of a new flavor of log output.
 
-All three are module-level registries that `boot_bundles()` exercises by importing each bundle's entry modules on every `AppConfig.ready` pass. Because the loader pops the entry module out of `sys.modules` and re-imports it, registration code runs more than once in the life of the process. The convention is **unregister-then-register** — unregister the slug first (idempotent, no-op if it wasn't there), then register. That keeps repeat imports from raising on duplicate registration.
+All three are module-level registries that the boot hook exercises by importing each bundle's entry modules on every `AppConfig.ready` pass. The convention is **unregister-then-register** — unregister the slug first (idempotent, no-op if nothing's there), then register. That keeps repeat imports from raising on duplicate registration.
 
-A bundle's `code/<package>/__init__.py` typically re-imports the submodules that carry the registration calls:
+## URL routes — the optional fourth surface
 
-```python
-from . import handlers       # noqa: F401 — registers native handlers
-from . import log_parsers    # noqa: F401 — registers LogParserFactory strategies
-```
+A bundle can also ship URL routes. If the bundle's package exports a `V2_GENOME_ROUTER` (a DRF `routers.SimpleRouter()` with viewsets registered), the V2 URL conf auto-discovers it at module-import time: iterate installed bundles, ensure each one's `code/` is on `sys.path`, import its `urls` module, lift its `V2_GENOME_ROUTER` into the core router. Prefix collisions refuse loudly. Missing `urls.py` is fine. Broken `urls.py` fails loudly. Bundles without route contributions don't ship a `urls.py` at all.
 
-Importing the package for any reason — by the loader, by tests, by another bundle — lands every registration the bundle wanted.
+## Install, uninstall, save — and a system restart
 
-## ENABLED vs DISABLED — What Actually Changes
+Install, uninstall, and the catalog-install action all trigger a coordinated process restart. The autonomic nervous system shuts the Celery worker down to drain in-flight tasks, spawns a fresh worker process, then touches `config/__init__.py` so Django's autoreloader cycles the Daphne child cleanly. The reason is that adding or removing code from `sys.path` only takes full effect across a restart — Python's module cache won't unload mid-process. Install / uninstall / save IS a restart, by design.
 
-The lifecycle table says DISABLED bundles are "dormant," which is accurate but thin. The concrete mechanism: `ParietalLobe._fetch_tools` queries `ToolDefinition` with an `Exists(...)` subquery against `NeuralModifierContribution`, and excludes any tool whose contribution row points at a non-ENABLED modifier. Core tools — `ToolDefinition` rows with no contribution row pointing at them — pass through untouched. The filter lives at the query layer, so there's no cache to invalidate; the next reasoning session picks up the current state on its next call to `build_tool_schemas`.
+Saving a bundle is a separate operation worth naming. The `save_bundle_to_archive` flow re-zips the current `grafts/<slug>/code/` directory and the bundle's owned rows back into `genomes/<slug>.zip`, semver-patch-bumping the version, copying the existing zip to `<slug>.zip.bak` first. It refuses to write a zip without findable entry modules, and re-opens the staged zip to verify validity before the catalog `os.replace` lands. Round-trip from edit-in-place to committed archive is one call.
 
-Native handlers and log parsers don't participate in gating today. They're registered at boot and stay registered until the process restarts; DISABLED affects which tools the LLM sees in its tool manifest, not which handlers the NMJ will dispatch to or which parsers Occipital can use. Uninstall is the clean severance: it walks the contributions, deletes the DB rows (including `ToolDefinition`s), and on the next boot the bundle's entry modules aren't imported, so nothing re-registers.
+## The supported surfaces
 
-The upshot: **disable to stop reasoning from using a bundle's tools**; **uninstall to remove the bundle entirely**.
+Two surfaces drive a bundle through its lifecycle. Both go through the same backend.
 
-## The Manifest Hash
+- **The [Modifier Garden](../ui/modifier-garden) UI** at `/modifiers`. Browser-driven. Status pills, install/uninstall buttons, manifest viewer, event log. The path of least resistance for everyday use.
+- **The HTTP API** at `/api/v2/neural-modifiers/...`. Same operations, scriptable. See [API Reference](../api-reference) for endpoints.
 
-Every install freezes a SHA-256 of the manifest on the `NeuralModifier.manifest_hash` field. Every boot, `boot_bundles()` rehashes the on-disk `manifest.json` and compares. If they don't match, the bundle is flipped to BROKEN, a `HASH_MISMATCH` event row is written with the expected + actual hashes, and the bundle's entry modules are **not** imported. The rest of the system keeps booting.
+The five legacy management commands (`enable_modifier`, `disable_modifier`, `list_modifiers`, `uninstall_modifier`, `upgrade_modifier`) remain in the codebase as deprecation stubs that raise `CommandError` if invoked. They predate the Garden and the HTTP API, and they're kept around so old scripts fail loudly rather than silently doing the wrong thing.
 
-That's tamper detection for free. If someone edits the committed bundle to add a new effector, the hash changes, and the system notices. If a bad actor swaps files on a running machine, the hash changes, and the system notices. If you hand-edit the manifest during development, the hash changes, and the system notices — that's a good reminder to uninstall and reinstall before trusting the result.
+## The manifest hash
 
-The same BROKEN transition fires on other failure modes: `manifest.json` missing on disk, an entry module raising on import, `modifier_data.json` failing to deserialize. All of them produce an event row with enough detail to diagnose (hash values, traceback strings, whatever), and none of them take the system down.
+Every install freezes a SHA-256 of the manifest on the `NeuralModifier.manifest_hash` field. Every boot, the boot hook rehashes the on-disk `manifest.json` and compares. If they don't match, the bundle is flipped to BROKEN, a `HASH_MISMATCH` event row is written with the expected and actual hashes, and the bundle's entry modules are not imported. The rest of the system keeps booting.
 
-## The Installation Log
+That's tamper detection for free. If someone edits the committed bundle to add a new effector, the hash changes, and the system notices. If a bad actor swaps files on a running machine, the hash changes, and the system notices. If you hand-edit the manifest during development, the hash changes, and the system notices — that's a good reminder to uninstall and reinstall (or save through the proper flow, which freezes a fresh hash) before trusting the result.
 
-Every install, uninstall, enable, disable, and load attempt writes to `NeuralModifierInstallationLog`. That log owns its own `installation_manifest` — a frozen snapshot of the manifest as it looked at the moment of the event — so you can compare what *is* against what *was* even if the files on disk have drifted since.
+## The installation log
 
-Each log row has child `NeuralModifierInstallationEvent` rows typed by the `NeuralModifierInstallationEventType` enum:
+Every install and uninstall writes to `NeuralModifierInstallationLog`. Each log row carries a frozen snapshot of the manifest as it looked at the moment of the event, plus child `NeuralModifierInstallationEvent` rows typed by event kind:
 
 | Event | Fires When |
 |-------|-----------|
-| **Install** | A modifier moved from Discovered to Installed. |
-| **Uninstall** | All the contributions were walked and deleted. |
-| **Enable** | A bundle was flipped to ENABLED. |
-| **Disable** | A bundle was flipped to DISABLED. |
-| **Load Failed** | The manifest or payload couldn't be parsed, or contribution creation blew up mid-transaction. |
-| **Hash Mismatch** | The on-disk manifest no longer matches the stored hash. |
+| **Install** | A modifier moved from AVAILABLE to INSTALLED. |
+| **Uninstall** | The genome cascade walked, every owned row was deleted, the `NeuralModifier` row was removed. |
+| **Load Failed** | The manifest or payload couldn't be parsed, or contribution creation blew up mid-transaction. The bundle's row is then deleted (no leftover BROKEN stub from a failed fresh install). |
+| **Hash Mismatch** | The on-disk manifest no longer matches the stored hash. Bundle flips to BROKEN. |
 
-Each event carries a JSON `event_data` blob with whatever detail the reporter thought was worth keeping — stack traces on Load Failed, hash pairs on Hash Mismatch, contribution + entry-module counts on Install, orphan counts on Uninstall. The log is append-only. Nothing gets edited; new rows just keep arriving.
+Each event carries a JSON `event_data` blob with whatever detail the reporter thought was worth keeping — stack traces on Load Failed, hash pairs on Hash Mismatch, contribution + entry-module counts on Install, `contributions_resolved` / `contributions_unresolved` / `orphaned_ids` counts on Uninstall. The log is append-only.
 
-## Why the Registry Keeps Integer PKs
+## Why the registry keeps integer PKs
 
 You might notice that `NeuralModifier`, `NeuralModifierStatus`, and the installation log tables themselves use integer primary keys, not UUIDs. That's on purpose. The immutability directive says *anything a NeuralModifier could ever contribute to* uses UUIDs. The neuroplasticity registry is one level up — it's the thing that *owns* the contributions. It's core infrastructure, never extended by bundles, so integer PKs are fine here. You install modifiers; modifiers don't install neuroplasticity.
 
-## The Four Fixture Tiers and Where Modifiers Fit
+## What's landed, what's left
 
-Are-Self's core fixtures load in four biological tiers — `genetic_immutables.json` → `zygote.json` → `initial_phenotypes.json` → `petri_dish.json`. The first three are for everyone (install, Docker, production); the last is test-only. The neuroplasticity app follows the same convention: it ships a `genetic_immutables.json` that seeds the five statuses and six event types, and nothing in the other tiers — the registry is empty at first boot. A fresh install has zero installed modifiers; modifiers arrive later, by invitation.
+**Landed.** The full lifecycle (`AVAILABLE → INSTALLED → AVAILABLE`), the genome cascade with `GenomeOwnedMixin` and the INCUBATOR default, all three registration surfaces, the V2 URL discovery loop, the save-to-archive flow with rolling `.bak`, the system-restart pattern on install / uninstall, the [Modifier Garden](../ui/modifier-garden) UI (list, install, uninstall, inspector with manifest + event log, impact-preview confirmation dialog), the HTTP API at `/api/v2/neural-modifiers/...`, the boot-time hash-drift verification, semver-validating upgrade flow with `requires:` dependencies, and the Unreal bundle as the round-trip proof. The `mark-for-plasticity` branch merged to main on 2026-04-27, carrying all of the above.
 
-A NeuralModifier bundle's own fixture-like payload — the Effectors, Executables, NeuralPathways, ToolDefinitions it wants to contribute — ships *inside* the bundle as `modifier_data.json`, not as part of the core tiers. On install, the contribution-aware loader walks the payload, creates each row via Django's deserializer, and writes the matching `NeuralModifierContribution` in the same transaction so the uninstall manifest is always consistent with the install.
-
-## The First Bundle — Unreal Engine
-
-Unreal is the reference bundle and the proving ground for every design choice above. It ships the build, stage, deploy, and shader-compile pathways that drive an Unreal Engine 5 project end-to-end: six UE executables (`UNREAL_CMD`, `UNREAL_AUTOMATION_TOOL`, `UNREAL_STAGING`, `UNREAL_RELEASE_TEST`, `UNREAL_SHADER_TOOL`, `VERSION_HANDLER`) with their argument and switch definitions, a default UE Environment with its ContextVariables, fourteen UE-named NeuralPathways with their full Neuron / Axon / NeuronContext / EffectorContext / EffectorArgumentAssignment closure, the `update_version_metadata` native handler, the `mcp_run_unreal_diagnostic_parser` Parietal tool, and UE log parser strategies for build and run output.
-
-Source lives at `neuroplasticity/modifier_genome/unreal/`, with `manifest.json` describing the bundle, `modifier_data.json` shipping the rows, and `code/are_self_unreal/` carrying the Python package whose entry module exercises all three registration surfaces at boot. The generic log-merge utilities that used to live in the old `ue_tools/` app moved to `occipital_lobe/` during the extraction, and the log parser was split into a generic core plus Unreal-specific strategies registered through `LogParserFactory` — a pattern every future bundle will echo. Core owns the framework; the modifier owns the flavor.
-
-## Writing a Bundle
-
-There's an author-facing README at `neuroplasticity/modifier_genome/README.md` that covers the end-to-end path: directory layout, manifest schema, the `modifier_data.json` contribution format (including the `uuid.uuid4()` PK rule and the ordering invariants the serializer relies on), entry-module conventions for the three registration surfaces, the build / enable / disable / uninstall lifecycle from the author's perspective, and a checklist. The Unreal bundle is the worked example it points at.
-
-The acceptance test for any bundle is the round-trip: install cleanly, behave correctly while enabled, disable and re-enable without data loss, uninstall and leave zero leftover rows. A bundle that can't round-trip isn't ready.
-
-## What's Landed, What's Left
-
-**Landed.** The models (`NeuralModifier`, `NeuralModifierContribution`, `NeuralModifierInstallationLog`, `NeuralModifierInstallationEvent`, plus the two enum tables), the contribution-aware loader with transactional install/uninstall, the five management commands, the `AppConfig.ready()` boot hook with hash-drift verification, all three registration surfaces (`register_native_handler`, `register_parietal_tool`, `LogParserFactory.register`) with collision detection and unregister pairs, Parietal tool-set gating on ENABLED state, the Unreal bundle's manifest / `modifier_data.json` / entry-module code for handlers and log parsers, and the bundle-author README. Twenty-plus tests across lifecycle, registration, and tool-set gating are green.
-
-**Left.** Finish moving the last Unreal-specific rows out of core fixtures so core-only test runs pass without any UE assumptions. Add explicit end-to-end tests for the full set of BROKEN transitions (hash mismatch, manifest missing, `code/` missing, deserialization failure). Surface uninstall orphan counts into the event data. And design + build the upgrade / version / dependency model — semver, `requires:` in the manifest, a UUID-diff-based upgrade path that preserves unchanged contributions while adding and removing deltas. The backend is close.
-
-**Frontend.** The Modifier Garden — install, uninstall, enable, disable, and inspect bundles from a browser instead of the terminal — is a separate track tracked in `NEURAL_MODIFIER_COMPLETION_PLAN.md`. Minimum shippable set is a list view with install/uninstall buttons, enable/disable toggles, row-level bundle attribution in existing editors, and a tool-picker that handles soft-lookup when a bundle is uninstalled. There's no REST API for neuroplasticity yet; install is a backend concern until the Garden ships.
+**Left.** A few polish items: row-provenance chips on existing editors (so a Hypothalamus model card shows which bundle owns it), bundle marketplace search inside the Garden, install-time manifest validation surfaced into the upload UI, and a deeper inspector. None are blocking.
 
 ## How It Connects
 
-- **[Central Nervous System](./central-nervous-system)**: The biggest customer. Modifiers ship new Effector types, new EffectorContexts, new NeuralPathways, and new Axons — all UUID-keyed so contribution GFKs can reach them. Native handlers register through `neuromuscular_junction` so bundle-provided Python callables can back those effectors.
-- **[Environments](../ui/environments)**: Modifiers routinely ship new ContextVariables so their effectors can resolve paths and settings from the active environment.
-- **[Parietal Lobe](./parietal-lobe)**: New `ToolDefinition`s and their parameters ride along in a bundle's `modifier_data.json`; paired MCP coroutines register through `register_parietal_tool`. The Parietal Lobe filters bundle-contributed tools out of each session's tool manifest unless the bundle is ENABLED — this is the concrete behavior behind the Enabled ↔ Disabled transition.
+- **[Central Nervous System](./central-nervous-system)**: The biggest customer. Bundles ship new Effector types, NeuralPathways, and Axons — all carry `GenomeOwnedMixin`. Native handlers register through `neuromuscular_junction` so bundle-provided Python callables can back those effectors.
+- **[Environments](../ui/environments)**: Bundles routinely ship new ContextVariables so their effectors can resolve paths and settings from the active environment.
+- **[Parietal Lobe](./parietal-lobe)**: New `ToolDefinition`s and their parameters ride along in a bundle's `modifier_data.json`; paired MCP coroutines register through `register_parietal_tool`.
 - **[Occipital Lobe](./occipital-lobe)**: Log parser strategies register through `LogParserFactory` so bundles can teach the system to read a new flavor of log output.
-- **[Hypothalamus](./hypothalamus)**: The entire model catalog is UUID-keyed, so a modifier could theoretically ship new model families, providers, or failover strategies — though in practice the catalog syncs from Ollama and OpenRouter, not from bundles.
-- **[Temporal Lobe](./temporal-lobe)**: IterationDefinitions and IterationShiftDefinitions are UUID-keyed and contributable. A modifier focused on a specific workflow shape (say, a game-dev cadence) could ship its own definitions.
-- **[Identity](./identity)**: IdentityAddons are UUID-keyed. A modifier could ship new addon phases specific to its domain — though the addon's underlying Python function still has to live somewhere the bundle loads as importable code.
-- **[Synaptic Cleft](./synaptic-cleft)**: Install, uninstall, enable, and disable events are candidates for real-time broadcast so UIs can reflect modifier state without polling.
+- **[Hypothalamus](./hypothalamus)**: The entire model catalog is `GenomeOwnedMixin`-backed, so a bundle could ship new model families, providers, or failover strategies — though in practice the catalog syncs from Ollama and OpenRouter, not from bundles.
+- **[Temporal Lobe](./temporal-lobe)**: `IterationDefinition`s and `IterationShiftDefinition`s are bundle-extensible. A bundle focused on a specific cadence could ship its own.
+- **[Identity](./identity)**: `IdentityAddon`s are bundle-extensible. A bundle could ship new addon phases specific to its domain — though the addon's underlying Python function still has to live in code the bundle ships.
+- **[Synaptic Cleft](./synaptic-cleft)**: Install and uninstall events broadcast Acetylcholine with `receptor_class='NeuralModifier'` so the [Modifier Garden](../ui/modifier-garden) UI reflects state changes without polling.

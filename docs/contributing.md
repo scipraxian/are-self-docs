@@ -34,10 +34,13 @@ are-self-install.bat
 
 For manual setup or other platforms:
 
-1. Clone the repository:
+1. Clone the repositories side-by-side under a workspace folder. The install scripts expect `are-self-api/` and `are-self-ui/` to be siblings under a single parent — pick a name (we use `are-self`) and put both clones inside it:
 ```bash
-git clone https://github.com/scipraxian/are-self.git
-cd are-self/are-self-api
+mkdir are-self
+cd are-self
+git clone https://github.com/scipraxian/are-self-api.git
+git clone https://github.com/scipraxian/are-self-ui.git
+cd are-self-api
 ```
 
 2. Create a Python virtual environment:
@@ -77,11 +80,10 @@ The API will be available at `http://localhost:8000`.
 
 ### Frontend Development
 
-The Are-Self UI lives in a separate repository. For fullstack development:
+The Are-Self UI was cloned alongside the API in step 1. From the `are-self-api` folder:
 
 ```bash
-git clone https://github.com/scipraxian/are-self-ui.git
-cd are-self-ui
+cd ../are-self-ui
 npm install
 npm run dev
 ```

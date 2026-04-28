@@ -122,15 +122,19 @@ in the same parent folder.
 
 ### If you know Git
 
-Open a terminal, navigate to wherever you keep your projects, and run:
+Open a terminal, make a workspace folder (we use `are-self`), and clone
+both repos inside it. The launcher scripts look for `are-self-ui` as a
+sibling of `are-self-api`, so they have to share a parent:
 
 ```bash
+mkdir are-self
+cd are-self
 git clone https://github.com/scipraxian/are-self-api
 git clone https://github.com/scipraxian/are-self-ui
 ```
 
-You'll end up with two folders side-by-side: `are-self-api` and
-`are-self-ui`.
+You'll end up with two folders side-by-side inside `are-self/`:
+`are-self-api` and `are-self-ui`.
 
 ### If you don't know Git
 
@@ -209,7 +213,9 @@ step by hand. Here's the equivalent sequence:
 # Install Ollama, Docker Desktop, Python 3.12+, and Node 18+ first
 # (use brew on macOS, apt/dnf on Linux)
 
-# 1. Get the code
+# 1. Get the code — both repos as siblings under a parent folder
+mkdir are-self
+cd are-self
 git clone https://github.com/scipraxian/are-self-api
 git clone https://github.com/scipraxian/are-self-ui
 

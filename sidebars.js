@@ -48,6 +48,14 @@ const sidebars = {
         'ui/hypothalamus',
         'ui/pns',
         'ui/environments',
+        'ui/modifier-garden',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Bundles',
+      items: [
+        'bundles/writing-a-bundle',
       ],
     },
     'openrouter',
