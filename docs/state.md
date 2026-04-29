@@ -47,13 +47,13 @@ Current ballpark: roughly **$5–7 a day** in AI tooling, out of my own pocket. 
 - Eleven brain regions wired and shipping
 - The genome / Modifier Garden installable-bundle system
 - An MCP server with 14 tools
-- Twelve courses drafted in [`are-self-learn`](https://github.com/scipraxian/are-self-learn), ten complete
+- Fifteen courses in [`are-self-learn`](https://github.com/scipraxian/are-self-learn) — twelve drafted, three newly outlined (AI Training trio)
 - Six research papers seeded, one in active draft
 - The [Mira storybook](/docs/storybook)
 - This documentation site you're reading
 - The Walk-with-Frith daily dev-log series
 
-If you want to underwrite some of that bill, the door is in [How to come along](#how-to-come-along). The work happens either way. Every dollar you put in is a dollar I don't have to, which means more keyboard hours toward what's next.
+The work moves on three things: skill, experience, funds. The door for any of them is in [How to come along](#how-to-come-along). What you bring shapes how fast the work moves; it happens either way.
 
 ---
 
@@ -64,7 +64,7 @@ If you want to underwrite some of that bill, the door is in [How to come along](
 - **Installs on a 16 GB laptop.** No credit card. No GPU. CPU inference via Ollama with `llama3.2` for thinking and `nomic-embed-text` for memory.
 - **Cloud fallback** if local won't work — OpenRouter's free tier, documented at [/docs/openrouter](/docs/openrouter). The Chromebook kid is welcome here.
 - **Mira and the Are-Self** — the storybook. Free to read. Free to print. [/docs/storybook](/docs/storybook).
-- **Twelve courses drafted** in [`are-self-learn`](https://github.com/scipraxian/are-self-learn) — 4th grade through high school biology, intro Python, AI cost management, an Experience Master / agile course. Two more queued.
+- **Fifteen courses in [`are-self-learn`](https://github.com/scipraxian/are-self-learn)** — 4th grade through high school biology, intro Python, AI cost management, an Experience Master / agile course, plus a new AI Training trio (build-from-scratch, graphs-and-sleep, tune-pretrained-models). Twelve drafted, three newly outlined.
 
 **For the developer:**
 
@@ -127,6 +127,7 @@ More endpoints as I add them. Shrug. Feel empowered.
 
 *Hand-curated until the dev-log feed is wired. Latest first.*
 
+- **2026-04-28 — AI Training trio outlined.** Three new courses started in `are-self-learn`: build-ai-from-scratch, graphs-and-sleep-consolidation, tune-pretrained-models. Initial outlines; full curricula to follow.
 - **2026-04-28 — Begin Play protection.** Hardening pass on the canonical Begin Play effector now that the genome cascade runs through it.
 - **2026-04-27 — `mark-for-plasticity` merged into main.** The final lifecycle check on the unreal genome passed; canonical-genome cascade rework ("everything has genome = now") landed; genome serializers wired across most viewsets so the frontend can read bundle ownership directly.
 - **2026-04-26 — Cascade puzzle solved.** Every bundle-extensible model now defaults to a non-null genome (the INCUBATOR), which collapses what used to be a tangle of cascade rules into one clean invariant.

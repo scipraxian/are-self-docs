@@ -16,7 +16,7 @@ The Blood Brain Barrier is your home page. Open Are-Self or navigate directly to
 
 ![Blood Brain Barrier Dashboard](/img/ui/blood-brain-barrier.png)
 
-At the top of the dashboard sits the **hero banner** — a dark glassmorphic card featuring the "ARE-SELF" logo and the tagline "Neurologically-Inspired AI Reasoning Engine." This banner establishes the system's identity and sets the tone for the neural metaphors throughout the interface.
+At the top of the dashboard sits the **hero banner** — a dark glassmorphic card featuring the "ARE-SELF" logo and the tagline "Why do for yourself what Are-Self can do for you?" This banner establishes the system's identity and sets the tone for what the swarm is for.
 
 ## Stats Cards Row
 

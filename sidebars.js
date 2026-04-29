@@ -78,6 +78,11 @@ const sidebars = {
     'contributing',
     'style-guide',
     'features',
+    {
+      type: 'link',
+      label: 'Glossary',
+      href: 'pathname:///learn/glossary',
+    },
     'acknowledgments',
   ],
 };

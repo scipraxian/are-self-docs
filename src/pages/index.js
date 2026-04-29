@@ -115,7 +115,7 @@ const doors = [
     title: 'I want to help',
     link: '/docs/state#how-to-come-along',
     description:
-      'Curriculum, code, papers, broker a 501(c)(3) to deploy Are-Self, or help cover the bill so it stays free. Five real doors; only one needs a keyboard.',
+      'Curriculum, code, papers, broker a 501(c)(3) to deploy Are-Self, or share the bill. Five real doors; only one needs a keyboard.',
   },
 ];
 
