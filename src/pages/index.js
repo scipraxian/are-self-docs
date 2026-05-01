@@ -343,7 +343,7 @@ function HomepageVideo() {
   );
 }
 
-// Twelve Variables — the scipraxian decision lattice. Quiet band,
+// Twelve Variables — the Scipraxian decision lattice. Quiet band,
 // not loud. Links out to scipraxian.org for the full treatment.
 const variables = [
   'Inclusion',
@@ -365,16 +365,11 @@ function VariablesStrip() {
     <section className={styles.variablesStrip}>
       <div className="container">
         <p className={styles.variablesIntro}>
-          <a
-            href="http://scipraxian.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Scipraxianism
-          </a>
+          <Link to="/docs/scipraxianism">Scipraxianism</Link>
           {' '}is a philosophy anyone can read, recognize, and choose.
           Are-Self is built inside it. Every meaningful decision weighs
-          all twelve, together.
+          all twelve,{' '}
+          <Link to="/docs/scipraxianism#variables">together</Link>.
         </p>
         <ul className={styles.variablesList}>
           {variables.map((v, i) => (

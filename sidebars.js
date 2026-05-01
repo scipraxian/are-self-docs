@@ -73,6 +73,7 @@ const sidebars = {
         'dependency-audit',
       ],
     },
+    'scipraxianism',
     'storybook',
     'faq',
     'contributing',

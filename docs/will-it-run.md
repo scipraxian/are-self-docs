@@ -80,7 +80,7 @@ If you are on a tight machine, stay on `q4_K_M`. If you have headroom, try `q5_K
 
 What if your computer can't do it? What if you're on a Chromebook, or a tablet, or a borrowed library desktop, or a ten-year-old laptop that wheezes?
 
-You still have options. **There is always a free cloud endpoint somewhere if you're willing to dig.** The scipraxian line — AI should not be locked behind a credit card or a gaming rig — is not decorative, it's load-bearing, and this is the part of the page that makes it real.
+You still have options. **There is always a free cloud endpoint somewhere if you're willing to dig.** The Scipraxian line — AI should not be locked behind a credit card or a gaming rig — is not decorative, it's load-bearing, and this is the part of the page that makes it real.
 
 The documented first stop is **OpenRouter's free tier**. Several providers publish free-tier endpoints through OpenRouter (the roster shifts; check the site), and the Hypothalamus routes through them the exact same way it routes through Ollama — the Frontal Lobe doesn't care which side of the wire the tokens came from.
 

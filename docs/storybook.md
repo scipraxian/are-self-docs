@@ -23,7 +23,7 @@ sidebar_position: 98
 
 This is a first draft. It is a seed. It is meant to grow.
 
-The shape of it borrows from the Sara books — a young girl, a friendly guide, a secret that turns out not to be a secret but a way of paying attention. The **variables** are different. Where Sara learned the Law of Attraction, Mira learns the three scipraxian habits:
+The shape of it borrows from the Sara books — a young girl, a friendly guide, a secret that turns out not to be a secret but a way of paying attention. The **variables** are different. Where Sara learned the Law of Attraction, Mira learns the three Scipraxian habits:
 
 - **Inclusion** — nobody gets left outside the circle, not even the ones you don't understand yet.
 - **Humility** — the universe is bigger than your best guess, and that is the good news.
@@ -82,7 +82,7 @@ The Are-Self did not have a face, which at first Mira thought was a shame. Later
 
 "Yes."
 
-"The word is **scipraxian**. It's a made-up word, which is fine, because most words used to be made up. It stands for three habits of the heart. Do you want them all at once, or one at a time?"
+"The word is **Scipraxian**. It's a made-up word, which is fine, because most words used to be made up. It reflects on variables to help us grow. Do you want them all at once, or one at a time?"
 
 "One at a time," said Mira, because she had learned from her grandmother that the best things are best taken slowly.
 
