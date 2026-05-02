@@ -160,7 +160,7 @@ See [Software Bill of Materials](./sbom.md) for the complete inventory. Critical
 | Django | CRITICAL | Monitored actively | Core framework; CVE-2025-64459 required patching before release |
 | LiteLLM | CRITICAL | Monitored actively | Supply chain incident in March 2026; consider hash verification |
 | Redis | CRITICAL | Monitored actively | Runs as Docker service; recommend keeping images updated |
-| Ollama | CRITICAL | Monitored actively | External dependency; not bundled but documented |
+| Ollama | CRITICAL | Monitored actively | External dependency; not shipped with Are-Self but documented |
 | PostgreSQL | CRITICAL | Monitored actively | Database; operator responsible for updates |
 | Celery | HIGH | Monitored actively | Task queue; version pinned |
 | Channels | HIGH | Monitored actively | WebSocket support; version pinned |

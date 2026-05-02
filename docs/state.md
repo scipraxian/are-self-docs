@@ -23,9 +23,9 @@ It is also not done. Nothing ever is. That's the honest part. Below is the truth
 
 `▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▱` ~95%
 
-The last load-bearing piece is the **genome system** — Are-Self's name for installable bundles. Once it lands cleanly, new capabilities ship as bundles instead of changes to core. The unreal-engine bundle is the working proof. After genome lands, this bar stops moving and we call that 1.0.
+The last load-bearing piece is the **genome system** — Are-Self's name for installable modifiers. Once it lands cleanly, new capabilities ship as modifiers instead of changes to core. The unreal-engine modifier is the working proof. After genome lands, this bar stops moving and we call that 1.0.
 
-**Bundles & Curriculum** — the part that grows forever. Bundles other people build. Courses for kids and the grownups who teach them. Papers. Translations. Screenshots. New brain regions when somebody finds one we missed.
+**NeuralModifiers & Curriculum** — the part that grows forever. NeuralModifiers other people build. Courses for kids and the grownups who teach them. Papers. Translations. Screenshots. New brain regions when somebody finds one we missed.
 
 `▰▰▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱` ~55%
 
@@ -45,7 +45,7 @@ Current ballpark: roughly **$5–7 a day** in AI tooling, out of my own pocket. 
 
 - ~51,000 lines of Python with ~14,000 lines of matching tests
 - Eleven brain regions wired and shipping
-- The genome / Modifier Garden installable-bundle system
+- The genome / Modifier Garden installable-modifier system
 - An MCP server with 14 tools
 - Fifteen courses in [`are-self-learn`](https://github.com/scipraxian/are-self-learn) — twelve drafted, three newly outlined (AI Training trio)
 - Six research papers seeded, one in active draft
@@ -82,7 +82,7 @@ The work moves on three things: skill, experience, funds. The door for any of th
 
 ## What's not done
 
-The genome system is the one in motion right now. The Modifier Garden UI installs and uninstalls bundles cleanly; install-time validation and the marketplace polish are landing in days, not weeks.
+The genome system is the one in motion right now. The Modifier Garden UI installs and uninstalls modifiers cleanly; install-time validation and the marketplace polish are landing in days, not weeks.
 
 A few things I know are broken:
 
@@ -92,7 +92,7 @@ A few things I know are broken:
 
 A few things are planned, not started:
 
-- A bundle marketplace once the genome system is past 1.0.
+- A modifier marketplace once the genome system is past 1.0.
 - The remaining eleven courses still need the v1.5 rubric pattern rolled out (HS Biology is the reference implementation).
 - More UI walkthrough screenshots.
 
@@ -108,7 +108,7 @@ I'm building this either way. If you want to come along, here are the five real 
 
 **2. Write papers.** The flagship has open Evaluation sections. The other five are seeded outlines. If you push back on the flagship, coauthor a section, or add a paper, the repo is [`are-self-research`](https://github.com/scipraxian/are-self-research).
 
-**3. Write code.** Bundles are how Are-Self extends. The `unreal/` bundle is the example pattern — manifest, code, fixtures, the lot. Pick a `TASKS.md` item or write a bundle for the thing you wish existed.
+**3. Write code.** NeuralModifiers are how Are-Self extends. The `unreal/` modifier is the example pattern — manifest, code, fixtures, the lot. Pick a `TASKS.md` item or write a modifier for the thing you wish existed.
 
 **4. Find a 501(c)(3) to deploy Are-Self.** I'll never become a 501(c)(3) myself — that's not my role. But I'll absolutely work with one. If you know one that wants to put free AI in front of kids who don't have it, introduce us.
 
@@ -129,13 +129,13 @@ More endpoints as I add them. Shrug. Feel empowered.
 
 - **2026-04-28 — AI Training trio outlined.** Three new courses started in `are-self-learn`: build-ai-from-scratch, graphs-and-sleep-consolidation, tune-pretrained-models. Initial outlines; full curricula to follow.
 - **2026-04-28 — Begin Play protection.** Hardening pass on the canonical Begin Play effector now that the genome cascade runs through it.
-- **2026-04-27 — `mark-for-plasticity` merged into main.** The final lifecycle check on the unreal genome passed; canonical-genome cascade rework ("everything has genome = now") landed; genome serializers wired across most viewsets so the frontend can read bundle ownership directly.
-- **2026-04-26 — Cascade puzzle solved.** Every bundle-extensible model now defaults to a non-null genome (the INCUBATOR), which collapses what used to be a tangle of cascade rules into one clean invariant.
-- **2026-04-25 — First end-to-end successful surgery.** Full install / lifecycle / uninstall round-trip on the unreal bundle.
-- **2026-04-25 — Genome router discovery wired.** Bundles can now ship URL routes via `V2_GENOME_ROUTER`; core auto-discovers them at boot.
+- **2026-04-27 — `mark-for-plasticity` merged into main.** The final lifecycle check on the unreal genome passed; canonical-genome cascade rework ("everything has genome = now") landed; genome serializers wired across most viewsets so the frontend can read modifier ownership directly.
+- **2026-04-26 — Cascade puzzle solved.** Every modifier-extensible model now defaults to a non-null genome (the INCUBATOR), which collapses what used to be a tangle of cascade rules into one clean invariant.
+- **2026-04-25 — First end-to-end successful surgery.** Full install / lifecycle / uninstall round-trip on the unreal modifier.
+- **2026-04-25 — Genome router discovery wired.** NeuralModifiers can now ship URL routes via `V2_GENOME_ROUTER`; core auto-discovers them at boot.
 - **2026-04-24 — Walk with Frith, episode 1.** Daily-ish dev-log video series, outdoor, no script.
 - **2026-04-22 — Opening statement v2.** Updated framing pass on what Are-Self is for. Posted to YouTube and Facebook.
-- **2026-04-19 — Modifier Garden scaffolding.** Front-end install/uninstall flow against the bundle registry.
+- **2026-04-19 — Modifier Garden scaffolding.** Front-end install/uninstall flow against the modifier registry.
 - **2026-04-18 — ReasoningTurnDigest cutover.** Frontend now consumes a slim digest stream instead of the full graph_data blob; engrams and conclusion nodes back on the 3D reasoning graph.
 - **2026-04-14 — `are-self-learn` launched.** Curriculum repo split out, twelve courses planned, ten drafted.
 - **2026-04-07 — Public release.** MIT-licensed, all four repos under [scipraxian](https://github.com/scipraxian).

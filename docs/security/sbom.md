@@ -110,7 +110,7 @@ These dependencies are used during development and testing but are **not shipped
 
 ## External Runtime Dependencies (Not in requirements.txt)
 
-These are external services/applications that Are-Self depends on but does not bundle:
+These are external services/applications that Are-Self depends on but does not modifier:
 
 ### Ollama (LOCAL LLM RUNTIME) — CRITICAL
 
@@ -119,7 +119,7 @@ These are external services/applications that Are-Self depends on but does not b
 | Ollama | User-installed | Local LLM inference engine | Multiple HIGH/CRITICAL CVEs in recent releases — see DEPENDENCY_AUDIT.md for details |
 
 **Are-Self's dependency on Ollama**:
-- Are-Self does not bundle or distribute Ollama
+- Are-Self does not modifier or distribute Ollama
 - Users install Ollama independently
 - Are-Self talks to Ollama via localhost:11434 by default
 - Ollama security updates are the operator's responsibility

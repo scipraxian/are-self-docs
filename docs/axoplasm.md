@@ -75,7 +75,7 @@ When the [Frontal Lobe](../brain-regions/frontal-lobe) is in the middle of a rea
 
 ## How Axoplasm Gets Read
 
-Reading is governed by one function you should know: `resolve_environment_context` in `central_nervous_system/utils.py`. That function builds the full context dictionary that gets handed to template rendering (for things like `&#123;&#123;prompt&#125;&#125;` or `&#123;&#123;project_root&#125;&#125;`), to the [Frontal Lobe](../brain-regions/frontal-lobe) reasoning session initializer, and to the logic node's gate evaluator.
+Reading is governed by one function you should know: `resolve_environment_context` in `central_nervous_system/utils.py`. That function builds the full context dictionary that gets handed to template rendering (for things like `{{prompt}}` or `{{project_root}}`), to the [Frontal Lobe](../brain-regions/frontal-lobe) reasoning session initializer, and to the logic node's gate evaluator.
 
 A few places read the axoplasm directly rather than going through `resolve_environment_context`:
 
@@ -96,7 +96,7 @@ Here's how the whole system talks to Claude Code and other MCP clients:
 3. The train fires, and each spike deepcopies the CSF (at the root) or the previous spike's axoplasm
 4. Spikes execute, effectors write to axoplasm via stdout protocol or via `mcp_update_axoplasm`
 5. The train completes and fires **Dopamine** (success) or **Cortisol** (error)
-6. Claude Code's MCP client polls `/api/v2/spiketrains/&#123;id&#125;/` to check status
+6. Claude Code's MCP client polls `/api/v2/spiketrains/{id}/` to check status
 7. When complete, Claude Code reads the final spike's axoplasm (and the train's cerebrospinal_fluid)
 8. Claude Code assembles the results and launches a new train if needed
 

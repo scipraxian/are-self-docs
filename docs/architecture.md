@@ -66,7 +66,7 @@ Think of an **Identity** as a character sheet in a role-playing game. It defines
 
 But Identities don't do work directly. They get **forged** into **IdentityDiscs** — deployed instances with their own level, XP, success/failure record, and memory. One Identity blueprint can produce many Discs, each accumulating their own experience. Like a class and its instances in code.
 
-The system prompt template supports Django template syntax. Variables like `&#123;&#123;identity_disc.name&#125;&#125;` and `&#123;&#123;iteration.name&#125;&#125;` are rendered at runtime with the full ORM context.
+The system prompt template supports Django template syntax. Variables like `{{identity_disc.name}}` and `{{iteration.name}}` are rendered at runtime with the full ORM context.
 
 IdentityDiscs are vector-embedded (768-dim, nomic-embed-text). The vector auto-regenerates when the prompt, type, tags, or addons change. This embedding is what the [Hypothalamus](./brain-regions/hypothalamus) uses for model matching — it finds the model whose personality best fits the identity.
 
@@ -148,15 +148,15 @@ Your thalamus is the relay station — sensory signals come in from your eyes an
 
 ### Environments (`/environments`)
 
-Environments are project context. An environment has a name and a set of context variables (key-value pairs). When the [CNS](./brain-regions/central-nervous-system) resolves executable paths, Django's template engine renders the variables: `&#123;&#123;project_root&#125;&#125;\build.bat` becomes a real path.
+Environments are project context. An environment has a name and a set of context variables (key-value pairs). When the [CNS](./brain-regions/central-nervous-system) resolves executable paths, Django's template engine renders the variables: `{{project_root}}\build.bat` becomes a real path.
 
 Only one environment is active at a time. Switching environments changes what every view shows — different iterations, different pathways, different sessions.
 
 ### [Neuroplasticity](./brain-regions/neuroplasticity) (`/neuroplasticity`)
 
-Your brain doesn't grow new lobes when you learn — it rewires. Are-Self's [Neuroplasticity](./brain-regions/neuroplasticity) does the same trick: it grows new abilities without rebuilding the system. A **NeuralModifier** is a single zip file at `neuroplasticity/genomes/<slug>.zip` that ships data (rows the bundle wants to add to the database) and code (Python that registers against existing surfaces — native handlers, Parietal MCP tools, log parsers, optional URL routes).
+Your brain doesn't grow new lobes when you learn — it rewires. Are-Self's [Neuroplasticity](./brain-regions/neuroplasticity) does the same trick: it grows new abilities without rebuilding the system. A **NeuralModifier** is a single zip file at `neuroplasticity/genomes/<slug>.zip` that ships data (rows the modifier wants to add to the database) and code (Python that registers against existing surfaces — native handlers, Parietal MCP tools, log parsers, optional URL routes).
 
-Every row a bundle could ever own carries a `genome` foreign key pointing back at the bundle that added it. Core's own rows point at the **INCUBATOR** — Are-Self's canonical "this came from core" genome — so the cascade can never accidentally remove core when a bundle is uninstalled. Install adds rows. Uninstall deletes rows. There is no separate enable / disable; INSTALLED is the only live state. The unreal-engine bundle is the working proof — full round-trip from install through use to uninstall, no leftover rows, no broken references.
+Every row a modifier could ever own carries a `genome` foreign key pointing back at the modifier that added it. Core's own rows point at the **INCUBATOR** — Are-Self's canonical "this came from core" genome — so the cascade can never accidentally remove core when a modifier is uninstalled. Install adds rows. Uninstall deletes rows. There is no separate enable / disable; INSTALLED is the only live state. The unreal-engine modifier is the working proof — full round-trip from install through use to uninstall, no leftover rows, no broken references.
 
 The supported surfaces are the [Modifier Garden](./ui/modifier-garden) UI at `/modifiers` and the HTTP API at `/api/v2/neural-modifiers/...`.
 

@@ -269,7 +269,7 @@ function StatePulse() {
             className={styles.statePulseBar}
           >
             <span className={styles.statePulseLabel}>
-              Bundles &amp; curriculum
+              NeuralModifiers &amp; curriculum
             </span>
             <span className={styles.statePulseTrack}>
               <span

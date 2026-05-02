@@ -213,7 +213,7 @@ The following packages have no known CVEs as of this audit date:
 
 ### Ollama — LOCAL LLM RUNTIME
 
-Are-Self depends on Ollama for local LLM inference but does **not** bundle or distribute it. Ollama is
+Are-Self depends on Ollama for local LLM inference but does **not** modifier or distribute it. Ollama is
 installed separately by the user (our install script handles this automatically). Because Ollama runs
 as a local HTTP server on the operator's machine, its security posture directly affects Are-Self's
 attack surface.
@@ -234,7 +234,7 @@ attack surface.
 **Are-Self's Mitigation Posture:**
 
 - Are-Self does not expose Ollama to the network. The default configuration talks to `localhost:11434`.
-- We do not bundle Ollama — users install it independently, meaning they receive Ollama's own updates.
+- We do not modifier Ollama — users install it independently, meaning they receive Ollama's own updates.
 - Our install script (`are-self-install.bat`) installs Ollama if not present but does not pin a version.
 - **Recommendation for operators:** Keep Ollama updated. Run `ollama --version` and compare against
   the [Ollama releases page](https://github.com/ollama/ollama/releases). The authentication bypass

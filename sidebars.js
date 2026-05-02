@@ -20,7 +20,14 @@ const sidebars = {
         'brain-regions/identity',
         'brain-regions/temporal-lobe',
         'brain-regions/central-nervous-system',
-        'brain-regions/frontal-lobe',
+        {
+          type: 'category',
+          label: 'Frontal Lobe',
+          link: { type: 'doc', id: 'brain-regions/frontal-lobe' },
+          items: [
+            'context-windows',
+          ],
+        },
         'brain-regions/hippocampus',
         'brain-regions/hypothalamus',
         'brain-regions/parietal-lobe',
@@ -53,9 +60,9 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Bundles',
+      label: 'NeuralModifiers',
       items: [
-        'bundles/writing-a-bundle',
+        'neural-modifiers/writing-a-neural-modifier',
       ],
     },
     'openrouter',

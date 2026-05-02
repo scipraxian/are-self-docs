@@ -13,7 +13,7 @@ Are-Self's Identity region works exactly the same way. It stores templates — t
 
 ## Key Concepts
 
-**Identity Template** (`identity/models.py → Identity`) — This is the blueprint. It contains the `system_prompt_template` (Django template syntax with variables like `&#123;&#123;identity_disc.name&#125;&#125;`), the `enabled_tools` it's allowed to use, and personality metadata (tags, type, name). Templates are immutable — once made, they don't change. If you want a different version, you fork it and make a new one, just like branching off from a tree.
+**Identity Template** (`identity/models.py → Identity`) — This is the blueprint. It contains the `system_prompt_template` (Django template syntax with variables like `{{identity_disc.name}}`), the `enabled_tools` it's allowed to use, and personality metadata (tags, type, name). Templates are immutable — once made, they don't change. If you want a different version, you fork it and make a new one, just like branching off from a tree.
 
 **IdentityDisc** (`identity/models.py → IdentityDisc`) — This is a living, working instance of a template. It has a `level` (calculated from `total_xp // 100 + 1`), XP (experience points earned via `turn.apply_efficiency_bonus()` and engram saves), success/failure counters, and a `VectorField(dimensions=768)` embedding — a mathematical fingerprint that captures what the disc is really about. The [Hypothalamus](./hypothalamus) uses this fingerprint to find the perfect AI model for the job.
 
@@ -41,9 +41,9 @@ Addons are optional flavoring. You might add a memory addon that reminds the per
 |--------|----------|---------|
 | `GET` | `/api/v2/identities/` | List all identity templates |
 | `POST` | `/api/v2/identities/` | Create new identity template |
-| `GET` | `/api/v2/identities/&#123;id&#125;/` | Retrieve template details |
-| `PATCH` | `/api/v2/identities/&#123;id&#125;/` | Update template |
-| `DELETE` | `/api/v2/identities/&#123;id&#125;/` | Delete template |
+| `GET` | `/api/v2/identities/{id}/` | Retrieve template details |
+| `PATCH` | `/api/v2/identities/{id}/` | Update template |
+| `DELETE` | `/api/v2/identities/{id}/` | Delete template |
 
 ### Identity Discs (Instances)
 
@@ -51,10 +51,10 @@ Addons are optional flavoring. You might add a memory addon that reminds the per
 |--------|----------|---------|
 | `GET` | `/api/v2/identity-discs/` | List all discs (stateful instances) |
 | `POST` | `/api/v2/identity-discs/` | Forge new disc from template |
-| `GET` | `/api/v2/identity-discs/&#123;id&#125;/` | Retrieve disc with level, XP, stats |
-| `PATCH` | `/api/v2/identity-discs/&#123;id&#125;/` | Update disc metadata |
-| `DELETE` | `/api/v2/identity-discs/&#123;id&#125;/` | Delete disc |
-| `GET` | `/api/v2/identity-discs/&#123;id&#125;/model-preview/` | Preview current model selection for this disc |
+| `GET` | `/api/v2/identity-discs/{id}/` | Retrieve disc with level, XP, stats |
+| `PATCH` | `/api/v2/identity-discs/{id}/` | Update disc metadata |
+| `DELETE` | `/api/v2/identity-discs/{id}/` | Delete disc |
+| `GET` | `/api/v2/identity-discs/{id}/model-preview/` | Preview current model selection for this disc |
 
 ### Addons & Extensions
 
@@ -62,9 +62,9 @@ Addons are optional flavoring. You might add a memory addon that reminds the per
 |--------|----------|---------|
 | `GET` | `/api/v2/identity_addons/` | List available addons |
 | `POST` | `/api/v2/identity_addons/` | Create addon |
-| `GET` | `/api/v2/identity_addons/&#123;id&#125;/` | Retrieve addon |
-| `PATCH` | `/api/v2/identity_addons/&#123;id&#125;/` | Update addon |
-| `DELETE` | `/api/v2/identity_addons/&#123;id&#125;/` | Delete addon |
+| `GET` | `/api/v2/identity_addons/{id}/` | Retrieve addon |
+| `PATCH` | `/api/v2/identity_addons/{id}/` | Update addon |
+| `DELETE` | `/api/v2/identity_addons/{id}/` | Delete addon |
 
 ### Tags & Types
 
@@ -81,7 +81,7 @@ Addons are optional flavoring. You might add a memory addon that reminds the per
 |--------|----------|---------|
 | `GET` | `/api/v2/identity-budgets/` | List token/cost budgets |
 | `POST` | `/api/v2/identity-budgets/` | Create budget constraint |
-| `PATCH` | `/api/v2/identity-budgets/&#123;id&#125;/` | Update budget |
+| `PATCH` | `/api/v2/identity-budgets/{id}/` | Update budget |
 
 ## How It Connects
 

@@ -32,7 +32,7 @@ Whether you're a seasoned developer, a neuroscience researcher, a computer scien
 12. [Thalamus (Chat Relay)](#thalamus-chat-relay)
 13. [Dashboard (System Monitoring)](#dashboard-system-monitoring)
 14. [Environments (Execution Context)](#environments-execution-context)
-15. [Neuroplasticity (NeuralModifier Bundles)](#neuroplasticity-neuralmodifier-bundles)
+15. [Neuroplasticity (NeuralModifier NeuralModifiers)](#neuroplasticity-neuralmodifier-modifiers)
 16. [Common Patterns](#common-patterns)
 
 ---
@@ -760,9 +760,9 @@ Executables define how tools and commands are run in an environment, including c
 
 ---
 
-## Neuroplasticity (NeuralModifier Bundles)
+## Neuroplasticity (NeuralModifier NeuralModifiers)
 
-The neuroplasticity endpoints drive the lifecycle of installable bundles — Are-Self's mechanism for adding new abilities without changing core. See [Neuroplasticity](./brain-regions/neuroplasticity) for the conceptual overview and [Writing a Bundle](./bundles/writing-a-bundle) for the bundle-author reference.
+The neuroplasticity endpoints drive the lifecycle of installable modifiers — Are-Self's mechanism for adding new abilities without changing core. See [Neuroplasticity](./brain-regions/neuroplasticity) for the conceptual overview and [Writing a NeuralModifier](./modifiers/writing-a-modifier) for the modifier-author reference.
 
 The browser-driven surface is the [Modifier Garden](./ui/modifier-garden) at `/modifiers`. These endpoints are the same operations, scriptable.
 
@@ -771,15 +771,15 @@ The browser-driven surface is the [Modifier Garden](./ui/modifier-garden) at `/m
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/v2/neural-modifiers/` | List every NeuralModifier the system knows about (AVAILABLE, INSTALLED, BROKEN). |
-| GET | `/api/v2/neural-modifiers/<slug>/` | Bundle detail — manifest, status, contribution count, recent events. |
+| GET | `/api/v2/neural-modifiers/<slug>/` | NeuralModifier detail — manifest, status, contribution count, recent events. |
 | GET | `/api/v2/neural-modifiers/<slug>/impact/` | Uninstall impact preview — a per-model breakdown of rows that would be removed. Drives the confirmation dialog in the Modifier Garden. |
-| POST | `/api/v2/neural-modifiers/catalog/<slug>/install/` | Install a bundle that's already in the catalog (zip lives at `genomes/<slug>.zip`). Triggers a coordinated process restart. |
+| POST | `/api/v2/neural-modifiers/catalog/<slug>/install/` | Install a modifier that's already in the catalog (zip lives at `genomes/<slug>.zip`). Triggers a coordinated process restart. |
 | POST | `/api/v2/neural-modifiers/install/` | Install from a multipart upload. The uploaded `.zip` is persisted into the catalog, then the same install pipeline runs. |
-| POST | `/api/v2/neural-modifiers/<slug>/uninstall/` | Uninstall a bundle. Walks the genome cascade and removes every row owned by the bundle, then deletes the `NeuralModifier` row. Triggers a coordinated process restart. |
+| POST | `/api/v2/neural-modifiers/<slug>/uninstall/` | Uninstall a modifier. Walks the genome cascade and removes every row owned by the modifier, then deletes the `NeuralModifier` row. Triggers a coordinated process restart. |
 
 **On the install/uninstall restart.** Adding or removing code from `sys.path` only takes full effect across a process restart, so install / uninstall / catalog-install actions all trigger one. The Celery worker is shut down to drain in-flight tasks, a fresh worker is spawned, and Django's autoreloader cycles the Daphne child. Clients calling these endpoints should expect a brief unavailability window and a reconnect.
 
-**Sample response — bundle list (`GET /api/v2/neural-modifiers/`):**
+**Sample response — modifier list (`GET /api/v2/neural-modifiers/`):**
 
 ```json
 [
