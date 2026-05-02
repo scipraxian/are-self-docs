@@ -32,7 +32,7 @@ Whether you're a seasoned developer, a neuroscience researcher, a computer scien
 12. [Thalamus (Chat Relay)](#thalamus-chat-relay)
 13. [Dashboard (System Monitoring)](#dashboard-system-monitoring)
 14. [Environments (Execution Context)](#environments-execution-context)
-15. [Neuroplasticity (NeuralModifier NeuralModifiers)](#neuroplasticity-neuralmodifier-modifiers)
+15. [Neuroplasticity (NeuralModifiers)](#neuroplasticity-neuralmodifiers)
 16. [Common Patterns](#common-patterns)
 
 ---
@@ -760,9 +760,9 @@ Executables define how tools and commands are run in an environment, including c
 
 ---
 
-## Neuroplasticity (NeuralModifier NeuralModifiers)
+## Neuroplasticity (NeuralModifiers)
 
-The neuroplasticity endpoints drive the lifecycle of installable modifiers — Are-Self's mechanism for adding new abilities without changing core. See [Neuroplasticity](./brain-regions/neuroplasticity) for the conceptual overview and [Writing a NeuralModifier](./modifiers/writing-a-modifier) for the modifier-author reference.
+The neuroplasticity endpoints drive the lifecycle of installable modifiers — Are-Self's mechanism for adding new abilities without changing core. See [Neuroplasticity](./brain-regions/neuroplasticity) for the conceptual overview and [Writing a NeuralModifier](./neural-modifiers/writing-a-neural-modifier) for the modifier-author reference.
 
 The browser-driven surface is the [Modifier Garden](./ui/modifier-garden) at `/modifiers`. These endpoints are the same operations, scriptable.
 

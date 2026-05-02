@@ -24,7 +24,7 @@ A NeuralModifier is a single committed file: `neuroplasticity/genomes/<slug>.zip
 
 A fresh clone of Are-Self ships exactly one modifier (`genomes/unreal.zip`), which means a fresh install has exactly one row available to install: the unreal modifier. Everything else arrives later, by invitation.
 
-For the author-facing reference — manifest schema, contribution format, registration surfaces, the unreal modifier as a worked example — see [Writing a NeuralModifier](../modifiers/writing-a-modifier).
+For the author-facing reference — manifest schema, contribution format, registration surfaces, the unreal modifier as a worked example — see [Writing a NeuralModifier](../neural-modifiers/writing-a-neural-modifier).
 
 ## Three directories, three roles
 
