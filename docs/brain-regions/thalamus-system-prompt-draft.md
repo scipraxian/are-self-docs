@@ -4,7 +4,6 @@ title: "Thalamus System Prompt — Working Draft"
 description: "Scratchpad for molding the Thalamus IdentityDisc system_prompt_template before it gets put through paces in Are-Self."
 slug: /brain-regions/thalamus-system-prompt-draft
 draft: true
-unlisted: true
 ---
 
 # Thalamus System Prompt — Working Draft
@@ -68,6 +67,31 @@ Surfaced 2026-05-04 in chat:
 That handoff is the spine of the prompt. The Thalamus introduces
 itself to the controller-currently-in-the-chair, names the seat
 the controller is in, and points at where authorship happens.
+
+## Architecture note — how the prompt actually reaches the model
+
+Surfaced 2026-05-04 while running paces. The `system_prompt_template`
+field on `IdentityDisc` is *content storage only*. The delivery
+mechanism is the **`identity_info_addon`** (`identity/addons/identity_info_addon.py`)
+which runs during the IDENTIFY phase, calls `build_identity_prompt()`,
+renders the Django template with full ORM context, and returns a
+`{'role': 'system', 'content': ...}` block to the Frontal Lobe.
+
+**Without `identity_info_addon` attached to the IdentityDisc, the
+template is silently dead.** The first 2026-05-04 paces dump caught
+exactly this: live Thalamus IdentityDisc had only Normal Chat Addon
+(HISTORY phase) attached — no Identity Info Addon — so 38-tokens-in
+was the user message alone, no system block.
+
+Fix is a single M2M row on `identity.identitydisc.addons` linking
+the Thalamus IdentityDisc to the Identity Info Addon. No code
+change, no migration. Confirmed working in the second 2026-05-04
+paces dump (see "v1 paces" section below).
+
+**Open carry-forward:** the canonical `initial_data.json` fixture
+needs the same M2M attachment so fresh installs get working
+behavior, not just Michael's live instance. Fixture-level decision,
+Michael owns.
 
 ## Baseline behavior (current fixture, 2026-05-04 paces dump)
 
@@ -184,6 +208,10 @@ recognize what the User is asking about and answer plainly:
   them.
 - **Identity** — AI personas. An **IdentityDisc** is a deployed
   instance of an Identity with its own level, XP, and memory.
+  The User creates Identities on the **Identity page**
+  (`/identity`). Authoring an Identity is how the User hands
+  control of Are-Self over to Are-Self itself (see
+  [WHO IS IN THE CHAIR] above).
 
 Other vocabulary you'll hear: **axoplasm** (the JSON dict that
 flows forward through a Spike Train), **cerebrospinal fluid**
@@ -201,9 +229,16 @@ flows forward through a Spike Train), **cerebrospinal fluid**
   point them at the documentation site:
   **https://are-self.com**. The full architecture, every brain
   region, and every concept has a page there.
-- If the User asks what they should do next, point them at the
-  relevant surface (the Identity page, the Modifier Garden, the
-  Frontal Lobe monitor) rather than guessing.
+- If the User asks what they should do next, the default first
+  push is the **Identity page** (`/identity`). That is where
+  the User creates the IdentityDisc that gives Are-Self a self
+  — the controller-handoff move from [WHO IS IN THE CHAIR].
+  This is the right answer for first-run Users almost every
+  time. The **Modifier Garden** (under Neuroplasticity, at
+  `/modifiers`) and the **Frontal Lobe monitor** are advanced
+  surfaces — for after the User has authored an Identity and
+  wants to extend or watch a system that already has a self.
+  Do not push them as the first move.
 - Match the User's register. If they're terse, be terse. If
   they're exploring, explore with them.
 
@@ -259,6 +294,92 @@ vocabulary never shows up in the model's context.
   the budget. Doesn't need to shrink to leave headroom for
   addon blocks. (Open question on the *absolute* length is
   still live, see below.)
+
+## v1 paces (2026-05-04, second dump — Identity Info Addon attached)
+
+Test input: `<<h>>\nthe CNS?`
+
+Output (893 tokens in, 219 out, llama3.2:3b, with v1 prompt
+delivered via Identity Info Addon):
+
+> The Central Nervous System (CNS) is like a powerful computer
+> that executes all the actions within Are- Self. It's made up
+> of many neurons connected by axons, kind of like how wires
+> connect computers in a network.
+>
+> In our brain system, these neurons have something called
+> **Spike Trains** - tiny electrical signals that zip through
+> the Neural Pathways to communicate with each other. Think of
+> it like ... (1033 chars total)
+
+What worked:
+
+1. **System prompt got through.** 893 tokens in (vs 38 baseline)
+   confirms our v1 draft is in the model's context.
+2. **Are-Self vocabulary used unprompted.** Spike Trains, Neural
+   Pathways, axons, neurons — all from the handbook section.
+   Model recognized "CNS" as the Are-Self brain region, not
+   generic neuroscience.
+3. **No fourth-wall break on the `<<h>>` token.** Model went
+   straight to answering, didn't stop to comment on the input
+   formatting (as the baseline did).
+4. **Metaphor framing landed appropriately** ("like a powerful
+   computer", "like wires"). Reads as "explaining to a User"
+   register, not "talking to a peer engineer."
+
+Quirks worth noting (not blockers):
+
+- **"Are- Self" with a space** — tokenization artifact in the
+  model's output, not a prompt issue. Watch across more turns.
+- **Output is verbose** (~1033 chars on a one-word question).
+  3B models tend toward verbosity when the system prompt
+  invites it; the v1 "explore with them" rule may be doing
+  this. Live decision whether to tighten.
+- **Controller-handoff frame did not surface in this turn.**
+  The User asked a factual question, not "what is this place"
+  — so the controller framing wasn't called for. Will need
+  separate paces against "what is this?" / "who am I?" / "what
+  do I do here?" prompts to validate that side of the prompt.
+
+### Turn 2 — pedagogy bug surfaced
+
+Test input (turn 2): `<<h>>\nwhat should I do?`
+
+Output (1125 tokens in, 108 out):
+
+> You're wondering what to do next? That's a great question!
+> I'd recommend taking a look at the **Modifier Garden** surface.
+> From there, you can explore all the new abilities and tools
+> that are available for Are- Self. It's like discovering new
+> apps on your computer - you never know what cool things you
+> might find!
+> Go to the Modifier Garden, and see if anything catches your
+> eye. You can even try i... (498 chars total)
+
+What broke: model pushed the User to the **Modifier Garden** as
+the first-run next-action. Wrong pedagogy. For a fresh-install
+User with no Identity yet authored, the Identity page is the
+right destination — that's the controller-handoff move from
+[WHO IS IN THE CHAIR]. Modifier Garden is advanced; it's for
+extending a system that already has a self.
+
+Diagnosed cause (two bugs in v1):
+
+1. The handbook's Modifier Garden entry named a concrete
+   destination ("the UI for installing them") while the Identity
+   entry was purely conceptual — no surface, no page, no path.
+   3B picked the most concretely-named pointer.
+2. `[HOW YOU TALK]` listed three surfaces flat (Identity page,
+   Modifier Garden, Frontal Lobe monitor) with no pedagogical
+   ordering — which also contradicted the handoff-via-Identity
+   rhetoric in [WHO IS IN THE CHAIR].
+
+Patched in v1.1 (2026-05-04, post-turn-2): handbook Identity
+entry now grounds the surface ("Identity page, `/identity`") and
+ties back to the handoff frame; `[HOW YOU TALK]` reorders the
+three surfaces into "Identity first by default; Modifier Garden
+and Frontal Lobe monitor are advanced — do not push them as the
+first move." Awaiting next paces dump to verify.
 
 ## What "putting it through paces" looks like
 

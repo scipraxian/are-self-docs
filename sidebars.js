@@ -84,7 +84,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Stories',
-      link: { type: 'doc', id: 'stories-index' },
+      link: { type: 'doc', id: 'stories/stories-index' },
       items: [
         'stories/storybook',
         'stories/talking-to-kids-about-ai',

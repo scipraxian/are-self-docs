@@ -2,7 +2,6 @@
 title: "Scipraxian Tales — Plan"
 description: Internal planning document for the Scipraxian Tales — what's shipped, what's owed, what's beyond.
 draft: true
-unlisted: true
 ---
 
 # Scipraxian Tales — Plan
