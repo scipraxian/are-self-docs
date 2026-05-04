@@ -64,7 +64,7 @@ That was the trustworthy part. Theo did not have to think very long about it.
 
 But.
 
-But there was a different version of the move. There was a version where Theo *did* use Otis, but used Otis the way Mr. Hank in the cousin-troop two cities over had told the boys to use it. *Use the chatbot to learn. Don't use the chatbot to do.* Theo's friend Caleb had told him the line. Caleb had been embarrassed when he'd told it. Caleb had told it like a confession. Theo had listened.
+But there was a different version of the move. There was a version where Theo *did* use Otis, but used Otis the way Mr. Hank in the cousin-troop two cities over had told the boys to use it. *Use the chatbot to learn. Don't use the chatbot to do.* Theo's friend Owen had told him the line. Owen had been embarrassed when he'd told it. Owen had told it like a confession. Theo had listened.
 
 Theo could ask Otis questions. Theo could ask Otis to teach him about nutrition labels. Theo could ask Otis what a good substitute for ground beef in tacos was if the eater was vegetarian. Theo could ask Otis how to calculate the sodium load of a meal. Theo could *learn* with Otis. Then Theo could *do* the planning himself.
 
@@ -178,7 +178,7 @@ His dad nodded, slowly. His dad sat down on the bed. His dad looked at the menu 
 
 "Theo. This is good work. The menu is yours. The thinking is yours. The chatbot was a tool. You used the tool the right way."
 
-"Mr. Hank — Caleb's scoutmaster — Caleb told me Mr. Hank told the troop *Use the chatbot to learn. Don't use the chatbot to do.* I think that's what I did."
+"Mr. Hank — Owen's scoutmaster — Owen told me Mr. Hank told the troop *Use the chatbot to learn. Don't use the chatbot to do.* I think that's what I did."
 
 "That's what you did. Can I tell you something, Theo?"
 
