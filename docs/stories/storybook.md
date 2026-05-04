@@ -1,6 +1,7 @@
 ---
 id: storybook
 title: "Mira and the Are-Self"
+slug: /storybook
 sidebar_position: 98
 ---
 
