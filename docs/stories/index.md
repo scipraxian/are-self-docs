@@ -80,6 +80,18 @@ One day in the life of Wren, a local AI on the family laptop in June's bedroom o
 
 → [Read Book Ten](./talking-to-kids-about-ai-other-side-of-the-laptop)
 
+### Book Eleven — *A Walk*
+
+Ruth, 72, raising her twelve-year-old grandson Marcus while her daughter and son-in-law are deployed. A quiet week. An AI-generated image a kid at school sent around. A Saturday-morning walk to Fred's corner store down Elmwood for a Snickers and a Twix and a plan. The grandparent Tale. *Inquiry · Humility · Inclusion · Responsibility · Perseverance.*
+
+→ [Read Book Eleven](./talking-to-kids-about-ai-walk)
+
+### Book Twelve — *A Wednesday Night*
+
+Janet, 55, twelve-year volunteer youth leader at Grace, at her kitchen table on a Tuesday night with the lesson plan due tomorrow at six-thirty PM and a question mark on the page. Proverbs 18:13. Mae the local AI named after Janet's Sunday-school-teaching grandmother. The faith-leader Tale. *Inquiry · Humility · Inclusion · Responsibility · Perseverance.*
+
+→ [Read Book Twelve](./talking-to-kids-about-ai-wednesday-night)
+
 ---
 
-*More Tales are in the works. Voices in the queue: grandparent-as-protagonist, faith leader, dad-as-protagonist, older teen looking back, plus the bigger-government, kid-direct social media, and teacher × social media slots. Two new collections are sketched too — an HSHV-side space opera and a set of Bradbury-shaped Earth shorts. The plan lives at `stories/PLAN.md` if you want to peek under the hood. Come back.*
+*More Tales are in the works. Voices still in the queue: dad-as-protagonist, older teen looking back, plus the bigger-government, kid-direct social media, and teacher × social media slots. Two new collections are sketched too — an HSHV-side space opera and a set of Bradbury-shaped Earth shorts. The plan lives at `stories/PLAN.md` if you want to peek under the hood. Come back.*

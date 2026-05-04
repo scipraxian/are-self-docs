@@ -96,6 +96,8 @@ const sidebars = {
         'stories/talking-to-kids-about-ai-campfire',
         'stories/talking-to-kids-about-ai-merit-badge',
         'stories/talking-to-kids-about-ai-other-side-of-the-laptop',
+        'stories/talking-to-kids-about-ai-walk',
+        'stories/talking-to-kids-about-ai-wednesday-night',
       ],
     },
     'faq',

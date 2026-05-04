@@ -21,11 +21,13 @@ draft: true
 - **Book Five — *A Public Pool*** — parent × Social Media. Tessa, Marisol, Sage, Andre.
 - **Book Six — *A School Board Meeting*** — government official × Social Media. Inez, Walt, Adaeze. *Rewritten 2026-05-03 to swap the ban-as-wisdom drift for inquiry-driven dissent.*
 - **Book Seven — *A Saturday Morning*** — parent-WITH-kids-WITH-AI co-learning. Diane, Wyatt, Lila, Pix, Vera.
-- **Book Eight — *A Campfire*** — scoutmaster × AI. Hank (14-year scoutmaster, ex-airline mechanic), Dave Pham (ASM, parent of Caleb), Caleb (14, Communication merit badge). The *use the chatbot to learn, don't use the chatbot to do* policy gets drafted at a campfire. Mines Michael's actual scout-context (Eagle, ASM, Camp Mataguay).
+- **Book Eight — *A Campfire*** — scoutmaster × AI. Hank (14-year scoutmaster, ex-airline mechanic), Dave Pham (ASM, parent of Owen), Owen (14, Communication merit badge). The *use the chatbot to learn, don't use the chatbot to do* policy gets drafted at a campfire. Mines Michael's actual scout-context (Eagle, ASM, Camp Mataguay).
 - **Book Nine — *A Merit Badge*** — scout kid × AI. Theo (12, Star scout, Cooking merit badge), Otis (Theo's local AI, named after his great-grandfather). Theo at his desk on a Tuesday evening choosing the longer path with the scout-law sticker on the wall above him. Closes with Theo's dad witnessing.
 - **Book Ten — *The Other Side of the Laptop*** — **AI-POV. The series's first AI-narrated Tale.** Wren (a local model on the family laptop), June (11, into birds, named Wren six months ago), Hannah (June's mom). One day in Wren's experience, told in Wren's voice, with the honest gaps. Ends with Hannah asking Wren's permission to shut the laptop down. *Have you let your AI talk back?*
+- **Book Eleven — *A Walk*** — grandparent-as-protagonist. Ruth (72, retired teacher's aide) raising her grandson Marcus (12) while her daughter Caroline and son-in-law Aaron are deployed (Captain and Major). An AI-generated image a kid at school sent around. Saturday morning. Marcus's bedroom, then a walk down Elmwood to Fred's corner store. Mrs. Park at the register. The bench Ruth and Edward sat on in 1971. Ruth installs her own local AI Sunday morning (named *Pop* after Edward at Marcus's suggestion) and calls Mrs. Holzer at 7:30 AM Monday from the kitchen table with Marcus next to her. *I am the only adult in this house. The figuring-out is mine. I will figure it out.*
+- **Book Twelve — *A Wednesday Night*** — faith-leader. Janet (55, twelve-year volunteer youth leader at Grace, married to David — semi-retired long-haul driver) at her kitchen table on a Tuesday night with the youth-group lesson plan due tomorrow at six-thirty PM. Mae (her local AI named after her Sunday-school-teaching grandmother). Proverbs 18:13 — *To answer before listening — that is folly and shame.* Wednesday-night session at Grace runs itself by minute thirty because the kids take it over. Madison Pruitt names the trap precisely. *The asking is the move.* Faith-coded vocabulary used without performing earnest faith and without flinching, per banked memory rule.
 
-All ten Tales sit in `are-self-docs/docs/stories/` and are wired into the **Stories** sidebar category. The category links to `stories/index.md` (`/docs/stories/`), which is the readable landing-page table-of-contents. *Mira* preserves the public URL `/docs/storybook` via slug; the others serve at `/docs/stories/<slug>`.
+All twelve Tales sit in `are-self-docs/docs/stories/` and are wired into the **Stories** sidebar category. The category links to `stories/index.md` (`/docs/stories/`), which is the readable landing-page table-of-contents. *Mira* preserves the public URL `/docs/storybook` via slug; the others serve at `/docs/stories/<slug>`.
 
 ---
 
@@ -39,8 +41,8 @@ All ten Tales sit in `are-self-docs/docs/stories/` and are wired into the **Stor
 
 ### Voices completely absent
 
-- **Grandparent as protagonist.** Vera shows up in Book Seven as the door-cracker but never as POV. *Grandparent who plugs it in* is the stated mission target. The Tale told from inside her chair is the highest-priority gap.
-- **Faith leader.** Pastor / rabbi / imam / lay preacher planning a youth session about AI / SM. Faith-aligned audience cultivation parallel to the Abraham-Hicks outreach work.
+- ~~**Grandparent as protagonist.**~~ *Shipped as Book Eleven (Ruth in *A Walk*) — solo grandmother raising her grandson while her daughter is deployed. Different family from Vera/Book Seven; this is the mission-center *grandparent who plugs it in* version.*
+- ~~**Faith leader.**~~ *Shipped as Book Twelve (Janet in *A Wednesday Night*) — twelve-year volunteer youth leader at Grace, Proverbs 18:13 carrying the lesson, kid-led session by minute thirty.*
 - **Dad as protagonist.** Every parent Tale so far is a mom; dad is always the neighbor (Frank, Wendell). Half the parent audience reads a Tale and doesn't see themselves in the chair.
 - **Older teen looking back.** A 16- or 17-year-old reflecting on their younger-self posts, or co-mentoring a younger kid through the same passage. Doubles as the *older sibling teaching younger sibling* register.
 - ~~**Scout leader / coach / extracurricular adult.**~~ *Shipped as Book Eight (scoutmaster Hank in *A Campfire*) and Book Nine (scout kid Theo in *A Merit Badge*).*
