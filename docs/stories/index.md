@@ -94,4 +94,4 @@ Janet, 55, twelve-year volunteer youth leader at Grace, at her kitchen table on 
 
 ---
 
-*More Tales are in the works. Voices still in the queue: dad-as-protagonist, older teen looking back, plus the bigger-government, kid-direct social media, and teacher × social media slots. Two new collections are sketched too — an HSHV-side space opera and a set of Bradbury-shaped Earth shorts. The plan lives at `stories/PLAN.md` if you want to peek under the hood. Come back.*
+*More Tales are in the works. Voices still in the queue: older teen looking back, bigger-government, teacher × social media. Two new collections are sketched too — an HSHV-side space opera and a set of Bradbury-shaped Earth shorts. The plan lives at `stories/PLAN.md` if you want to peek under the hood. Come back.*

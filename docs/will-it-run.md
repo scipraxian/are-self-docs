@@ -41,7 +41,7 @@ Here is what ships:
 | Embeddings (the Hippocampus's memory) | `nomic-embed-text` | ~500 MB | ~600 MB RAM | No |
 | Database + infra (Postgres, Redis, NGINX) | — | ~4 GB | ~2 GB RAM | No |
 
-Add a little headroom for the operating system, the browser, and your own work, and the practical floor is **16 GB of RAM**. That's also the one line you'll see in the [Quick Start](./quick-start) — this page is the deeper explanation underneath it.
+Add a little headroom for the operating system, the browser, and your own work, and the practical floor is **16 GB of RAM**. That's also the one line you'll see in the [Quick Start](./quick-start.md) — this page is the deeper explanation underneath it.
 
 You'll want roughly **30 GB of free disk space** for the initial install (Docker images are big, Ollama models aren't tiny, and Are-Self's own data grows over time). A modern SSD is happiest; a spinning hard drive will work but everything feels slow.
 
@@ -87,7 +87,7 @@ The documented first stop is **OpenRouter's free tier**. Several providers publi
 Setup is short:
 
 1. Make an account at [openrouter.ai](https://openrouter.ai) and generate an API key.
-2. Drop the key into your Are-Self environment as `openrouter_api_key` — see the [OpenRouter guide](./openrouter) for the exact steps.
+2. Drop the key into your Are-Self environment as `openrouter_api_key` — see the [OpenRouter guide](./openrouter.md) for the exact steps.
 3. In the Hypothalamus's **CATALOG** tab, click **FETCH CATALOG** and filter by "free" — those are the endpoints that cost nothing to call.
 4. Set one of them as the routed model for your identity.
 
@@ -100,9 +100,9 @@ One honest caveat: free-tier cloud endpoints have rate limits, and they are not 
 If you want to keep digging on which models to try:
 
 - **[Ollama's library](https://ollama.com/library)** is the single best place to browse models by size, family, and use case. Every model page shows disk footprint, parameter count, quantization levels, and a little chat playground.
-- **The [Hypothalamus](./brain-regions/hypothalamus) docs** explain how Are-Self picks which model to use for which job — it's not random; there's a routing strategy, budgets, and a circuit breaker for when a model misbehaves.
-- **The [OpenRouter](./openrouter) guide** covers the full cloud setup, including the free tier and the failover pattern.
-- **The [Frontal Lobe](./brain-regions/frontal-lobe) docs** show you what the reasoning engine actually does with whatever model you hand it — useful context for deciding whether you need the big model or not.
+- **The [Hypothalamus](./brain-regions/hypothalamus.md) docs** explain how Are-Self picks which model to use for which job — it's not random; there's a routing strategy, budgets, and a circuit breaker for when a model misbehaves.
+- **The [OpenRouter](./openrouter.md) guide** covers the full cloud setup, including the free tier and the failover pattern.
+- **The [Frontal Lobe](./brain-regions/frontal-lobe.md) docs** show you what the reasoning engine actually does with whatever model you hand it — useful context for deciding whether you need the big model or not.
 
 And if you are a person who learns better by doing — most people are — just install with the zygote, use it for a week, and *then* decide what to upgrade. The zygote is honestly enough for a lot of real work, and you'll have a much better sense of where the ceiling actually lives for you once you've bumped into it once or twice.
 
@@ -134,9 +134,9 @@ If you're in that boat and it bothers you, tell us on [Discord](https://discord.
 
 ## What's next
 
-- **[Quick Start](./quick-start)** — if you're ready to install, that page has the step-by-step.
-- **[OpenRouter](./openrouter)** — if you're taking the cloud route, start there.
-- **[Hypothalamus](./brain-regions/hypothalamus)** — if you want to understand how Are-Self picks its model at runtime.
-- **[Getting Started](./getting-started)** — once it's running, this page walks you through your first hour.
+- **[Quick Start](./quick-start.md)** — if you're ready to install, that page has the step-by-step.
+- **[OpenRouter](./openrouter.md)** — if you're taking the cloud route, start there.
+- **[Hypothalamus](./brain-regions/hypothalamus.md)** — if you want to understand how Are-Self picks its model at runtime.
+- **[Getting Started](./getting-started.md)** — once it's running, this page walks you through your first hour.
 
 And remember: the zygote is the floor because the floor is the promise. If your machine can run the floor, Are-Self is for you. If it can't, the cloud hatch is for you. Either way, you are welcome here.

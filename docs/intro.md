@@ -17,6 +17,16 @@ The architecture is modeled after the human brain. Each component maps to a real
 
 AI shouldn't require a credit card or a computer science degree. Are-Self is built so that a student with a laptop and curiosity can run an AI reasoning swarm — for free, locally, privately. The models are free. The software is MIT licensed. The hardware is whatever you have.
 
+## What People Do With It
+
+The fastest answer to *"what do I actually do with this?"* is to look at the curriculum. Are-Self ships with free, MIT-licensed lessons that put it to work on real problems — from 4th-grade writing to high-school biology to a Python beginner's first program. A few to skim:
+
+- **[4th-grade writing — Week 2](pathname:///learn/courses/elementary-4th-grade/week-2-writing)** — kids working with local AIs to draft, revise, and interrogate their own essays. The Facilitator can see every step.
+- **[HS Biology — Week 1: Architecture](pathname:///learn/courses/hs-bio-brain/week-1-architecture)** — the brain-as-system, taught against the code that mirrors it. HS Bio readers see the anatomy and the implementation in the same lesson.
+- **[Python Beginner — Module 1](pathname:///learn/courses/python-beginner/module-1-first-python)** — a curious adult or older student writing their first code in partnership with the AIs. The human writes the lines.
+
+The full catalog lives at [/learn/](pathname:///learn/). Each course has worksheets, rubrics, and Facilitator setup notes.
+
 ## How It Works
 
 You create AI personas (**Identities**), give them tools and personality, deploy them into work cycles (**Iterations**), assign them tasks, and let them reason autonomously. They select their own models, call tools, form memories, and learn from experience. You watch it happen in real time.
