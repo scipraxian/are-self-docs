@@ -6,256 +6,118 @@ sidebar_position: 3
 
 # Install Are-Self
 
-Welcome. If you can install two programs and double-click a file, you can run
-Are-Self on your own computer.
+Welcome. If you can install four programs and copy-paste seven lines into a window, you can run Are-Self on your own computer.
 
-That's the whole promise of this page. No credit card, no cloud account, no
-CS degree. You'll install **Ollama** (which lets your computer run AI models
-locally) and **Docker Desktop** (which runs the bits of Are-Self that talk to
-databases and caches). Then you'll download Are-Self and double-click one
-file.
+That's the whole promise of this page. No credit card, no cloud account, no CS degree. Go slowly. Grab a cup of tea. Most of the time is just waiting for downloads.
 
-If you've never done any of this before, that's fine. Go slowly. Grab a cup
-of tea. The downloads are big and the first run takes a while, but the
-installer tells you what it's doing at every step, and if anything goes
-sideways there's a troubleshooting section at the bottom.
+:::info A note for iPad, iPhone, and Android phone owners
+
+This page is for **desktops and laptops**. Are-Self runs a database, a web server, and the AI models all on the same machine — that combination needs a desktop or laptop operating system underneath, and iPads, iPhones, and Android phones are sealed by design in ways that don't allow it. So while we'd love to put Are-Self on every device, the local install has to live on a Windows PC, a Mac, or a Linux desktop or laptop.
+
+If a tablet or phone is the only computer you have, you can still use AI for free over the internet — see [Will It Run?](./will-it-run.md#the-free-cloud-escape-hatch) for the cloud-endpoint path.
+
+:::
 
 ## Before you start
 
 You'll need:
 
-- A computer with **16 GB of RAM or more** and roughly **30 GB of free
-  disk space** (for Docker images, the Ollama models, and Are-Self's own
-  data).
-- An internet connection for the first install — most of the time is
-  spent downloading.
+- A computer with **16 GB of RAM or more** and roughly **30 GB of free disk space**.
+- **Windows 10 or 11**, or a Mac, or a Linux machine. (These instructions are written for Windows — there's a short Mac/Linux note at the bottom.)
+- An internet connection for the install — most of the time is downloading.
 - About **30 to 60 minutes**, mostly waiting.
 
-These instructions are written for **Windows 10 or 11**, because Are-Self
-ships a one-click installer (`are-self-install.bat`) for Windows. It runs
-just as well on **macOS** and **Linux** — you just have to run the steps
-yourself. See the "On a Mac or Linux" section near the bottom.
+If you're not sure your computer can handle it, the [Will It Run?](./will-it-run.md) page walks you through the answer in detail — including what to do if the answer is "not really."
 
-## Step 1 — Install Ollama and say hello
+## Step 1 — Install the four prerequisite apps
 
-**Ollama** is a tiny free program that runs AI models on your own machine.
-Are-Self uses it for everything — reasoning, embeddings, the whole thing.
-You install it first because, once it's running, you can actually use it
-as a little helper: open a chat with a local model and paste this page in
-if you get stuck. The model can walk you through anything you don't
-understand.
+Are-Self stands on top of four programs. Each has its own official installer page. Open each one in your browser, download the **Windows installer**, run it, and accept the defaults. The installer pages know how to install themselves better than we do — let them lead.
 
-### Download and install
+- **Ollama** — runs the AI models locally → [ollama.com/download](https://ollama.com/download)
+- **Docker Desktop** — runs the database and supporting services → [docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop/)
+- **Git for Windows** — downloads Are-Self from GitHub → [git-scm.com/download/win](https://git-scm.com/download/win)
+- **Python** — runs the Are-Self brain → [python.org/downloads/windows](https://www.python.org/downloads/windows/) — **check the "Add Python to PATH" box during install. This one matters.**
 
-Go to [ollama.com/download](https://ollama.com/download) and download the
-installer for your operating system. Double-click it and follow the
-prompts. On Windows, Ollama installs as a background service and a little
-llama icon shows up in your system tray.
+A few small things to expect:
 
-### Say hello
+- Docker Desktop will probably ask you to **restart your computer** when it finishes. Do it.
+- Docker may also ask to enable WSL 2 along the way. Say yes.
+- After everything is installed, **close any PowerShell or Command Prompt windows that were already open** before moving on — they won't see the new programs until you open a fresh window.
 
-Open a terminal. On Windows, press **Windows key + R**, type `cmd`, and hit
-Enter — a black window will appear. That's your terminal.
+That's it for app installs. Four downloads, four installers, no surprises we can promise about.
 
-Type this and press Enter:
+## Step 2 — Open PowerShell
 
-```bash
-ollama run llama3.2
-```
+Press the **Windows key**, type `powershell`, and press Enter. A blue (or black) window opens — that's your terminal. From here on, you'll be typing commands instead of clicking buttons.
 
-The first time you run this, Ollama will download the `llama3.2` model —
-it's about 2 GB, so give it a few minutes. When it's done, you'll see a
-`>>> Send a message` prompt. Type `hello` and hit Enter.
-
-The model should reply. Congratulations — you have a real AI model running
-on your own computer, not anyone else's. Type `/bye` to exit the chat.
-
-:::tip Your new install buddy
-From this point on, if anything on this page confuses you, you can open a
-terminal, run `ollama run llama3.2` again, paste in the text of the step
-you're stuck on, and ask it for help. It won't be perfect, but it's
-patient, it's private, and it's yours.
+:::tip Heads up: PowerShell may not open in your home folder
+The first thing your window says might be `C:\Windows\System32>` or similar — *not* a path with your name in it. That's normal. The very first command in the next step moves you to your home folder, where you actually want to be.
 :::
 
-## Step 2 — Install Docker Desktop
+## Step 3 — Get the code and run the installer
 
-**Docker Desktop** is a program that runs little self-contained "containers"
-on your computer. Are-Self uses it to run a PostgreSQL database (with a
-special vector extension for memory), a Redis cache, and an NGINX web
-server — all pre-configured so you don't have to set any of them up by hand.
+Type each line below into PowerShell, one at a time, and press Enter after each. Wait for one to finish before typing the next.
 
-### Download and install
-
-Go to [docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop/)
-and download the installer for your operating system. On Windows,
-right-click the installer and choose **Run as administrator** so it has
-the permissions it needs. Windows will dim the screen and ask whether you
-want to let the installer make changes to your computer — click **Yes**.
-On macOS or Linux, just double-click the installer. Then follow the
-prompts.
-
-On Windows, Docker may ask to enable WSL 2 (Windows Subsystem for Linux).
-Say yes. It may also ask you to restart your computer. Do that. If you
-hit a security error during install, check the troubleshooting section
-at the bottom of this page.
-
-### Verify Docker is running
-
-After installing, launch **Docker Desktop** from your Start menu. The first
-launch takes a minute — you'll know it's ready when the whale icon in your
-system tray goes steady and the Docker Desktop window says "Engine running."
-
-To double-check, open a terminal and type:
-
-```bash
-docker --version
 ```
-
-You should see something like `Docker version 27.x.x, build …`. If you do,
-you're good.
-
-## Step 3 — Get Are-Self
-
-Are-Self lives in two separate GitHub repositories — one for the backend
-brain, one for the frontend interface. You need both, next to each other
-in the same parent folder.
-
-### If you know Git
-
-Open a terminal, make a workspace folder (we use `are-self`), and clone
-both repos inside it. The launcher scripts look for `are-self-ui` as a
-sibling of `are-self-api`, so they have to share a parent:
-
-```bash
+cd ~
 mkdir are-self
 cd are-self
 git clone https://github.com/scipraxian/are-self-api
 git clone https://github.com/scipraxian/are-self-ui
+cd are-self-api
+./are-self-install.bat
 ```
 
-You'll end up with two folders side-by-side inside `are-self/`:
-`are-self-api` and `are-self-ui`.
+What each line does:
 
-### If you don't know Git
+1. **`cd ~`** — moves you to your home folder (the one with your name on it). On Windows that's usually `C:\Users\<your-name>`.
+2. **`mkdir are-self`** — creates a new folder named `are-self` inside your home folder.
+3. **`cd are-self`** — steps into the new folder.
+4. **`git clone https://github.com/scipraxian/are-self-api`** — downloads the Are-Self brain (the backend) into a folder called `are-self-api`.
+5. **`git clone https://github.com/scipraxian/are-self-ui`** — downloads the Are-Self interface (the frontend) into a folder called `are-self-ui`. Both folders end up side-by-side, which is what the installer expects.
+6. **`cd are-self-api`** — steps into the brain folder.
+7. **`./are-self-install.bat`** — runs the installer script that does the rest.
 
-No problem. Go to each of these pages in your browser, click the green
-**Code** button, choose **Download ZIP**, and unzip both folders to the
-same parent directory:
+The installer takes **10 to 30 minutes**. It opens Docker if it isn't running, installs the Python packages Are-Self needs, sets up the database, pulls the embedding model the memory system uses, loads the starter data, and creates an admin login. It tells you what it's doing at every step. When you see **INSTALLATION COMPLETE**, you're done.
 
-- [github.com/scipraxian/are-self-api](https://github.com/scipraxian/are-self-api)
-- [github.com/scipraxian/are-self-ui](https://github.com/scipraxian/are-self-ui)
+## Step 4 — Launch Are-Self
 
-Rename the unzipped folders from `are-self-api-main` to `are-self-api` and
-from `are-self-ui-main` to `are-self-ui` so the launcher can find them.
+In File Explorer, open the `are-self-api` folder and double-click **`are-self.bat`**. (Or type `./are-self.bat` in the same PowerShell window.)
 
-## Step 4 — Run the installer (Windows)
+This starts the database, the worker, the brain server, and the interface — and opens your browser to Are-Self automatically.
 
-Open the `are-self-api` folder and find the file called
-**`are-self-install.bat`**. Double-click it.
+You should see the 3D brain landing page at [http://localhost:5173](http://localhost:5173) within about 10 seconds. The admin backend is at [http://localhost:8000/admin](http://localhost:8000/admin) — log in with `admin` / `admin` if you ever need to poke around the raw database.
 
-A terminal window will open and walk itself through ten steps:
+**That's it. Are-Self is installed and running on your own computer.**
 
-1. Creates a Python virtual environment.
-2. Installs the Python packages Are-Self needs.
-3. Launches Docker Desktop (if it isn't already running) and waits for it.
-4. Starts the PostgreSQL, Redis, and NGINX containers.
-5. Turns on the `pgvector` extension that Are-Self uses for memory.
-6. Runs the database migrations.
-7. Checks that Ollama is running and pulls the `nomic-embed-text` embedding
-   model that the Hippocampus (memory system) depends on.
-8. Loads the starter data — the base identities, tools, and neural
-   pathways Are-Self ships with.
-9. Creates an admin account with username `admin` and password `admin`.
-10. Runs `npm install` inside the sibling `are-self-ui` folder so the
-    frontend is ready to launch.
+Next up: [Getting Started](./getting-started.md) walks you through your first hour — create an environment, design an identity, and watch a reasoning session happen in real time.
 
-When it prints **INSTALLATION COMPLETE**, you're done. Close that window.
-
-:::note Prerequisites the installer assumes
-The installer assumes you have **Python 3.12 or newer** and **Node.js 18
-or newer** on your PATH. If you don't, it will error out in step 1 (for
-Python) or warn you in step 10 (for Node). Install them from:
-
-- [python.org/downloads](https://www.python.org/downloads/) — check the
-  "Add Python to PATH" box during install
-- [nodejs.org](https://nodejs.org/) — the LTS build is fine
-
-Then re-run `are-self-install.bat`.
+:::tip Want to verify Ollama works on its own first?
+Type `ollama run llama3.2` in PowerShell. The first run downloads the model (about 2 GB — give it a few minutes). When you see `>>> Send a message`, type `hello` and press Enter. The model will reply. Type `/bye` to leave. From now on you have a real AI model on your own computer that you can use any time, even outside Are-Self.
 :::
-
-## Step 5 — Launch Are-Self
-
-In the `are-self-api` folder, find **`are-self.bat`** and double-click it.
-
-This starts the Docker containers (if they aren't already), spins up a
-Celery worker, starts the Django server, starts the Vite dev server for
-the UI, and opens your browser to Are-Self automatically.
-
-You should see the 3D brain landing page at
-[http://localhost:5173](http://localhost:5173) within about 10 seconds. The
-admin backend is at [http://localhost:8000/admin](http://localhost:8000/admin)
-— log in with `admin` / `admin` if you ever need to poke around the raw
-database.
-
-**That's it. Are-Self is installed and running.**
-
-Next up: open [the Getting Started guide](./getting-started) for a
-guided first hour — create an environment, design an identity, and watch
-a reasoning session happen in real time.
 
 ## On a Mac or Linux
 
-The `are-self-install.bat` and `are-self.bat` scripts are Windows-only,
-but every step they do works fine on macOS and Linux. You just run each
-step by hand. Here's the equivalent sequence:
+The same four prerequisites — Ollama, Docker Desktop, Git, Python — install on Mac (use Homebrew or each app's official Mac installer) and Linux (use your distro's package manager or the official Linux installers).
+
+The `are-self-install.bat` and `are-self.bat` launchers are Windows-only, but every step they run is a normal command. After cloning the repos as siblings under `~/are-self/`, the equivalent Mac/Linux sequence is:
 
 ```bash
-# Install Ollama, Docker Desktop, Python 3.12+, and Node 18+ first
-# (use brew on macOS, apt/dnf on Linux)
-
-# 1. Get the code — both repos as siblings under a parent folder
-mkdir are-self
-cd are-self
-git clone https://github.com/scipraxian/are-self-api
-git clone https://github.com/scipraxian/are-self-ui
-
-# 2. Backend setup
 cd are-self-api
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-
-# 3. Start the infra containers (Postgres, Redis, NGINX)
 docker compose up -d
-
-# 4. Enable pgvector inside the Postgres container
-docker exec -i are_self_db psql -U postgres -d postgres \
-  -c "CREATE EXTENSION IF NOT EXISTS vector;"
-
-# 5. Run migrations
+docker exec -i are_self_db psql -U postgres -d postgres -c "CREATE EXTENSION IF NOT EXISTS vector;"
 python manage.py migrate
-
-# 6. Pull the embedding model (Ollama must be running)
 ollama pull nomic-embed-text
-
-# 7. Load starter data
-python manage.py loaddata genetic_immutables.json
-python manage.py loaddata zygote.json
-python manage.py loaddata initial_phenotypes.json
-
-# 8. Create the admin account
-DJANGO_SUPERUSER_USERNAME=admin \
-DJANGO_SUPERUSER_EMAIL=admin@are-self.com \
-DJANGO_SUPERUSER_PASSWORD=admin \
-python manage.py createsuperuser --noinput
-
-# 9. Frontend setup
+python manage.py loaddata genetic_immutables.json zygote.json initial_phenotypes.json
+DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_EMAIL=admin@are-self.com DJANGO_SUPERUSER_PASSWORD=admin python manage.py createsuperuser --noinput
 cd ../are-self-ui
 npm install
 ```
 
-To run Are-Self after installing, you'll need three terminals open in the
-`are-self-api` folder:
+To run Are-Self after installing, you'll need three terminals open. From `are-self-api/`:
 
 ```bash
 # Terminal 1 — Celery worker
@@ -265,93 +127,67 @@ celery -A config worker --loglevel=info --concurrency=4 -P threads -E
 # Terminal 2 — Django server
 source venv/bin/activate
 python manage.py runserver
+```
 
-# Terminal 3 — Vite dev server (from are-self-ui)
-cd ../are-self-ui
+And from `are-self-ui/`:
+
+```bash
+# Terminal 3 — Vite dev server
 npm run dev
 ```
 
-Then open [http://localhost:5173](http://localhost:5173) in your browser.
+Then open [http://localhost:5173](http://localhost:5173).
 
 ## Troubleshooting
 
+### PowerShell says "git is not recognized" (or "python," "docker," "ollama")
+
+The program installed fine, but the PowerShell window you have open was started **before** the install finished. PowerShell only checks for new programs when it opens. Close that window and open a new one — Windows key, type `powershell`, Enter.
+
 ### The installer says "Python is not recognized"
 
-Python isn't installed, or it isn't on your PATH. Install it from
-[python.org/downloads](https://www.python.org/downloads/), make sure to
-check the **"Add Python to PATH"** box during installation, and re-run
-`are-self-install.bat`.
+Python isn't installed, or it isn't on your PATH. Reinstall it from [python.org/downloads/windows](https://www.python.org/downloads/windows/), and **make sure to check the "Add Python to PATH" box** on the first screen of the installer. Then close and reopen PowerShell, and run `./are-self-install.bat` again.
 
 ### Docker Desktop install fails with "ProgramData\DockerDesktop must be owned by an elevated account"
 
-This one isn't on you. What this error really means is that an earlier
-Docker install didn't finish cleanly, and the leftover folder on your
-computer is confusing the new installer. The fix is to throw the leftover
-folder away and let the fresh installer start clean.
+This one isn't on you. An earlier Docker install didn't finish cleanly, and the leftover folder is confusing the new installer. The fix is to throw the leftover folder away and let the fresh installer start clean.
 
-1. Open File Explorer and go to `C:\ProgramData`. If you don't see a
-   `ProgramData` folder, click the **View** tab at the top and turn on
-   **Hidden items**.
+1. Open File Explorer and go to `C:\ProgramData`. If you don't see a `ProgramData` folder, click the **View** tab at the top and turn on **Hidden items**.
 2. Right-click the `DockerDesktop` folder and choose **Delete**.
-3. If Windows pops up a box asking for administrator permission, click
-   **Continue**.
-4. Now right-click the Docker Desktop installer again and choose **Run
-   as administrator**. Windows will dim the screen and ask whether you
-   want to let it make changes to your computer — click **Yes**.
+3. If Windows pops up a box asking for administrator permission, click **Continue**.
+4. Now right-click the Docker Desktop installer again and choose **Run as administrator**. Windows will dim the screen and ask whether you want to let it make changes — click **Yes**.
 
-Once Docker Desktop finishes installing, go back to Step 2 and keep
-going.
+Once Docker Desktop finishes installing, restart your computer and resume from Step 2.
 
 ### The installer says "Docker is not running"
 
-Launch **Docker Desktop** from your Start menu and wait until the whale
-icon in your system tray is steady. Then re-run `are-self-install.bat`.
+Launch **Docker Desktop** from your Start menu and wait until the whale icon in your system tray is steady (not animating). Then re-run `./are-self-install.bat`.
 
 ### The installer hangs on "Waiting for Ollama daemon"
 
-Ollama may not have started yet. On Windows, make sure the llama icon in
-your system tray is present. If it's missing, launch Ollama from your
-Start menu. The installer will pick up once Ollama answers.
+Ollama may not have started yet. Look for the llama icon in your system tray. If it's missing, launch Ollama from your Start menu. The installer will pick up once Ollama answers.
 
 ### The browser opens but shows "Unable to connect"
 
-The Vite dev server takes a few seconds to warm up. Give it 10 seconds and
-refresh. If it still doesn't load, check the **Are-Self Django Server**
-window for error messages.
+The interface takes a few seconds to warm up after `are-self.bat` launches. Give it 10 seconds and refresh. If it still doesn't load, check the **Are-Self Django Server** window for error messages.
 
 ### "Port 80 is already in use"
 
-Something else on your computer (often Skype or IIS on Windows) is holding
-port 80, which NGINX wants for the reverse proxy. Are-Self still works
-without NGINX — you'll reach the UI at
-[http://localhost:5173](http://localhost:5173) directly instead of through
-`http://local.are-self.com`. If you want NGINX anyway, stop whatever is
-holding port 80, or edit `docker-compose.yml` to map NGINX to a different
-port.
+Something else on your computer (often Skype or IIS on Windows) is holding port 80. Are-Self still works without that piece — you'll reach the interface at [http://localhost:5173](http://localhost:5173) directly instead of through `http://local.are-self.com`. If you want the proxy anyway, stop whatever is holding port 80, or edit `docker-compose.yml` to map it to a different port.
 
-### Memory forming isn't working
+### Memory isn't forming
 
-The Hippocampus needs the `nomic-embed-text` model. Run `ollama list` from
-a terminal — you should see `nomic-embed-text` in the list. If you don't,
-run `ollama pull nomic-embed-text` and restart `are-self.bat`.
+The memory system needs the `nomic-embed-text` model. Run `ollama list` from a terminal — you should see `nomic-embed-text` in the list. If you don't, run `ollama pull nomic-embed-text` and restart `are-self.bat`.
 
 ### Something else broke and I don't know what
 
-Open a new terminal, run `ollama run llama3.2`, paste in the error message
-you saw, and ask the model what to do. It often knows. If it doesn't, file
-an issue at
-[github.com/scipraxian/are-self-api/issues](https://github.com/scipraxian/are-self-api/issues)
-with the text of the error and we'll take a look.
+Open a fresh PowerShell window, run `ollama run llama3.2`, paste in the error message you saw, and ask the model what to do. It often knows. If it doesn't, file an issue at [github.com/scipraxian/are-self-api/issues](https://github.com/scipraxian/are-self-api/issues) with the text of the error and we'll take a look.
 
 ## What's next
 
 Now that Are-Self is running:
 
-- [Getting Started](./getting-started) — a guided first hour, from empty
-  system to watching an AI persona reason through a task.
-- [Architecture Overview](./architecture) — how the brain regions connect
-  and why the tick cycle is shaped the way it is.
-- [UI Walkthroughs](./ui/blood-brain-barrier) — page-by-page tour of the
-  interface.
-- [OpenRouter](./openrouter) — optional: plug in a cloud model as
-  failover for jobs your local hardware can't handle.
+- [Getting Started](./getting-started.md) — a guided first hour, from empty system to watching an AI persona reason through a task.
+- [Architecture Overview](./architecture.md) — how the brain regions connect and why the tick cycle is shaped the way it is.
+- [UI Walkthroughs](./ui/blood-brain-barrier.md) — page-by-page tour of the interface.
+- [OpenRouter](./openrouter.md) — optional: plug in a cloud model as failover for jobs your local hardware can't handle.

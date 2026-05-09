@@ -118,6 +118,8 @@ A few of the most common "can this run on my..." questions, answered straight.
 
 **My Apple Silicon MacBook with 32 GB+ unified memory.** You can go to 13B–14B comfortably, and squeak 30B-class in if you quantize hard. Are-Self on this machine is a joy.
 
+**My iPad, iPhone, or Android phone.** No, and not in any version we are planning. Are-Self runs Docker, Postgres, Redis, Ollama, and a Django server — and iOS, iPadOS, and Android are sealed environments by design. Are-Self needs the kind of OS that lets a database run alongside a web server alongside a model server. If a tablet or phone is the only computer you have, jump straight to [The free cloud escape hatch](#the-free-cloud-escape-hatch) — you can use AI that way for free, on the same hardware.
+
 **My Chromebook.** Local won't work. Skip to [The free cloud escape hatch](#the-free-cloud-escape-hatch). You can run the full Are-Self UI and backend if the Chromebook is in developer mode and can run Docker, but you'll be routing all inference to the cloud. That's fine — that's what the path is for.
 
 **A Raspberry Pi.** Ollama technically runs on a Pi 5 with 8 GB of RAM, and you can pull `llama3.2` or `phi3`, but the whole Are-Self stack (Postgres, Redis, Celery, Django, Vite) is heavy. It's a fun experiment, not a daily driver. If you want low-power, a small Mac Mini or an N100 mini-PC is a better fit.
